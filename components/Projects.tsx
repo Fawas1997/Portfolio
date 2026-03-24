@@ -471,7 +471,7 @@ const Projects: React.FC = () => {
           <div className="text-center mb-16 md:mb-24">
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6">{t.title}</h2>
             <div className="w-24 h-1.5 bg-blue-600 mx-auto rounded-full"></div>
-            <p className="mt-8 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-medium">
+            <p className="mt-8 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-medium whitespace-pre-line">
               {t.subtitle}
             </p>
           </div>

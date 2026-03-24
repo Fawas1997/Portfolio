@@ -191,7 +191,7 @@ const About: React.FC = () => {
                  <h3 className="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-6">
                    {t.greeting}
                  </h3>
-                 <div className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0 space-y-4 md:space-y-6">
+                 <div className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0 space-y-4 md:space-y-6 whitespace-pre-line">
                    <p>
                      {t.bio1}
                    </p>
