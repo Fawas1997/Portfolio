@@ -3,7 +3,7 @@ import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-50 dark:bg-[#0B1120] border-t border-gray-200 dark:border-gray-800/50 py-6 md:py-12">
+    <footer className="bg-gray-50 dark:bg-[#0B1120] border-t border-gray-200 dark:border-gray-800/50 pt-6 pb-20 md:py-12">
       <div className="container mx-auto px-6 text-center">
         <p className="text-sm font-bold text-gray-500 dark:text-gray-400 mb-2">
           Fawas Thongkham &copy; {new Date().getFullYear()}
