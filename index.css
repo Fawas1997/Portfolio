@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Tailwind v4: dark mode ใช้ class strategy (ดูจาก class .dark บน <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ====== Base Styles ====== */
 html, body {
   overflow: hidden;
