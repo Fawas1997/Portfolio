@@ -250,10 +250,10 @@ const Header: React.FC<HeaderProps> = ({ scrollContainerRef }) => {
               </a>
               <button
                 onClick={toggleTheme}
-                className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300 ml-4"
+                className="flex items-center justify-center w-11 h-11 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 ml-4 border border-transparent hover:border-gray-200 dark:hover:border-gray-700 text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 aria-label="Toggle theme"
               >
-                {theme === 'dark' ? <FiSun size={20} /> : <FiMoon size={20} />}
+                {theme === 'dark' ? <FiSun size={22} /> : <FiMoon size={22} />}
               </button>
               <button
                 onClick={toggleLang}

@@ -87,27 +87,27 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
             <div className="space-y-3 lg:space-y-6">
               <motion.div
                 variants={itemVariants}
-                className="flex items-center justify-start lg:justify-start gap-3 mb-[-0.5rem] ml-8 lg:ml-0"
+                className="flex items-center justify-center lg:justify-start gap-4 mb-4"
               >
                 <motion.span
                   animate={{ rotate: [0, 20, -20, 20, 0] }}
                   transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                  className="inline-block origin-bottom-right text-3xl md:text-4xl"
+                  className="inline-block origin-bottom-right text-4xl md:text-5xl"
                 >
                   👋
                 </motion.span>
-                <span className="text-lg md:text-2xl font-black tracking-tighter text-blue-600 dark:text-blue-400">
+                <span className="text-xl md:text-3xl font-black tracking-tight text-blue-600 dark:text-blue-400">
                   {t.greeting}
                 </span>
               </motion.div>
 
               <motion.h1
                 variants={itemVariants}
-                className="text-3xl md:text-5xl lg:text-7xl font-black text-gray-900 dark:text-white leading-tight lg:leading-[1.1] tracking-tighter"
+                className="text-4xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white leading-tight lg:leading-[1.15] tracking-tighter"
               >
-                <span className="whitespace-nowrap inline-flex items-baseline">
-                  <span className="inline">{t.name}</span>
-                  <span className="text-blue-600 dark:text-blue-400 ml-2 text-[0.6em] md:text-[0.7em] font-bold opacity-90">{t.nickname}</span>
+                <span className="flex flex-row items-baseline justify-center lg:justify-start gap-2 lg:gap-4 whitespace-nowrap">
+                  <span>{t.name}</span>
+                  <span className="text-blue-600 dark:text-blue-400 text-2xl md:text-4xl lg:text-[0.6em] font-bold opacity-90">{t.nickname}</span>
                 </span>
               </motion.h1>
 

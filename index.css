@@ -1,7 +1,41 @@
 @import "tailwindcss";
 
-/* Tailwind v4: dark mode ใช้ class strategy (ดูจาก class .dark บน <html>) */
-@custom-variant dark (&:where(.dark, .dark *));
+/* ====== Tailwind CSS v4 Custom Configuration ====== */
+@custom-variant dark (&:is(.dark, .dark *));
+
+@theme {
+  --animate-spin-slow: spin-clockwise 4s linear infinite;
+  --animate-shimmer: shimmer 2.5s infinite linear;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-sparkle-pop: sparkle-pop 2s infinite ease-in-out;
+
+  --keyframes-spin-clockwise: spin-clockwise;
+  --keyframes-shimmer: shimmer;
+  --keyframes-float: float;
+  --keyframes-sparkle-pop: sparkle-pop;
+
+  --background-image-conic-gradient: conic-gradient(from 180deg at 50% 50%, #2563eb 0deg, rgba(59, 130, 246, 0.8) 60deg, rgba(96, 165, 250, 0.5) 120deg, transparent 180deg, transparent 360deg);
+}
+
+@keyframes spin-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes sparkle-pop {
+  0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+  50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+}
 
 /* ====== Base Styles ====== */
 html, body {

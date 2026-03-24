@@ -11,6 +11,25 @@ import { FaLine, FaFileExcel, FaRobot, FaFileArchive, FaTelegramPlane } from 're
 import { GiRabbit } from 'react-icons/gi';
 import { Project } from './Projects';
 
+// Safelist for Tailwind v4 dynamic classes
+const SAFELIST = `
+  border-blue-500 text-blue-500 shadow-blue-500/10
+  border-indigo-500 text-indigo-500 shadow-indigo-500/10
+  border-green-500 text-green-500 shadow-green-500/10
+  border-violet-500 text-violet-500 shadow-violet-500/10
+  border-fuchsia-500 text-fuchsia-500 shadow-fuchsia-500/10
+  
+  border-orange-500/20 text-orange-600 dark:text-orange-400 shadow-orange-500/10 bg-orange-500/5 bg-orange-600 bg-orange-50 dark:bg-orange-900/30 text-orange-700
+  border-blue-500/20 text-blue-600 dark:text-blue-400 shadow-blue-500/10 bg-blue-500/5 bg-blue-600 bg-blue-50 dark:bg-blue-900/30 text-blue-700
+  border-green-500/20 text-green-600 dark:text-green-400 shadow-green-500/10 bg-green-500/5 bg-green-600 bg-green-50 dark:bg-green-900/30 text-green-700
+  border-indigo-500/20 text-indigo-600 dark:text-indigo-400 shadow-indigo-500/10 bg-indigo-500/5 bg-indigo-600 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700
+  
+  border-green-600 text-green-600
+  border-blue-600 text-blue-600
+  border-yellow-500 text-yellow-500
+  border-indigo-600 text-indigo-600
+`;
+
 interface ProjectModalProps {
   project: Project | null;
   onClose: () => void;
