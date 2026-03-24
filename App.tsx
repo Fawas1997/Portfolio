@@ -19,10 +19,10 @@ const App: React.FC = () => {
         <div 
           ref={scrollContainerRef}
           id="main-scroll-container"
-          className="flex-1 overflow-y-auto overflow-x-hidden relative"
+          className="flex-1 overflow-y-auto overflow-x-hidden relative w-full"
         >
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-gray-50 to-blue-100/30 dark:from-gray-900 dark:via-gray-900 dark:to-blue-900/30 -z-10 overflow-hidden transition-all duration-500"></div>
-          <main className="container mx-auto px-6 md:px-12 pb-8 overflow-x-hidden">
+          <main className="container mx-auto px-6 md:px-12 pb-8 overflow-x-hidden w-full">
             <Hero scrollContainerRef={scrollContainerRef} />
             <About />
             <Projects />
