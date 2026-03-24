@@ -62,7 +62,7 @@ const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({ scrollContainerRe
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-8 right-8 z-50 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 ${
+      className={`fixed bottom-20 right-8 z-[60] p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 ${
         isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
       }`}
       aria-label="เลื่อนขึ้นบนสุด"
