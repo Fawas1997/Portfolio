@@ -30,7 +30,7 @@ const Reveal: React.FC<{
       setIsVisible(true);
     } else {
       const rect = (ref.current as any)?.getBoundingClientRect();
-      if (rect && rect.top > window.innerHeight) {
+      if (rect && rect.top > 100) {
         setIsVisible(false);
       }
     }

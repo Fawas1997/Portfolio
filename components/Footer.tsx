@@ -3,7 +3,7 @@ import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="w-full overflow-hidden bg-gray-50 dark:bg-[#0B1120] border-t border-gray-200 dark:border-gray-800/50 pt-6 pb-20 md:py-12">
+    <footer className="mx-4 md:mx-0 rounded-t-3xl md:rounded-none overflow-hidden bg-gray-50 dark:bg-[#0B1120] border-t border-l border-r md:border-x-0 border-gray-200 dark:border-gray-800/50 pt-6 pb-20 md:py-12 shadow-[0_-15px_40px_-5px_rgba(0,0,0,0.05)] md:shadow-none">
       <div className="container mx-auto px-4 md:px-6 text-center w-full">
         <p className="text-sm font-bold text-gray-500 dark:text-gray-400 mb-2">
           Fawas Thongkham &copy; {new Date().getFullYear()}
