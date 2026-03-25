@@ -55,71 +55,74 @@ const Header: React.FC<HeaderProps> = ({ scrollContainerRef }) => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
-    // ─── 1. Header hide/show: only read scrollTop (cheap, no layout force) ───
+    // Section IDs cached to avoid re-creating array each call
+    const sectionIds = ['hero', 'about', 'projects', 'experience', 'contact'];
+
+    const processScroll = () => {
+      rafRef.current = null;
+      if (isScrollingRef.current) return;
+
+      const currentScrollTop = container.scrollTop;
+      const lastScrollTop = lastScrollTopRef.current;
+
+      // Determine scroll direction and visibility — only setState when changed
+      let newVisible = isVisibleRef.current;
+      if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+        newVisible = false;
+      } else if (currentScrollTop < lastScrollTop || currentScrollTop <= 0) {
+        newVisible = true;
+      }
+      if (newVisible !== isVisibleRef.current) {
+        isVisibleRef.current = newVisible;
+        setIsVisible(newVisible);
+      }
+
+      lastScrollTopRef.current = currentScrollTop;
+
+      // Handle active section detection
+      let currentSectionId = 'hero';
+      for (const id of sectionIds) {
+        const section = document.getElementById(id);
+        if (section && currentScrollTop >= section.offsetTop - 100) {
+          currentSectionId = id;
+        }
+      }
+
+      if ((container.clientHeight + currentScrollTop) >= container.scrollHeight - 50) {
+        currentSectionId = 'contact';
+      }
+
+      // Only setState when section actually changed
+      if (currentSectionId !== activeSectionRef.current) {
+        activeSectionRef.current = currentSectionId;
+        setActiveSection(currentSectionId);
+      }
+
+      // Scrollbar visibility
+      if (currentScrollTop > 700) {
+        container.classList.remove('hide-scrollbar');
+      } else {
+        container.classList.add('hide-scrollbar');
+      }
+    };
+
     const handleScroll = () => {
-      if (rafRef.current !== null) return;
-      rafRef.current = requestAnimationFrame(() => {
-        rafRef.current = null;
-        if (isScrollingRef.current) return;
-        const currentScrollTop = container.scrollTop;
-        const lastScrollTop = lastScrollTopRef.current;
-
-        let newVisible = isVisibleRef.current;
-        if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
-          newVisible = false;
-        } else if (currentScrollTop < lastScrollTop || currentScrollTop <= 0) {
-          newVisible = true;
-        }
-        if (newVisible !== isVisibleRef.current) {
-          isVisibleRef.current = newVisible;
-          setIsVisible(newVisible);
-        }
-        lastScrollTopRef.current = currentScrollTop;
-
-        // Scrollbar visibility (cheap DOM classList, no layout)
-        if (currentScrollTop > 700) {
-          container.classList.remove('hide-scrollbar');
-        } else {
-          container.classList.add('hide-scrollbar');
-        }
-      });
+      // Throttle with requestAnimationFrame — runs at most once per frame (~16ms)
+      if (rafRef.current === null) {
+        rafRef.current = requestAnimationFrame(processScroll);
+      }
     };
 
     container.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // init
-
-    // ─── 2. Active section: IntersectionObserver (zero Layout Thrashing) ───
-    const sectionIds = ['hero', 'about', 'projects', 'experience', 'contact'];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (isScrollingRef.current) return;
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            if (id !== activeSectionRef.current) {
-              activeSectionRef.current = id;
-              setActiveSection(id);
-            }
-          }
-        });
-      },
-      {
-        root: container,
-        rootMargin: '-40% 0px -55% 0px', // trigger when section is ~top 40% of viewport
-        threshold: 0,
-      }
-    );
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
+    // Initial call to set state correctly
+    processScroll();
 
     return () => {
       container.removeEventListener('scroll', handleScroll);
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
-      observer.disconnect();
-    };
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    }
   }, [scrollContainerRef]);
 
   useEffect(() => {
@@ -145,57 +148,67 @@ const Header: React.FC<HeaderProps> = ({ scrollContainerRef }) => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
+    // Mark as scrolling to disable header hide/show logic and active section detection
+    isScrollingRef.current = true;
+
     const isMobile = window.innerWidth < 768;
 
-    // Close mobile menu first, set active section immediately
+    // Close mobile menu
     setIsOpen(false);
     setActiveSection(id);
     activeSectionRef.current = id;
 
-    const doScroll = () => {
-      const element = id === 'hero' ? null : document.getElementById(id);
-      const targetPosition = id === 'hero' ? 0 : (element ? element.offsetTop : 0);
-      const startPosition = container.scrollTop;
-      const distance = targetPosition - startPosition;
+    const element = id === 'hero' ? null : document.getElementById(id);
+    const targetPosition = id === 'hero' ? 0 : (element ? element.offsetTop : 0);
+    const startPosition = container.scrollTop;
+    const distance = targetPosition - startPosition;
 
-      if (Math.abs(distance) < 2) return;
+    // If already at target, skip animation
+    if (Math.abs(distance) < 2) {
+      isScrollingRef.current = false;
+      return;
+    }
 
-      // Mark as scrolling to pause the header hide/show logic briefly
-      isScrollingRef.current = true;
+    // Snappy duration: shorter and capped at 800ms
+    const duration = Math.min(Math.abs(distance) * 0.3 + 300, 800);
 
-      const duration = Math.min(Math.abs(distance) * 0.3 + 300, 800);
-      let start: number | null = null;
+    let start: number | null = null;
 
-      function easeInOutCubic(t: number, b: number, c: number, d: number) {
-        t /= d / 2;
-        if (t < 1) return c / 2 * t * t * t + b;
-        t -= 2;
-        return c / 2 * (t * t * t + 2) + b;
+    function easeInOutCubic(t: number, b: number, c: number, d: number) {
+      t /= d / 2;
+      if (t < 1) return c / 2 * t * t * t + b;
+      t -= 2;
+      return c / 2 * (t * t * t + 2) + b;
+    }
+
+    const animation = (currentTime: number) => {
+      if (start === null) start = currentTime;
+      const timeElapsed = currentTime - start;
+      const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+
+      container.scrollTo(0, run);
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
+      } else {
+        container.scrollTo(0, targetPosition);
+        // Small delay before re-enabling scroll detection to avoid jumpy behavior
+        setTimeout(() => {
+          isScrollingRef.current = false;
+        }, 100);
       }
-
-      const animation = (currentTime: number) => {
-        if (start === null) start = currentTime;
-        const timeElapsed = currentTime - start;
-        const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
-        container.scrollTo(0, run);
-        if (timeElapsed < duration) {
-          requestAnimationFrame(animation);
-        } else {
-          container.scrollTo(0, targetPosition);
-          setTimeout(() => {
-            isScrollingRef.current = false;
-          }, 100);
-        }
-      };
-
-      requestAnimationFrame(animation);
     };
 
-    // On mobile wait for menu close animation before scrolling
-    if (isMobile) {
-      setTimeout(doScroll, 80);
+    // On mobile, wait for the menu closing animation to finish slightly before scrolling
+    // to avoid heavy CPU usage causing stutter
+    const delay = isMobile ? 300 : 0;
+
+    if (delay > 0) {
+      setTimeout(() => {
+        requestAnimationFrame(animation);
+      }, delay);
     } else {
-      doScroll();
+      requestAnimationFrame(animation);
     }
   };
 
