@@ -15,37 +15,35 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
 
   const scrollToSection = (id: string) => {
     const container = scrollContainerRef.current;
+    if (!container) return;
     const element = id === 'hero' ? null : document.getElementById(id);
-    if (container) {
-      const targetPosition = id === 'hero' ? 0 : (element ? element.offsetTop : 0);
-      const startPosition = container.scrollTop;
-      const distance = targetPosition - startPosition;
+    const targetPosition = id === 'hero' ? 0 : (element ? element.offsetTop : 0);
+    const startPosition = container.scrollTop;
+    const distance = targetPosition - startPosition;
 
-      const duration = Math.min(Math.abs(distance) * 0.8 + 500, 1600);
+    const duration = Math.min(Math.abs(distance) * 0.8 + 500, 1600);
+    let start: number | null = null;
 
-      let start: number | null = null;
-
-      const animation = (currentTime: number) => {
-        if (start === null) start = currentTime;
-        const timeElapsed = currentTime - start;
-        const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
-        container.scrollTo(0, run);
-        if (timeElapsed < duration) {
-          requestAnimationFrame(animation);
-        } else {
-          container.scrollTo(0, targetPosition);
-        }
-      };
-
-      function easeInOutCubic(t: number, b: number, c: number, d: number) {
-        t /= d / 2;
-        if (t < 1) return c / 2 * t * t * t + b;
-        t -= 2;
-        return c / 2 * (t * t * t + 2) + b;
+    const animation = (currentTime: number) => {
+      if (start === null) start = currentTime;
+      const timeElapsed = currentTime - start;
+      const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+      container.scrollTo(0, run);
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
+      } else {
+        container.scrollTo(0, targetPosition);
       }
+    };
 
-      requestAnimationFrame(animation);
+    function easeInOutCubic(t: number, b: number, c: number, d: number) {
+      t /= d / 2;
+      if (t < 1) return c / 2 * t * t * t + b;
+      t -= 2;
+      return c / 2 * (t * t * t + 2) + b;
     }
+
+    requestAnimationFrame(animation);
   };
 
   const containerVariants = {
