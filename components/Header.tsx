@@ -239,7 +239,7 @@ const Header: React.FC<HeaderProps> = ({ scrollContainerRef }) => {
                 </button>
               ))}
               <a
-                href="/logoprofile/Resume_Fawas_Thongkham_IT_Software_AI_Data.pdf.pdf"
+                href="/logoprofile/Resume_Fawas_Thongkham_IT_Software_AI_Data.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 download
@@ -379,7 +379,7 @@ const Header: React.FC<HeaderProps> = ({ scrollContainerRef }) => {
                     className="w-full flex justify-center pb-10"
                   >
                     <a
-                      href="/logoprofile/Resume_Fawas_Thongkham_IT_Software_AI_Data.pdf.pdf"
+                      href="/logoprofile/Resume_Fawas_Thongkham_IT_Software_AI_Data.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       download
