@@ -19,7 +19,7 @@ export const translations = {
     },
     about: {
       title: 'เกี่ยวกับฉัน',
-      greeting: 'สวัสดีครับ',
+      greeting: '',
       bio1: 'ผมเป็นนักศึกษาจบใหม่จากหลักสูตรปริญญาตรี 4 ปี (เรียน 2 ปี และฝึกงาน 2 ปี)\nทำให้มีทั้งพื้นฐานทฤษฎีและประสบการณ์ลงมือทำจริง',
       bio2: 'สนใจงานด้าน IT และเทคโนโลยีดิจิทัล โดยมีพื้นฐานด้าน Web, Data และ AI\nจากการทำโปรเจกต์และการฝึกงาน',
       bio3: 'ผมมุ่งเน้นการพัฒนาทักษะอย่างต่อเนื่อง พร้อมเรียนรู้เครื่องมือและเทคโนโลยีใหม่ ๆ และสามารถนำความรู้ไปประยุกต์ใช้ในการทำงานจริงได้',
@@ -311,7 +311,7 @@ export const translations = {
     },
     about: {
       title: 'About Me',
-      greeting: 'Hello!',
+      greeting: '',
       bio1: 'I am a fresh graduate from a 4-year Bachelor\'s program (2 years of study and 2 years of internship), providing me with both theoretical foundations and hands-on experience.',
       bio2: 'I am interested in IT and digital technology, with a background in Web, Data, and AI from various projects and internships.',
       bio3: 'I focus on continuous skill development, staying ready to learn new tools and technologies to apply them effectively in real-world work.',
