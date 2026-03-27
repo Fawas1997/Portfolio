@@ -134,8 +134,8 @@ export const translations = {
           learningOutcomes: 'เชี่ยวชาญการใช้เครื่องมือ Social Listening และการนำเสนอข้อมูลด้วย Tableau ให้กับผู้บริหาร'
         },
         {
-          title: 'Bot Creates File Banner',
-          description: 'Chatbot อัจฉริยะที่ช่วยจัดการเอกสารและสร้างเอกสารไฟล์ขอ Banner โฆษณาอัตโนมัติ',
+          title: 'ChatBot Creates File Banner',
+          description: 'Chatbot อัจฉริยะแบบ RAG สำหรับจัดการเอกสารและสร้างไฟล์ Banner จำนวนมากเพื่อขอ Line AI Beacon และอัปเดตข้อมูลเข้าระบบ Directus ของบริษัท',
           detailedDescription: 'โปรเจกต์นี้เป็นระบบแชทบอทสำหรับสร้างไฟล์เอกสารการขออนุมัติ LINE Beacon Banner และจัดการข้อมูลแบบอัตโนมัติ โดยพัฒนาขึ้นเพื่อช่วยลดขั้นตอนการทำงานซ้ำ ลดความผิดพลาดจากการจัดการไฟล์ด้วยมือ และเพิ่มความสะดวกในการจัดการข้อมูลจำนวนมากเมื่อมีลูกค้าซื้อผลิตภัณฑ์ AiBeacon ของบริษัท จำเป็นต้องจัดเตรียมและส่งเอกสารการขออนุมัติ Banner ให้กับ LINE ตามรูปแบบที่กำหนด ผู้ใช้สามารถอัปโหลดไฟล์ Excel เพียงครั้งเดียว ระบบจะทำการสร้างไฟล์ Banner ตามข้อมูลที่กำหนด รวมไฟล์เป็น ZIP และอัปเดตข้อมูลเข้าสู่ Directus ของบริษัทได้ทันทีแบบอัตโนมัติ',
           highlights: ['สร้างแบนเนอร์อัตโนมัติ', 'จัดการไฟล์ ZIP ทันที', 'เชื่อมต่อระบบ Directus', 'ลดงานเอกสาร 100%'],
           myRole: 'สร้าง Automation มาใช้กับงานเอกสาร โดยให้ผู้ใช้กรอกข้อมูลเพียงครั้งเดียวผ่านไฟล์ Excel ระบบจะเป็นผู้จัดการขั้นตอนที่เหลือทั้งหมด ตั้งแต่การสร้างไฟล์ ไปจนถึงการอัปเดตข้อมูลเข้าสู่ระบบหลังบ้านของบริษัท',
@@ -238,8 +238,8 @@ export const translations = {
           company: 'AIYA',
           period: '13 สิงหาคม 2567 – 29 พฤศจิกายน 2567 (3.5 เดือน)',
           description: [
-            'พัฒนา Line Chatbot สำหรับตอบคำถามเกี่ยวกับผลิตภัณฑ์โดยใช้ Generative AI',
-            'สร้าง Chatbot สำหรับจัดการและสร้างไฟล์ Banner เพื่อจัดการเอกสารการขอ Line AI Beacon และอัปเดตข้อมูลเข้าระบบ Directus CMS',
+            'LINE AI Chatbot สำหรับตอบ FAQ โดยใช้ RAG (Cohere + Pinecone + Groq+Quick Reply) เพื่อให้คำตอบที่แม่นยำและรวดเร็วแบบเรียลไทม์',
+            'ChatBot Creates File Bannerสำหรับจัดการและสร้างไฟล์ Banner จำนวนมากเพื่อจัดการเอกสารการขอ Line AI Beacon และอัปเดตข้อมูลเข้าระบบ Directus CMS ของบริษัท',
           ]
         }
       ]
@@ -426,8 +426,8 @@ export const translations = {
           learningOutcomes: 'Expertise in using Social Listening tools and presenting data with Tableau to executives.'
         },
         {
-          title: 'Bot Creates File Banner',
-          description: 'Intelligent chatbot that helps manage documents and automatically generates banner request files.',
+          title: 'ChatBot Creates File Banner',
+          description: 'Intelligent RAG chatbot for document management and bulk Banner file generation for LINE AI Beacon requests, integrated with company Directus CMS.',
           detailedDescription: 'This project is a chatbot system for creating LINE Beacon Banner approval documents and automated data management. It was developed to reduce repetitive work steps, minimize errors from manual file management, and increase convenience in managing large amounts of data. When customers purchase the company\'s AiBeacon product, it\'s necessary to prepare and send Banner approval documents to LINE according to the specified format. Users can upload an Excel file once, and the system will automatically create Banner files as specified, combine them into a ZIP file, and update the data into the company\'s Directus immediately.',
           highlights: ['Auto Banners', 'ZIP Management', 'Directus Integration', '100% Paperless'],
           myRole: 'Created automation for paperwork by allowing users to enter data only once via an Excel file. The system handles all remaining steps, from file creation to updating data into the company\'s backend system.',
@@ -530,8 +530,8 @@ export const translations = {
           company: 'AIYA',
           period: 'August 13, 2024 – November 29, 2024 (3.5 months)',
           description: [
-            'Developed a LINE Chatbot for product inquiries using Generative AI.',
-            'Created a Chatbot for managing and generating Banner files to handle LINE AI Beacon request documents and update data into the Directus CMS.',
+            'Developed a LINE AI Chatbot for answering FAQs using RAG (Cohere + Pinecone + Groq + Quick Reply) to provide accurate and fast real-time answers.',
+            'ChatBot Creates File Banner for managing and generating a large number of Banner files to handle LINE AI Beacon request documents and update data into the company\'s Directus CMS.',
           ]
         }
       ]
