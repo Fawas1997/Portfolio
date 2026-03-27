@@ -220,7 +220,7 @@ export const translations = {
           period: '15 สิงหาคม 2566 – 1 ธันวาคม 2566 (3.5 เดือน)',
           description: [
             'วิเคราะห์รีวิวเว็บไซต์ในมุมมอง UX/UI',
-            'พัฒนาเว็บไซต์ AI Recommendations โดยใช้ AI แนะนำร้านอาหาร, ร้านกาแฟ, โรงแรม, และสถานที่ท่องเที่ยวจากการวิเคราะห์รีวิวบน Google Maps เพื่อมอบตัวเลือกที่ดีที่สุดให้แก่ผู้ใช้',
+            'พัฒนาเว็บไซต์ AI Recommendations แนะนำร้านอาหาร ร้านกาแฟ โรงแรม และสถานที่ท่องเที่ยวจาก รีวิว Google Map ใช้ AI วิเคราะห์ เพื่อตัดสินใจเลือกสถานที่สิ่งที่ดีที่สุดแนะนำให้ผู้ใช้งาน',
           ]
         },
         {
@@ -512,7 +512,7 @@ export const translations = {
           period: 'August 15, 2023 – December 1, 2023 (3.5 months)',
           description: [
             'Analyzed website reviews from a UX/UI perspective.',
-            'Developed an AI Recommendations website using AI to suggest restaurants, cafes, hotels, and tourist attractions based on Google Maps review analysis, providing users with the best options.',
+            'Developed the AI Recommendations website to suggest restaurants, cafes, hotels, and tourist attractions from Google Map reviews using AI analysis to help users make the best decisions.',
           ]
         },
         {
