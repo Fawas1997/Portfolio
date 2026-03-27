@@ -238,7 +238,7 @@ export const translations = {
           company: 'AIYA',
           period: '13 สิงหาคม 2567 – 29 พฤศจิกายน 2567 (3.5 เดือน)',
           description: [
-            'LINE AI Chatbot สำหรับตอบ FAQ โดยใช้ RAG (Cohere + Pinecone + Groq+Quick Reply) เพื่อให้คำตอบที่แม่นยำและรวดเร็วแบบเรียลไทม์',
+            'LINE AI Chatbot สำหรับตอบ FAQ โดยใช้ RAG สำหรับตอบคำถามผลิตภัณฑ์',
             'ChatBot Creates File Bannerสำหรับจัดการและสร้างไฟล์ Banner จำนวนมากเพื่อจัดการเอกสารการขอ Line AI Beacon และอัปเดตข้อมูลเข้าระบบ Directus CMS ของบริษัท',
           ]
         }
@@ -530,7 +530,7 @@ export const translations = {
           company: 'AIYA',
           period: 'August 13, 2024 – November 29, 2024 (3.5 months)',
           description: [
-            'Developed a LINE AI Chatbot for answering FAQs using RAG (Cohere + Pinecone + Groq + Quick Reply) to provide accurate and fast real-time answers.',
+            'LINE AI Chatbot answering FAQs using RAG for product inquiries.',
             'ChatBot Creates File Banner for managing and generating a large number of Banner files to handle LINE AI Beacon request documents and update data into the company\'s Directus CMS.',
           ]
         }
