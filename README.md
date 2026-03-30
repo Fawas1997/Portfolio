@@ -10,6 +10,26 @@
 - 🎞️ **Slide Gallery** — กดดูรายละเอียดโปรเจกต์แต่ละตัว พร้อมรูปสไลด์และ Workflow
 - ⚡ **Smooth Scroll** — แอนิเมชันเลื่อนหน้าลื่นไหล ไม่กระตุก
 - 📄 **ดาวน์โหลด Resume** — กดดาวน์โหลด Resume ได้โดยตรง
+- 🛡️ **Security Headers** — ระบบความปลอดภัยป้องกันการโจมตีระดับเซิร์ฟเวอร์
+
+## 🛡️ Security Headers (Vercel)
+
+เพื่อความปลอดภัยสูงสุด เว็บไซต์นี้ได้มีการตั้งค่า Security Headers ผ่านไฟล์ `vercel.json` ดังนี้:
+
+- **X-Frame-Options (DENY)**: ป้องกันการโจมตีประเภท Clickjacking (การหลอกคลิก)
+- **X-Content-Type-Options (nosniff)**: ป้องกันการปลอมแปลงชนิดไฟล์ (MIME Sniffing)
+- **Referrer-Policy**: ควบคุมความเป็นส่วนตัวในการส่งข้อมูลแหล่งที่มาของทราฟฟิก
+- **Permissions-Policy**: ป้องกันการแอบเข้าถึงอุปกรณ์ (กล้อง/ไมค์/GPS) โดยไม่ได้รับอนุญาตจากระบบ
+- **Strict-Transport-Security (HSTS)**: บังคับใช้งานผ่าน HTTPS ที่ปลอดภัยเท่านั้น
+
+## 🔍 Search Engine Optimization (SEO)
+
+เว็บไซต์นี้ได้รับการปรับแต่งด้าน SEO เพื่อให้ง่ายต่อการค้นหาและเข้าถึง:
+
+- **Meta Tags**: กำหนด Title, Description และ Keywords ที่เหมาะสมเพื่อผลการค้นหาที่ดีขึ้น
+- **Open Graph (OG)**: รองรับการแสดงตัวอย่าง (Preview) เมื่อแชร์ลิ้งก์ลงใน LINE, Facebook หรือ Social Media อื่น ๆ พร้อมรูปภาพและคำอธิบายที่ชัดเจน
+- **Semantic HTML**: ใช้แท็ก HTML5 (h1-h6, section, main) อย่างถูกต้องตามลำดับชั้นข้อมูลเพื่อช่วยให้ Search Engine วิเคราะห์เนื้อหาได้ง่าย
+- **Performance Optimized**: ใช้รูปภาพไฟล์ `.webp` และเทคนิคการโหลดที่มีประสิทธิภาพเพื่อให้เว็บไซต์แสดงผลได้รวดเร็ว (Lighthouse Best Practices)
 
 ## 🛠️ เทคโนโลยีที่ใช้
 
