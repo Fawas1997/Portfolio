@@ -29,32 +29,26 @@ const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({ scrollContainerRe
     const container = scrollContainerRef.current;
     if (!container) return;
 
-    const startPosition = container.scrollTop;
-    const targetPosition = 0;
-    const distance = targetPosition - startPosition;
-    
-    if (Math.abs(distance) < 2) return;
-
-    // Snappy duration: 0.2ms per pixel, max 600ms
-    const duration = Math.min(Math.abs(distance) * 0.2, 600); 
-    let start: number | null = null;
+    const start = container.scrollTop;
+    const duration = 1000; // 1 second for smooth movement
+    let startTime: number | null = null;
 
     const animation = (currentTime: number) => {
-      if (start === null) start = currentTime;
-      const timeElapsed = currentTime - start;
-      const run = easeOutExpo(timeElapsed, startPosition, distance, duration);
-      container.scrollTo(0, run);
-      if (timeElapsed < duration) {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+      
+      // easeInOutCubic easing function
+      const ease = progress < 0.5 
+        ? 4 * progress * progress * progress 
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+      container.scrollTop = start * (1 - ease);
+
+      if (progress < 1) {
         requestAnimationFrame(animation);
-      } else {
-        container.scrollTo(0, targetPosition);
       }
     };
-
-    // Easing function: easeOutExpo starts extremely fast and slows down
-    function easeOutExpo(t: number, b: number, c: number, d: number) {
-      return (t === d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
-    }
 
     requestAnimationFrame(animation);
   };

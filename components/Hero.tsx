@@ -150,7 +150,12 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
                 variants={itemVariants}
                 className="text-sm md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl leading-relaxed mx-auto lg:mx-0 font-semibold tracking-tight whitespace-pre-line"
               >
-                {t.description}
+                {t.description.includes('บทบาทในสายเทคโนโลยี') ? (
+                  <>
+                    {t.description.split('บทบาทในสายเทคโนโลยี')[0]}
+                    <span className="block lg:inline">บทบาทในสายเทคโนโลยี</span>
+                  </>
+                ) : t.description}
               </motion.p>
             </div>
 

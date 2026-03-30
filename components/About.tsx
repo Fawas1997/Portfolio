@@ -194,9 +194,15 @@ const About: React.FC = () => {
                    </h3>
                  )}
                  <div className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0 space-y-4 md:space-y-6 whitespace-pre-line">
-                   <p>
-                     {t.bio1}
-                   </p>
+                    <p>
+                      {t.bio1.includes('(เรียน 2 ปี และฝึกงาน 2 ปี)') ? (
+                        <>
+                          {t.bio1.split('(เรียน 2 ปี และฝึกงาน 2 ปี)')[0]}
+                          <span className="block lg:inline tracking-tighter sm:tracking-tight">(เรียน 2 ปี และฝึกงาน 2 ปี)</span>
+                          {t.bio1.split('(เรียน 2 ปี และฝึกงาน 2 ปี)')[1]}
+                        </>
+                      ) : t.bio1}
+                    </p>
                    <p>
                      {t.bio2}
                    </p>
