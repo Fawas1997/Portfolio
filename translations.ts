@@ -94,6 +94,7 @@ export const translations = {
             'และเว็บรองรับการใช้งานบนอุปกรณ์มือถือ'
           ],
           projectSummary: 'โปรเจกต์นี้ทำให้ผมได้พัฒนาเว็บ AI แนะนำร้านอาหารและสถานที่จากรีวิว Google Maps โดยเชื่อมต่อ OpenAI และ API ภายนอกจริง ได้ฝึกออกแบบ UX/UI พัฒนา frontend ด้วย Vue และเชื่อมต่อ API ร่วมกับ backend จนสามารถใช้งานได้จริง\n\nช่วยพัฒนาทักษะการสร้างระบบ AI บนเว็บ การทำงานร่วมกับ API จริง การออกแบบประสบการณ์ผู้ใช้ และการพัฒนาโปรเจกต์ตั้งแต่ไอเดียจน deploy ใช้งานได้บนมือถือและเว็บ',
+          solutionLabel: 'แนวคิดของระบบ',
           businessConcept: [
             'โปรเจกต์นี้ทำให้ผมได้พัฒนาเว็บ AI แนะนำร้านอาหารและสถานที่จากรีวิว Google Maps โดยเชื่อมต่อ OpenAI และ API ภายนอกจริง ได้ฝึกออกแบบ UX/UI พัฒนา frontend ด้วย Vue และเชื่อมต่อ API ร่วมกับ backend จนสามารถใช้งานได้จริง\n\nช่วยพัฒนาทักษะการสร้างระบบ AI บนเว็บ การทำงานร่วมกับ API จริง การออกแบบประสบการณ์ผู้ใช้ และการพัฒนาโปรเจกต์ตั้งแต่ไอเดียจน deploy ใช้งานได้บนมือถือและเว็บ'
           ],
@@ -131,7 +132,8 @@ export const translations = {
           ],
           projectSummary: "โปรเจกต์นี้ช่วยให้เข้าใจกระบวนการวิเคราะห์ข้อมูลโซเชียลมีเดียตั้งแต่การเตรียมข้อมูล การทำความสะอาดและติดป้ายข้อมูล (labelling) ไปจนถึงการวิเคราะห์และสร้าง dashboard เพื่อหา insight ทางธุรกิจ ได้ฝึกใช้ Python และ Tableau ในการวิเคราะห์ข้อมูลจริง รวมถึงการตีความผลลัพธ์เพื่อนำเสนอเชิงกลยุทธ์ ทำให้สามารถเชื่อมโยงข้อมูลกับมุมมองด้านการตลาดและพฤติกรรมผู้บริโภคได้ชัดเจนมากขึ้น",
           challengesSolutions: 'ข้อมูลจากโซเชีลมี Noise เยอะมาก จึงต้องใช้ Python ในการทำ Data Cleaning และ Labeling ข้อมูลอย่างเป็นระบบ',
-          learningOutcomes: 'เชี่ยวชาญการใช้เครื่องมือ Social Listening และการนำเสนอข้อมูลด้วย Tableau ให้กับผู้บริหาร'
+          learningOutcomes: 'เชี่ยวชาญการใช้เครื่องมือ Social Listening และการนำเสนอข้อมูลด้วย Tableau ให้กับผู้บริหาร',
+          solutionLabel: 'แนวคิดของระบบ'
         },
         {
           title: 'ChatBot Creates File Banner',
@@ -386,6 +388,7 @@ export const translations = {
             'The web supports mobile device usage.'
           ],
           projectSummary: 'This project allowed me to develop an AI-powered web for recommending restaurants and locations from Google Maps reviews by connecting OpenAI and real external APIs. I practiced UX/UI design, frontend development with Vue, and API integration with the backend until it was fully functional. It helped develop skills in building web-based AI systems, working with real APIs, user experience design, and project development from idea to deployment on mobile and web.',
+          solutionLabel: 'System Concept',
           businessConcept: [
             'This project allowed me to develop an AI-powered web for recommending restaurants and locations from Google Maps reviews by connecting OpenAI and real external APIs. I practiced UX/UI design, frontend development with Vue, and API integration with the backend until it was fully functional. It helped develop skills in building web-based AI systems, working with real APIs, user experience design, and project development from idea to deployment on mobile and web.'
           ],
@@ -423,11 +426,12 @@ export const translations = {
           ],
           projectSummary: "This project provided a deep understanding of the social media data analysis process—from data preparation and labeling to analysis and dashboard creation for business insights. I practiced using Python and Tableau on real-world data, interpreting results to present strategic recommendations. This experience bridged the gap between raw data and marketing/consumer behavior perspectives.",
           challengesSolutions: 'Social media data contains a lot of noise, so I had to use Python for systematic Data Cleaning and Labeling.',
-          learningOutcomes: 'Expertise in using Social Listening tools and presenting data with Tableau to executives.'
+          learningOutcomes: 'Expertise in using Social Listening tools and presenting data with Tableau to executives.',
+          solutionLabel: 'System Concept'
         },
         {
           title: 'ChatBot Creates File Banner',
-          description: 'Intelligent RAG chatbot for document management and bulk Banner file generation for LINE AI Beacon requests, integrated with company Directus CMS.',
+          description: 'Intelligent chatbot for automatically generating Banner request files and updating the company\'s Directus system.',
           detailedDescription: 'This project is a chatbot system for creating LINE Beacon Banner approval documents and automated data management. It was developed to reduce repetitive work steps, minimize errors from manual file management, and increase convenience in managing large amounts of data. When customers purchase the company\'s AiBeacon product, it\'s necessary to prepare and send Banner approval documents to LINE according to the specified format. Users can upload an Excel file once, and the system will automatically create Banner files as specified, combine them into a ZIP file, and update the data into the company\'s Directus immediately.',
           highlights: ['Auto Banners', 'ZIP Management', 'Directus Integration', '100% Paperless'],
           myRole: 'Created automation for paperwork by allowing users to enter data only once via an Excel file. The system handles all remaining steps, from file creation to updating data into the company\'s backend system.',
