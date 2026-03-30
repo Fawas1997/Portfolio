@@ -59,7 +59,7 @@ Portfolio/
 |---------|----------|
 | **RecommendationsAI** | เว็บ AI แนะนำร้านอาหาร/ท่องเที่ยวจากรีวิว Google Maps ด้วย OpenAI |
 | **Social Listening Dashboard** | แดชบอร์ดวิเคราะห์กระแสแบรนด์บนโซเชียลด้วย Zocial Eye + Tableau |
-| **Bot Creates File Banner** | Chatbot สร้างเอกสาร LINE Beacon Banner อัตโนมัติ |
+| **Bot Creates File Banner** | Chatbot สร้างเอกสารไฟล์ขอ LINE Beacon Banner อัตโนมัติ |
 | **GeoCheck** | ระบบเช็คอินพนักงานภาคสนามด้วย GPS + รูปถ่าย + Telegram |
 
 ## 🚀 วิธีรันในเครื่อง
