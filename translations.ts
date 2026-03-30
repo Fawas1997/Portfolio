@@ -23,13 +23,13 @@ export const translations = {
       bio1: 'ผมเป็นนักศึกษาจบใหม่จากหลักสูตรปริญญาตรี 4 ปี (เรียน 2 ปี และฝึกงาน 2 ปี)\nทำให้มีทั้งพื้นฐานทฤษฎีและประสบการณ์ลงมือทำจริง',
       bio2: 'สนใจงานด้าน IT และเทคโนโลยีดิจิทัล โดยมีพื้นฐานด้าน Web, Data และ AI\nจากการทำโปรเจกต์และการฝึกงาน',
       bio3: 'ผมมุ่งเน้นการพัฒนาทักษะอย่างต่อเนื่อง พร้อมเรียนรู้เครื่องมือและเทคโนโลยีใหม่ ๆ และสามารถนำความรู้ไปประยุกต์ใช้ในการทำงานจริงได้',
-      education: 'การศึกษา (2564 - 2568)',
+      eduTitle: 'การศึกษา (2564 - 2568)',
       honors: 'เกียรตินิยม อันดับ 2',
       university: 'มหาวิทยาลัยหอการค้าไทย',
       degree: 'ปริญญาตรี | GPAX 3.49',
       faculty: 'คณะวิทยาศาสตร์และเทคโนโลยี',
       major: 'สาขาเทคโนโลยีดิจิทัล',
-      skills: 'ทักษะที่ฝึกงาน',
+      skillsTitle: 'ทักษะฝึกงาน',
       profileAlt: 'รูปโปรไฟล์ ฟาวาซร์ ทองคำ'
     },
     projects: {
@@ -135,7 +135,7 @@ export const translations = {
         },
         {
           title: 'ChatBot Creates File Banner',
-          description: 'Chatbot อัจฉริยะแบบ RAG สำหรับจัดการเอกสารและสร้างไฟล์ Banner จำนวนมากเพื่อขอ Line AI Beacon และอัปเดตข้อมูลเข้าระบบ Directus ของบริษัท',
+          description: 'Chatbot อัจฉริยะที่ช่วยจัดการสร้างเอกสารไฟล์ขอ Banner โฆษณาอัตโนมัติ และอัปเดตข้อมูลเข้าระบบ Directus ของบริษัท',
           detailedDescription: 'โปรเจกต์นี้เป็นระบบแชทบอทสำหรับสร้างไฟล์เอกสารการขออนุมัติ LINE Beacon Banner และจัดการข้อมูลแบบอัตโนมัติ โดยพัฒนาขึ้นเพื่อช่วยลดขั้นตอนการทำงานซ้ำ ลดความผิดพลาดจากการจัดการไฟล์ด้วยมือ และเพิ่มความสะดวกในการจัดการข้อมูลจำนวนมากเมื่อมีลูกค้าซื้อผลิตภัณฑ์ AiBeacon ของบริษัท จำเป็นต้องจัดเตรียมและส่งเอกสารการขออนุมัติ Banner ให้กับ LINE ตามรูปแบบที่กำหนด ผู้ใช้สามารถอัปโหลดไฟล์ Excel เพียงครั้งเดียว ระบบจะทำการสร้างไฟล์ Banner ตามข้อมูลที่กำหนด รวมไฟล์เป็น ZIP และอัปเดตข้อมูลเข้าสู่ Directus ของบริษัทได้ทันทีแบบอัตโนมัติ',
           highlights: ['สร้างแบนเนอร์อัตโนมัติ', 'จัดการไฟล์ ZIP ทันที', 'เชื่อมต่อระบบ Directus', 'ลดงานเอกสาร 100%'],
           myRole: 'สร้าง Automation มาใช้กับงานเอกสาร โดยให้ผู้ใช้กรอกข้อมูลเพียงครั้งเดียวผ่านไฟล์ Excel ระบบจะเป็นผู้จัดการขั้นตอนที่เหลือทั้งหมด ตั้งแต่การสร้างไฟล์ ไปจนถึงการอัปเดตข้อมูลเข้าสู่ระบบหลังบ้านของบริษัท',
@@ -315,13 +315,13 @@ export const translations = {
       bio1: 'I am a fresh graduate from a 4-year Bachelor\'s program (2 years of study and 2 years of internship), providing me with both theoretical foundations and hands-on experience.',
       bio2: 'I am interested in IT and digital technology, with a background in Web, Data, and AI from various projects and internships.',
       bio3: 'I focus on continuous skill development, staying ready to learn new tools and technologies to apply them effectively in real-world work.',
-      education: 'Education (2021 - 2025)',
+      eduTitle: 'Education (2021 - 2025)',
       honors: '2nd Class Honors',
       university: 'University of the Thai Chamber of Commerce (UTCC)',
       degree: 'Bachelor\'s Degree | GPAX 3.49',
       faculty: 'Faculty of Science and Technology',
       major: 'Digital Technology',
-      skills: 'Internship Skills',
+      skillsTitle: 'Internship Skills',
       profileAlt: 'Fawas Thongkham Profile'
     },
     projects: {

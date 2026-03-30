@@ -28,6 +28,8 @@ const SAFELIST = `
   border-blue-600 text-blue-600
   border-yellow-500 text-yellow-500
   border-indigo-600 text-indigo-600
+  border-orange-600 text-orange-600
+  border-violet-600 text-violet-600
 `;
 
 interface ProjectModalProps {
@@ -642,7 +644,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
               </div>
             )}
 
-            {project.title === 'Bot Creates File Banner' && (
+            {project.title === 'ChatBot Creates File Banner' && (
               <div className="mt-16 md:mt-24">
                 <div className="text-center mb-12">
                   <h3 className="text-2xl md:text-4xl font-black text-gray-900 dark:text-white flex items-center justify-center gap-4">
@@ -667,8 +669,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                       ];
                       
                       const colors = [
-                        '#8B4513',
-                        '#4c1d95',
+                        'orange-600',
+                        'violet-600',
                         'green-600',
                         'blue-600',
                         'yellow-500',
@@ -679,8 +681,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                         return (
                           <React.Fragment key={idx}>
                             <div className="relative flex flex-col items-center">
-                              <div className={`z-10 w-20 h-20 rounded-2xl bg-white dark:bg-gray-800 border-4 ${colors[idx].startsWith('#') ? '' : 'border-' + colors[idx]} flex items-center justify-center shadow-xl`} style={colors[idx].startsWith('#') ? { borderColor: colors[idx] } : {}}>
-                                <span style={colors[idx].startsWith('#') ? { color: colors[idx] } : {}} className={colors[idx].startsWith('#') ? '' : `text-${colors[idx]}`}>{icons[idx]}</span>
+                              <div className={`z-10 w-20 h-20 rounded-2xl bg-white dark:bg-gray-800 border-4 border-${colors[idx]} flex items-center justify-center shadow-xl`}>
+                                <span className={`text-${colors[idx]}`}>{icons[idx]}</span>
                               </div>
                               <div className="mt-6 font-black text-gray-800 dark:text-white text-lg md:text-2xl max-w-xs flex items-start justify-center">
                                 <span className="flex items-center justify-center w-7 h-7 md:w-9 md:h-9 rounded-full bg-blue-600 text-white text-sm md:text-lg mr-2 shrink-0 -mt-1 md:-mt-1.5">{step.step}</span>
@@ -722,7 +724,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                               {project.workflowSteps[5] && (
                                 <div className="flex flex-col items-center">
                                   <div className="z-10 w-20 h-20 rounded-2xl bg-white dark:bg-gray-800 border-4 border-indigo-600 flex items-center justify-center shadow-xl shadow-indigo-500/20">
-                                    <span className="text-purple-600">{icons[5]}</span>
+                                    <span className="text-indigo-600">{icons[5]}</span>
                                   </div>
                                   <div className="mt-6 font-black text-gray-800 dark:text-white text-base md:text-2xl leading-tight px-2 flex items-start justify-center">
                                     <span className="flex items-center justify-center w-7 h-7 md:w-9 md:h-9 rounded-full bg-blue-600 text-white text-sm md:text-lg mr-2 shrink-0 -mt-1 md:-mt-1.5">6</span>
@@ -895,7 +897,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
               </>
             )}
 
-            {project.workflowSteps && project.title !== 'Social Listening Dashboard' && project.title !== 'Bot Creates File Banner' && project.title !== 'GeoCheck' && (
+            {project.workflowSteps && project.title !== 'Social Listening Dashboard' && project.title !== 'ChatBot Creates File Banner' && project.title !== 'GeoCheck' && (
               <div className="mt-16 md:mt-24 animate-fade-in-up">
                 <div className="text-center mb-10 md:mb-16 px-4">
                   <h3 className="text-xl md:text-3xl font-black text-gray-900 dark:text-white flex items-center gap-3 md:gap-5 justify-center">

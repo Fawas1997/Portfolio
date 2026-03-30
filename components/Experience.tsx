@@ -128,7 +128,7 @@ const Experience: React.FC = () => {
   return (
     <section id="experience" className="pt-12 pb-24 md:py-24">
       <Reveal initialY={30}>
-        <h2 className="text-4xl font-bold text-center mb-4">{t.title}</h2>
+        <h2 className="text-4xl md:text-5xl font-black text-center mb-4">{t.title}</h2>
         <div className="w-20 h-1 bg-blue-500 mx-auto mb-10 md:mb-16 rounded"></div>
       </Reveal>
      

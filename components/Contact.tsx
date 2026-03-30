@@ -104,7 +104,7 @@ const Contact: React.FC = () => {
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4">
               {t.title}
             </h2>
-            <div className="h-1 bg-blue-600 mx-auto rounded-full mb-8 w-[48px]"></div>
+            <div className="w-20 h-1 bg-blue-500 mx-auto rounded mb-8"></div>
             <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto font-medium">
               {t.description}
             </p>

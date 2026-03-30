@@ -163,7 +163,7 @@ const About: React.FC = () => {
       <div className="container mx-auto px-6 relative z-10">
         <Reveal>
           <div className="text-center mb-16 md:mb-20">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{t.title}</h2>
+            <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4">{t.title}</h2>
             <div className="w-20 h-1 bg-blue-500 mx-auto rounded"></div>
           </div>
         </Reveal>
@@ -250,7 +250,7 @@ const About: React.FC = () => {
         <Reveal initialY={50}>
            <div className="space-y-12">
               <div className="text-center">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">{t.skillsTitle}</h2>
+                <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white">{t.skillsTitle}</h2>
                 <div className="w-16 h-1 bg-blue-500 mx-auto mt-4 rounded"></div>
               </div>
               

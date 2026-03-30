@@ -68,10 +68,10 @@ const WorkExperience: React.FC = () => {
       <div className="container mx-auto px-0 md:px-6 max-w-6xl">
         <Reveal initialY={30}>
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4">
               {t.title}
             </h2>
-            <div className="h-1.5 bg-blue-600 mx-auto rounded-full w-[60px]"></div>
+            <div className="w-20 h-1 bg-blue-500 mx-auto rounded"></div>
           </div>
         </Reveal>
 
