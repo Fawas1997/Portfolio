@@ -467,7 +467,7 @@ const AIChatbot: React.FC = () => {
               {/* Subtitle */}
               <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-6 max-w-[280px]">
                 {isThai
-                  ? 'ระบบแชทบอท AI+RAG กำลังอัปเกรดให้ฉลาดและตอบได้แม่นยำมากยิ่งขึ้น จะเปิดเร็วๆนี้ 🙏'
+                  ? 'ระบบแชทบอท AI+RAG Portfolio กำลังอัปเกรดให้ฉลาดและตอบได้แม่นยำมากยิ่งขึ้นจะเปิดเร็วๆนี้ 🙏'
                   : 'The AI+RAG chatbot is being upgraded for smarter and more accurate responses. Please check back soon! 🙏'}
               </p>
 
