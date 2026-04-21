@@ -94,7 +94,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
       setShowMobileHint(true);
       const timer = setTimeout(() => {
         setShowMobileHint(false);
-      }, 3000);
+      }, 2000);
       return () => clearTimeout(timer);
     }
   }, [isZoomed]);
@@ -1122,14 +1122,14 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
           {/* PC/NB Recommendation Hint for Mobile */}
           {showMobileHint && window.innerWidth < 768 && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[220]">
-              <div className="bg-black/80 backdrop-blur-xl rounded-2xl p-5 text-white text-center animate-fade-in border border-white/20 shadow-2xl mx-8 max-w-[280px]">
-                <div className="flex justify-center mb-3 text-blue-400">
-                  <FiMonitor size={36} className="drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+              <div className="bg-black/80 backdrop-blur-xl rounded-2xl p-4 text-white text-center animate-fade-in border border-white/20 shadow-2xl mx-8 max-w-[240px]">
+                <div className="flex justify-center mb-2 text-blue-400">
+                  <FiMonitor size={28} className="drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
                 </div>
-                <p className="font-black text-base tracking-wide mb-1 text-blue-50">
+                <p className="font-black text-sm tracking-wide mb-0.5 text-blue-50">
                   {language === 'th' ? 'แนะนำเปิดใน PC / NB' : 'Best viewed on PC / Laptop'}
                 </p>
-                <p className="text-xs text-gray-300">
+                <p className="text-[10px] text-gray-300 leading-tight">
                   {language === 'th' ? 'เพื่อให้เห็นภาพและเนื้อหาที่ชัดเจนขึ้น' : 'For clearer content and details'}
                 </p>
               </div>
