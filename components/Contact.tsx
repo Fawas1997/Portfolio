@@ -49,9 +49,139 @@ const Reveal: React.FC<{
   );
 };
 
+const ContactItem: React.FC<{ 
+  info: any; 
+  index: number; 
+  t: any;
+  activeTooltipIndex: number | null;
+  setActiveTooltipIndex: (index: number | null) => void;
+}> = ({ info, index, t, activeTooltipIndex, setActiveTooltipIndex }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { margin: "-100px", once: false });
+  const tooltipInView = useInView(ref, { margin: "-40% 0px -40% 0px", once: false });
+  const [isVisible, setIsVisible] = useState(false);
+  const showTooltip = activeTooltipIndex === index;
+
+  useEffect(() => {
+    if (inView) {
+      setIsVisible(true);
+    } else {
+      const rect = (ref.current as any)?.getBoundingClientRect();
+      if (rect && rect.top > 100) {
+        setIsVisible(false);
+      }
+    }
+  }, [inView]);
+
+  useEffect(() => {
+    // Let the parent manage the active tooltip, triggered only when item enters center screen
+    if (tooltipInView && window.innerWidth < 768) {
+      setActiveTooltipIndex(index);
+    }
+  }, [tooltipInView, index, setActiveTooltipIndex]);
+
+  return (
+    <div ref={ref} className="group flex flex-col items-center transition-all duration-300 relative w-full md:w-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
+        className="w-full"
+      >
+        <a
+          href={info.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-col items-center"
+        >
+          {/* Click Hint Tooltip - Shows for 3s on scroll in mobile, hover on desktop */}
+          <div className={`absolute top-full left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[10px] font-black px-4 py-2 rounded-full transition-all duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20 shadow-blue-500/40 md:opacity-0 md:group-hover:opacity-100 md:translate-y-1 md:group-hover:translate-y-4 md:animate-none ${showTooltip ? 'opacity-100 translate-y-3 animate-pulse' : 'opacity-0 translate-y-1'}`}>
+            {t.clickToOpen} <ExternalLink size={10} className="inline ml-1" />
+          </div>
+
+          {/* Organic Animated Icon Container */}
+          <div className={`relative w-28 h-28 md:w-36 md:h-36 flex items-center justify-center mb-6 ${info.color}`}>
+            {/* Layer 1: Primary Organic Border */}
+            <motion.div 
+              animate={{ 
+                borderRadius: ["40% 60% 70% 30% / 40% 50% 60% 50%", "60% 40% 30% 70% / 50% 60% 40% 60%", "40% 60% 70% 30% / 40% 50% 60% 50%"],
+                rotate: [0, 90, 180, 270, 360]
+              }}
+              transition={{ 
+                borderRadius: { duration: 8, repeat: Infinity, ease: "easeInOut" },
+                rotate: { duration: 25, repeat: Infinity, ease: "linear" }
+              }}
+              className="absolute inset-0 transition-all duration-500 border-2 border-current opacity-20 group-hover:opacity-100"
+            />
+
+            {/* Layer 2: Secondary Counter-Rotating Border */}
+            <motion.div 
+              animate={{ 
+                borderRadius: ["60% 40% 30% 70% / 50% 60% 40% 60%", "40% 60% 70% 30% / 40% 50% 60% 50%", "60% 40% 30% 70% / 50% 60% 40% 60%"],
+                rotate: [360, 270, 180, 90, 0]
+              }}
+              transition={{ 
+                borderRadius: { duration: 10, repeat: Infinity, ease: "easeInOut" },
+                rotate: { duration: 30, repeat: Infinity, ease: "linear" }
+              }}
+              className="absolute inset-2 transition-all duration-500 border border-current opacity-10 group-hover:opacity-60"
+            />
+
+            {/* Layer 3: Floating Particles/Dots Effect on Hover */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+              {[...Array(3)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  animate={{ 
+                    scale: [1, 1.5, 1],
+                    opacity: [0.3, 0.6, 0.3],
+                    x: [0, (i - 1) * 20, 0],
+                    y: [0, (i - 1) * -20, 0]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
+                  className="absolute w-1 h-1 bg-current rounded-full left-1/2 top-1/2"
+                />
+              ))}
+            </div>
+
+            {/* Icon with Hover Animation */}
+            <div className="relative z-10 transition-all duration-500 group-hover:scale-125 group-hover:rotate-12">
+              {info.icon}
+            </div>
+
+            {/* Hover Glow Effect */}
+            <div className={`absolute inset-0 rounded-full ${info.bgColor} opacity-0 group-hover:opacity-20 blur-3xl transition-opacity duration-700`}></div>
+          </div>
+          
+          <div className="text-center">
+            <p className="text-[11px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">
+              {info.label}
+            </p>
+            <p className="text-sm md:text-base font-bold text-gray-900 dark:text-white">
+              {info.value}
+            </p>
+          </div>
+        </a>
+      </motion.div>
+    </div>
+  );
+};
+
 const Contact: React.FC = () => {
   const { language } = useLanguage();
   const t = translations[language].contact;
+  const [activeTooltipIndex, setActiveTooltipIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (activeTooltipIndex !== null) {
+      // Auto-hide the active tooltip after 3 seconds
+      timer = setTimeout(() => {
+        setActiveTooltipIndex(null);
+      }, 3000);
+    }
+    return () => clearTimeout(timer);
+  }, [activeTooltipIndex]);
 
   const contactInfo = [
     {
@@ -114,89 +244,16 @@ const Contact: React.FC = () => {
         {/* Contact Items Row */}
         <div className="flex flex-wrap justify-center gap-16 md:gap-12 lg:gap-16 mb-20">
           {contactInfo.map((info, index) => (
-            <Reveal
-              key={index}
-              initialY={30}
-              delay={index * 0.1}
-              className="group flex flex-col items-center transition-all duration-300 relative w-full md:w-auto"
-            >
-              <a
-                href={info.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col items-center"
-              >
-              {/* Click Hint Tooltip - Blue Theme (Moved to bottom) */}
-              <div className="absolute top-full left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[10px] font-black px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20 shadow-blue-500/40 translate-y-1 group-hover:translate-y-4">
-                {t.clickToOpen} <ExternalLink size={10} className="inline ml-1" />
-              </div>
-
-              {/* Organic Animated Icon Container */}
-              <div className={`relative w-28 h-28 md:w-36 md:h-36 flex items-center justify-center mb-6 ${info.color}`}>
-                {/* Layer 1: Primary Organic Border */}
-                <motion.div 
-                  animate={{ 
-                    borderRadius: ["40% 60% 70% 30% / 40% 50% 60% 50%", "60% 40% 30% 70% / 50% 60% 40% 60%", "40% 60% 70% 30% / 40% 50% 60% 50%"],
-                    rotate: [0, 90, 180, 270, 360]
-                  }}
-                  transition={{ 
-                    borderRadius: { duration: 8, repeat: Infinity, ease: "easeInOut" },
-                    rotate: { duration: 25, repeat: Infinity, ease: "linear" }
-                  }}
-                  className="absolute inset-0 transition-all duration-500 border-2 border-current opacity-20 group-hover:opacity-100"
-                />
-
-                {/* Layer 2: Secondary Counter-Rotating Border */}
-                <motion.div 
-                  animate={{ 
-                    borderRadius: ["60% 40% 30% 70% / 50% 60% 40% 60%", "40% 60% 70% 30% / 40% 50% 60% 50%", "60% 40% 30% 70% / 50% 60% 40% 60%"],
-                    rotate: [360, 270, 180, 90, 0]
-                  }}
-                  transition={{ 
-                    borderRadius: { duration: 10, repeat: Infinity, ease: "easeInOut" },
-                    rotate: { duration: 30, repeat: Infinity, ease: "linear" }
-                  }}
-                  className="absolute inset-2 transition-all duration-500 border border-current opacity-10 group-hover:opacity-60"
-                />
-
-                {/* Layer 3: Floating Particles/Dots Effect on Hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                  {[...Array(3)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      animate={{ 
-                        scale: [1, 1.5, 1],
-                        opacity: [0.3, 0.6, 0.3],
-                        x: [0, (i - 1) * 20, 0],
-                        y: [0, (i - 1) * -20, 0]
-                      }}
-                      transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
-                      className="absolute w-1 h-1 bg-current rounded-full left-1/2 top-1/2"
-                    />
-                  ))}
-                </div>
-
-                {/* Icon with Hover Animation */}
-                <div className="relative z-10 transition-all duration-500 group-hover:scale-125 group-hover:rotate-12">
-                  {info.icon}
-                </div>
-
-                {/* Hover Glow Effect */}
-                <div className={`absolute inset-0 rounded-full ${info.bgColor} opacity-0 group-hover:opacity-20 blur-3xl transition-opacity duration-700`}></div>
-              </div>
-              
-              <div className="text-center">
-                <p className="text-[11px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">
-                  {info.label}
-                </p>
-                <p className="text-sm md:text-base font-bold text-gray-900 dark:text-white">
-                  {info.value}
-                </p>
-              </div>
-            </a>
-          </Reveal>
-        ))}
-      </div>
+            <ContactItem 
+              key={index} 
+              info={info} 
+              index={index} 
+              t={t} 
+              activeTooltipIndex={activeTooltipIndex}
+              setActiveTooltipIndex={setActiveTooltipIndex}
+            />
+          ))}
+        </div>
 
         <div className="flex flex-col items-center space-y-6">
           <div className="flex items-center gap-3 text-gray-500 dark:text-gray-400">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { translations } from '../translations';
-import { FiX, FiGithub, FiExternalLink, FiTarget, FiUserCheck, FiTool, FiChevronLeft, FiChevronRight, FiMapPin, FiActivity, FiUser, FiCpu, FiCheckCircle, FiTrendingUp, FiAlertTriangle, FiZap, FiMaximize2, FiMinimize2, FiLayers, FiBriefcase, FiDatabase, FiBarChart2, FiFilter, FiPieChart, FiArrowRight, FiStar, FiFileText, FiImage, FiArchive, FiInfo, FiSettings, FiPackage, FiCloudLightning, FiClock, FiCamera, FiSend, FiBell, FiMove } from 'react-icons/fi';
+import { FiX, FiGithub, FiExternalLink, FiTarget, FiUserCheck, FiTool, FiChevronLeft, FiChevronRight, FiMapPin, FiActivity, FiUser, FiCpu, FiCheckCircle, FiTrendingUp, FiAlertTriangle, FiZap, FiMaximize2, FiMinimize2, FiLayers, FiBriefcase, FiDatabase, FiBarChart2, FiFilter, FiPieChart, FiArrowRight, FiStar, FiFileText, FiImage, FiArchive, FiInfo, FiSettings, FiPackage, FiCloudLightning, FiClock, FiCamera, FiSend, FiBell, FiMove, FiMonitor } from 'react-icons/fi';
 import { 
   SiHtml5, SiCss3, SiJavascript, SiTailwindcss, SiOpenai, 
   SiNgrok, SiPython, SiTableau, SiFlask, SiVercel, SiAwslambda,
@@ -47,9 +47,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   const [uiTrigger, setUiTrigger] = useState(0);
   const [showExpandTip, setShowExpandTip] = useState(true);
   const [showControls, setShowControls] = useState(true);
-  const [zoomScale, setZoomScale] = useState(1);
-  const [initialPinchDistance, setInitialPinchDistance] = useState<number | null>(null);
-  const [showZoomHint, setShowZoomHint] = useState(false);
+  const [showMobileHint, setShowMobileHint] = useState(false);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -93,37 +91,13 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
 
   useEffect(() => {
     if (isZoomed) {
-      setShowZoomHint(true);
+      setShowMobileHint(true);
       const timer = setTimeout(() => {
-        setShowZoomHint(false);
+        setShowMobileHint(false);
       }, 5000);
       return () => clearTimeout(timer);
-    } else {
-      setZoomScale(1);
     }
   }, [isZoomed]);
-
-  // Handle native touchmove to prevent default browser behavior
-  // Specifically for iOS Safari where React passive events can't prevent default
-  useEffect(() => {
-    const handleNativeTouchMove = (e: TouchEvent) => {
-      // If we are pinching (2 fingers) or already zoomed, prevent browser scrolling/zooming
-      if (e.touches.length === 2 || zoomScale > 1) {
-        e.preventDefault();
-      }
-    };
-
-    const zoomEl = zoomContentRef.current;
-    if (isZoomed && zoomEl) {
-      zoomEl.addEventListener('touchmove', handleNativeTouchMove, { passive: false });
-    }
-
-    return () => {
-      if (zoomEl) {
-        zoomEl.removeEventListener('touchmove', handleNativeTouchMove);
-      }
-    };
-  }, [isZoomed, zoomScale]);
 
   const nextSlide = () => {
     if (!project) return;
@@ -268,39 +242,20 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   const totalSlides = project.slides.length;
 
   const onTouchStart = (e: React.TouchEvent) => {
-    if (isZoomed && e.targetTouches.length === 2) {
-      const distance = Math.hypot(
-        e.targetTouches[0].clientX - e.targetTouches[1].clientX,
-        e.targetTouches[0].clientY - e.targetTouches[1].clientY
-      );
-      setInitialPinchDistance(distance);
-    } else if (e.targetTouches.length === 1) {
+    if (e.targetTouches.length === 1) {
       setTouchEnd(null);
       setTouchStart(e.targetTouches[0].clientX);
     }
   };
 
   const onTouchMove = (e: React.TouchEvent) => {
-    if (isZoomed && e.targetTouches.length === 2 && initialPinchDistance) {
-      e.preventDefault();
-      const currentDistance = Math.hypot(
-        e.targetTouches[0].clientX - e.targetTouches[1].clientX,
-        e.targetTouches[0].clientY - e.targetTouches[1].clientY
-      );
-      const scaleFactor = currentDistance / initialPinchDistance;
-      setZoomScale(prevScale => {
-        const newScale = prevScale * scaleFactor;
-        return Math.min(Math.max(newScale, 1), 5);
-      });
-      setInitialPinchDistance(currentDistance);
-    } else if (e.targetTouches.length === 1) {
+    if (e.targetTouches.length === 1) {
       setTouchEnd(e.targetTouches[0].clientX);
     }
   };
 
   const onTouchEnd = () => {
-    setInitialPinchDistance(null);
-    if (touchStart && touchEnd && zoomScale <= 1.1) {
+    if (touchStart && touchEnd) {
       const distance = touchStart - touchEnd;
       const isLeftSwipe = distance > minSwipeDistance;
       const isRightSwipe = distance < -minSwipeDistance;
@@ -1162,29 +1117,19 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
             </>
           )}
 
-          {/* Pinch Zoom Hint for Mobile */}
-          {showZoomHint && window.innerWidth < 768 && (
+          {/* PC/NB Recommendation Hint for Mobile */}
+          {showMobileHint && window.innerWidth < 768 && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[220]">
-              <div className="bg-black/70 backdrop-blur-xl rounded-[2rem] p-6 text-white text-center animate-fade-in border border-white/20 shadow-2xl transform scale-90">
-                <div className="relative w-20 h-20 mx-auto mb-4">
-                  {/* Finger 1 */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-finger-move-1 opacity-0">
-                    <div className="w-8 h-8 bg-blue-500/40 rounded-full border-2 border-blue-400 flex items-center justify-center">
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                    </div>
-                  </div>
-                  {/* Finger 2 */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-finger-move-2 opacity-0">
-                    <div className="w-8 h-8 bg-blue-500/40 rounded-full border-2 border-blue-400 flex items-center justify-center">
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                    </div>
-                  </div>
-                  {/* Icon in center */}
-                  <div className="absolute inset-0 flex items-center justify-center text-blue-400 opacity-20">
-                    <FiMove size={40} />
-                  </div>
+              <div className="bg-black/80 backdrop-blur-xl rounded-2xl p-5 text-white text-center animate-fade-in border border-white/20 shadow-2xl mx-8 max-w-[280px]">
+                <div className="flex justify-center mb-3 text-blue-400">
+                  <FiMonitor size={36} className="drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
                 </div>
-                <p className="font-bold text-sm tracking-wide opacity-90">{language === 'th' ? 'จีบนิ้วเพื่อซูมภาพ' : 'Pinch to zoom'}</p>
+                <p className="font-black text-base tracking-wide mb-1 text-blue-50">
+                  {language === 'th' ? 'แนะนำเปิดใน PC / NB' : 'Best viewed on PC / Laptop'}
+                </p>
+                <p className="text-xs text-gray-300">
+                  {language === 'th' ? 'เพื่อให้เห็นภาพและเนื้อหาที่ชัดเจนขึ้น' : 'For clearer content and details'}
+                </p>
               </div>
             </div>
           )}
@@ -1193,27 +1138,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
             key={`zoomed-${activeSlide}`}
             src={project.slides[activeSlide] || project.imageUrl}
             alt="Zoomed project view"
-            className="max-w-full max-h-[90vh] object-contain select-none drop-shadow-2xl animate-fade-in-up cursor-pointer transition-transform duration-200"
-            style={{ transform: `scale(${zoomScale})` }}
+            className="max-w-full max-h-[90vh] object-contain select-none drop-shadow-2xl animate-fade-in-up transition-transform duration-200"
             draggable="false"
           />
-
-          <style dangerouslySetInnerHTML={{ __html: `
-            @keyframes finger-move-1 {
-              0% { transform: translate(-5px, 5px) scale(0.8); opacity: 0; }
-              20% { transform: translate(-5px, 5px) scale(1); opacity: 1; }
-              80% { transform: translate(-25px, 25px) scale(1); opacity: 1; }
-              100% { transform: translate(-25px, 25px) scale(0.8); opacity: 0; }
-            }
-            @keyframes finger-move-2 {
-              0% { transform: translate(5px, -5px) scale(0.8); opacity: 0; }
-              20% { transform: translate(5px, -5px) scale(1); opacity: 1; }
-              80% { transform: translate(25px, -25px) scale(1); opacity: 1; }
-              100% { transform: translate(25px, -25px) scale(0.8); opacity: 0; }
-            }
-            .animate-finger-move-1 { animation: finger-move-1 2.5s infinite ease-out; }
-            .animate-finger-move-2 { animation: finger-move-2 2.5s infinite ease-out; }
-          `}} />
 
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 px-6 py-2 bg-white/10 text-white rounded-full text-lg font-black backdrop-blur-md border border-white/20 transition-all duration-500 z-[210] opacity-100 translate-y-0">
             {activeSlide + 1} / {totalSlides}
