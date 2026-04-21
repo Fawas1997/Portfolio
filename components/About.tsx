@@ -67,6 +67,7 @@ const skillCategories: SkillCategory[] = [
       { name: 'Bot Line', icon: <span className="text-green-500"><FaLine size={iconSize} /></span> },
       { name: 'AWS Lambda', icon: <span className="text-orange-500"><SiAwslambda size={iconSize} /></span> },
       { name: 'Bot Telegram', icon: <span className="text-[#26A5E4]"><FaTelegramPlane size={iconSize} /></span> },
+      { name: 'Postman', icon: <img src="/logoicon/postman.webp" alt="Postman" className="w-5 h-5 object-contain" /> },
     ]
   },
   {
