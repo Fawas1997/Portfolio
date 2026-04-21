@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { translations } from '../translations';
 import { FiX, FiGithub, FiExternalLink, FiTarget, FiUserCheck, FiTool, FiChevronLeft, FiChevronRight, FiMapPin, FiActivity, FiUser, FiCpu, FiCheckCircle, FiTrendingUp, FiAlertTriangle, FiZap, FiMaximize2, FiMinimize2, FiLayers, FiBriefcase, FiDatabase, FiBarChart2, FiFilter, FiPieChart, FiArrowRight, FiStar, FiFileText, FiImage, FiArchive, FiInfo, FiSettings, FiPackage, FiCloudLightning, FiClock, FiCamera, FiSend, FiBell, FiMove, FiMonitor } from 'react-icons/fi';
-import { 
-  SiHtml5, SiCss3, SiJavascript, SiTailwindcss, SiOpenai, 
+import {
+  SiHtml5, SiCss3, SiJavascript, SiTailwindcss, SiOpenai,
   SiNgrok, SiPython, SiTableau, SiFlask, SiVercel, SiAwslambda,
   SiPandas, SiReact, SiVite, SiGoogleforms, SiTypescript
 } from 'react-icons/si';
@@ -68,24 +68,24 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
       setShowExpandTip(true);
       const timer = setTimeout(() => {
         setShowExpandTip(false);
-      }, 5000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [project?.title]);
 
   useEffect(() => {
     if (!project) return;
-    
+
     setShowControls(true);
-    
-    // 5s for the very first load of a project modal, 3s for subsequent slide changes
-    const duration = isFirstLoadRef.current ? 5000 : 3000;
-    
+
+    // 3s for controls visibility timeout
+    const duration = 3000;
+
     const timer = setTimeout(() => {
       setShowControls(false);
       isFirstLoadRef.current = false;
     }, duration);
-    
+
     return () => clearTimeout(timer);
   }, [project?.title, activeSlide, uiTrigger]);
 
@@ -94,7 +94,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
       setShowMobileHint(true);
       const timer = setTimeout(() => {
         setShowMobileHint(false);
-      }, 5000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [isZoomed]);
@@ -113,13 +113,13 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   useEffect(() => {
     if (project) {
       thumbnailRefs.current = new Array(project.slides.length).fill(null);
-      
+
       const originalOverflow = document.body.style.overflow;
       const originalHtmlOverflow = document.documentElement.style.overflow;
-      
+
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
-      
+
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
           if (isZoomed) {
@@ -135,7 +135,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
           prevSlide();
         }
       };
-      
+
       window.addEventListener('keydown', handleKeyDown);
 
       return () => {
@@ -152,13 +152,13 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
     const scrollActiveThumbnail = () => {
       const container = scrollContainerRef.current;
       const target = thumbnailRefs.current[activeSlide];
-      
+
       if (container && target) {
         const containerWidth = container.offsetWidth;
         const scrollLeft = container.scrollLeft;
         const targetLeft = target.offsetLeft;
         const targetWidth = target.offsetWidth;
-        
+
         const gap = window.innerWidth < 768 ? 16 : 24;
         const margin = targetWidth + gap;
 
@@ -241,14 +241,14 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
 
   const totalSlides = project.slides.length;
 
-  const onTouchStart = (e: React.TouchEvent) => {
+  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     if (e.targetTouches.length === 1) {
       setTouchEnd(null);
       setTouchStart(e.targetTouches[0].clientX);
     }
   };
 
-  const onTouchMove = (e: React.TouchEvent) => {
+  const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (e.targetTouches.length === 1) {
       setTouchEnd(e.targetTouches[0].clientX);
     }
@@ -267,7 +267,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   };
 
   const renderTagIcon = (tag: string) => {
-    const iconSize = 24; 
+    const iconSize = 24;
     const lowerTag = tag.toLowerCase();
 
     const iconMap: { [key: string]: React.ReactElement } = {
@@ -353,9 +353,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
           </button>
         </div>
       </div>
-      
+
       <div className="w-full flex flex-col items-center bg-white dark:bg-gray-950">
-        <div 
+        <div
           className="relative w-full group bg-white dark:bg-gray-900 flex items-center justify-center overflow-hidden aspect-[4/3] md:aspect-video md:h-[55vh] touch-pan-y cursor-pointer"
           onClick={() => setUiTrigger(prev => prev + 1)}
           onTouchStart={onTouchStart}
@@ -376,7 +376,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
           {totalSlides > 1 && (
             <>
               {activeSlide > 0 && (
-                <button 
+                <button
                   onClick={(e) => { e.stopPropagation(); prevSlide(); }}
                   className={`absolute left-2 md:left-6 top-1/2 -translate-y-1/2 p-2 text-gray-400/80 dark:text-gray-500/80 md:hover:text-blue-600 dark:md:hover:text-blue-400 active:scale-90 transition-all duration-500 z-20 drop-shadow-md flex items-center justify-center ${showControls ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 md:opacity-100 md:translate-x-0'}`}
                   aria-label="ก่อนหน้า"
@@ -385,7 +385,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                 </button>
               )}
               {activeSlide < totalSlides - 1 && (
-                <button 
+                <button
                   onClick={(e) => { e.stopPropagation(); nextSlide(); }}
                   className={`absolute right-2 md:right-6 top-1/2 -translate-y-1/2 p-2 text-gray-400/80 dark:text-gray-500/80 md:hover:text-blue-600 dark:md:hover:text-blue-400 active:scale-90 transition-all duration-500 z-20 drop-shadow-md flex items-center justify-center ${showControls ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 md:opacity-100 md:translate-x-0'}`}
                   aria-label="ถัดไป"
@@ -408,7 +408,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                 <div className="absolute -bottom-2 right-4 w-4 h-4 bg-blue-600/90 dark:bg-blue-500/90 rotate-45 border-r border-b border-white/20"></div>
               </div>
             )}
-            
+
             <button
               onClick={(e) => { e.stopPropagation(); setIsZoomed(true); }}
               className={`pointer-events-auto w-10 h-10 md:w-14 md:h-14 flex items-center justify-center bg-white/20 dark:bg-black/20 backdrop-blur-md text-gray-400 dark:text-gray-500 border-2 border-gray-300 dark:border-gray-600 rounded-full transition-all duration-500 active:scale-90 md:hover:border-blue-600 md:hover:text-blue-600 md:hover:bg-white dark:md:hover:bg-gray-800 shadow-lg ${showControls ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 md:opacity-100 md:translate-y-0'}`}
@@ -425,7 +425,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
             </button>
           </div>
 
-          <style dangerouslySetInnerHTML={{ __html: `
+          <style dangerouslySetInnerHTML={{
+            __html: `
             @keyframes bounce-subtle {
               0%, 100% { transform: translateY(0); }
               50% { transform: translateY(-5px); }
@@ -442,12 +443,13 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
         </div>
 
         <div className="relative w-full bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 flex justify-center pt-0 pb-4 md:py-6">
-          <div 
+          <div
             ref={scrollContainerRef}
             className="max-w-[1000px] w-full px-4 md:px-6 overflow-x-auto scroll-auto scrollbar-custom-blue"
             style={{ paddingBottom: '12px' }}
           >
-            <style dangerouslySetInnerHTML={{ __html: `
+            <style dangerouslySetInnerHTML={{
+              __html: `
               .scrollbar-custom-blue::-webkit-scrollbar { height: 6px; }
               .scrollbar-custom-blue::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
               .dark .scrollbar-custom-blue::-webkit-scrollbar-track { background: #111827; }
@@ -460,11 +462,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                   key={index}
                   ref={el => { thumbnailRefs.current[index] = el; }}
                   onClick={() => setActiveSlide(index)}
-                  className={`relative flex-shrink-0 w-20 h-14 md:w-28 md:h-20 rounded-lg md:rounded-xl overflow-hidden border-[3px] md:border-4 outline-none transition-all duration-300 transform ${
-                    activeSlide === index 
-                      ? 'border-blue-600 shadow-xl shadow-blue-500/30 scale-110 z-10' 
+                  className={`relative flex-shrink-0 w-20 h-14 md:w-28 md:h-20 rounded-lg md:rounded-xl overflow-hidden border-[3px] md:border-4 outline-none transition-all duration-300 transform ${activeSlide === index
+                      ? 'border-blue-600 shadow-xl shadow-blue-500/30 scale-110 z-10'
                       : 'border-gray-200 dark:border-gray-700 opacity-60 md:hover:opacity-100 md:hover:scale-105'
-                  }`}
+                    }`}
                 >
                   <img src={slide} alt={`Thumbnail ${index + 1}`} className="w-full h-full object-cover" />
                   <div className={`absolute bottom-1 right-1 px-1 py-0.5 rounded text-[8px] font-bold text-white backdrop-blur-sm transition-colors ${activeSlide === index ? 'bg-blue-600' : 'bg-black/60'}`}>
@@ -477,10 +478,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
           {project.title === 'RecommendationsAI' && (
             <div className="hidden md:flex absolute bottom-6 right-4 z-40 items-center gap-1.5 bg-white/95 dark:bg-gray-800/95 px-3 py-1.5 rounded-xl shadow-md border border-gray-100 dark:border-gray-700/40 backdrop-blur-md">
               <span className="text-[11px] font-black text-gray-900 dark:text-white whitespace-nowrap">{t.demoVersion}</span>
-              <img 
-                src="/logoicon/Lovable-AI -bg.webp" 
-                alt="Lovable-AI -bg" 
-                className="h-4 w-auto object-contain opacity-100" 
+              <img
+                src="/logoicon/Lovable-AI -bg.webp"
+                alt="Lovable-AI -bg"
+                className="h-4 w-auto object-contain opacity-100"
               />
               <span className="text-[11px] font-black text-gray-900 dark:text-white whitespace-nowrap">{t.basedOnRealProject}</span>
             </div>
@@ -495,10 +496,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
               {project.title === 'RecommendationsAI' && (
                 <div className="flex md:hidden items-center justify-center gap-1 mb-4 bg-gray-50/60 dark:bg-gray-800/40 px-2 py-1.5 rounded-lg border border-gray-100 dark:border-gray-700/20">
                   <span className="text-[8px] font-black text-gray-800 dark:text-gray-200 whitespace-nowrap">{t.demoVersion}</span>
-                  <img 
-                    src="/logoicon/Lovable-AI -bg.webp" 
-                    alt="Lovable-AI -bg"  
-                    className="h-3 w-auto object-contain opacity-90" 
+                  <img
+                    src="/logoicon/Lovable-AI -bg.webp"
+                    alt="Lovable-AI -bg"
+                    className="h-3 w-auto object-contain opacity-90"
                   />
                   <span className="text-[8px] font-black text-gray-800 dark:text-gray-200 whitespace-nowrap">{t.basedOnRealProject}</span>
                 </div>
@@ -519,7 +520,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                     {t.toolsUsed}
                   </h4>
                   <div className="w-full bg-gray-50/50 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700/60 rounded-2xl md:rounded-[2.5rem] shadow-inner transition-all duration-300 hover:border-blue-500 overflow-hidden">
-                    <div 
+                    <div
                       ref={tagsScrollRef}
                       onScroll={handleTagsScroll}
                       onTouchStart={() => setInteracting(true)}
@@ -528,7 +529,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                       onMouseUp={() => setInteracting(false)}
                       onMouseLeave={() => setInteracting(false)}
                       className="w-full overflow-x-auto scrollbar-custom-blue cursor-pointer outline-none">
-                      <style dangerouslySetInnerHTML={{ __html: `
+                      <style dangerouslySetInnerHTML={{
+                        __html: `
                         @media (max-width: 767px) {
                           .scrollbar-custom-blue::-webkit-scrollbar { height: 4px; }
                           .scrollbar-custom-blue::-webkit-scrollbar-track { 
@@ -542,27 +544,27 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                           .dark .scrollbar-custom-blue::-webkit-scrollbar-thumb { background: #3b82f6; }
                         }
                       `}} />
-                      <div 
+                      <div
                         className="flex items-center justify-center py-3 md:py-6 px-4 md:px-8 flex-nowrap min-w-full w-max gap-1.5 md:gap-3"
                       >
-                      {project.tags.map((tag) => (
-                        <span 
-                          key={tag} 
-                          tabIndex={0}
-                          className={`flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 md:hover:border-blue-400 active:border-blue-500 focus:border-blue-500 active:ring-2 active:ring-blue-500/20 rounded-full shadow-sm transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 whitespace-nowrap shrink-0 outline-none
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            tabIndex={0}
+                            className={`flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 md:hover:border-blue-400 active:border-blue-500 focus:border-blue-500 active:ring-2 active:ring-blue-500/20 rounded-full shadow-sm transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 whitespace-nowrap shrink-0 outline-none
                             px-2 py-1.5 md:px-4 md:py-3`}
-                        >
-                          {renderTagIcon(tag)}
-                          <span className={`font-bold text-gray-700 dark:text-gray-200 text-[10px] sm:text-xs md:text-xl`}>{tag}</span>
-                        </span>
-                      ))}
+                          >
+                            {renderTagIcon(tag)}
+                            <span className={`font-bold text-gray-700 dark:text-gray-200 text-[10px] sm:text-xs md:text-xl`}>{tag}</span>
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-              
-            <div className="space-y-5 md:space-y-8">
+
+              <div className="space-y-5 md:space-y-8">
                 <h1 className="text-2xl md:text-4xl font-black text-gray-900 dark:text-white leading-tight text-left">
                   {project.title}
                 </h1>
@@ -621,35 +623,35 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                     {project.customWorkflow?.map((item, idx, arr) => (
                       <div key={idx} className="flex items-start shrink-0 md:flex-1 group relative w-full md:w-auto">
                         <div className="flex flex-col items-center text-center w-full relative px-2">
-                          
+
                           {/* Vertical Connector line (Mobile Only) */}
                           {idx < arr.length - 1 && (
-                              <div className="md:hidden absolute top-24 left-1/2 -translate-x-1/2 h-16 w-[3px] bg-gradient-to-b from-gray-200 to-transparent dark:from-gray-700 z-0"></div>
-                            )}
+                            <div className="md:hidden absolute top-24 left-1/2 -translate-x-1/2 h-16 w-[3px] bg-gradient-to-b from-gray-200 to-transparent dark:from-gray-700 z-0"></div>
+                          )}
 
                           {/* Connector line (Desktop Only) */}
                           {idx < arr.length - 1 && (
-                              <div className="hidden md:block absolute top-12 left-[calc(50%+40px)] right-[-50%] h-[3px] bg-gradient-to-r from-gray-200 to-transparent dark:from-gray-700 z-0"></div>
-                            )}
-                          
+                            <div className="hidden md:block absolute top-12 left-[calc(50%+40px)] right-[-50%] h-[3px] bg-gradient-to-r from-gray-200 to-transparent dark:from-gray-700 z-0"></div>
+                          )}
+
                           {/* Icon Circle */}
                           <div className={`relative z-10 w-24 h-24 flex items-center justify-center rounded-[2rem] bg-white dark:bg-gray-800 border-4 border-${item.color}-500/20 text-${item.color}-600 dark:text-${item.color}-400 shadow-xl shadow-${item.color}-500/10 group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-500 mb-6`}>
-                               <div className={`absolute inset-0 bg-${item.color}-500/5 rounded-[2rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity`}></div>
-                               {item.step === 1 && <FiUser size={36} />}
-                               {item.step === 2 && <FiTarget size={36} />}
-                               {item.step === 3 && <FiCamera size={36} />}
-                               {item.step === 4 && <FaTelegramPlane size={36} />}
-                               {item.step === 5 && <FiBell size={36} />}
-                               {item.step === 6 && <FiDatabase size={36} />}
-                               <div className={`absolute -top-3 -right-3 w-10 h-10 bg-${item.color}-600 text-white rounded-2xl flex items-center justify-center font-black text-sm shadow-lg`}>
-                                 {item.step}
-                               </div>
+                            <div className={`absolute inset-0 bg-${item.color}-500/5 rounded-[2rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity`}></div>
+                            {item.step === 1 && <FiUser size={36} />}
+                            {item.step === 2 && <FiTarget size={36} />}
+                            {item.step === 3 && <FiCamera size={36} />}
+                            {item.step === 4 && <FaTelegramPlane size={36} />}
+                            {item.step === 5 && <FiBell size={36} />}
+                            {item.step === 6 && <FiDatabase size={36} />}
+                            <div className={`absolute -top-3 -right-3 w-10 h-10 bg-${item.color}-600 text-white rounded-2xl flex items-center justify-center font-black text-sm shadow-lg`}>
+                              {item.step}
                             </div>
+                          </div>
 
                           <div className={`mb-3 inline-flex px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest bg-${item.color}-50 dark:bg-${item.color}-900/30 text-${item.color}-700 dark:text-${item.color}-400`}>
                             {item.badge}
                           </div>
-                          
+
                           <h4 className="text-xl font-black mb-2 text-gray-900 dark:text-white leading-tight group-hover:text-blue-600 transition-colors">{item.title}</h4>
                           <p className="text-sm text-gray-600 dark:text-gray-400 font-bold leading-snug px-4 max-w-xs md:max-w-none">
                             {item.detail}
@@ -718,7 +720,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                         <FaFileArchive size={40} />,
                         <GiRabbit size={40} />
                       ];
-                      
+
                       const colors = [
                         'orange-600',
                         'violet-600',
@@ -959,7 +961,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                       {t.workflowTitle}
                     </span>
                   </h3>
-                  
+
                   <div className={`mt-6 md:mt-10 border-t border-gray-100 dark:border-gray-800 pt-6 md:pt-8 ${project.title === 'RecommendationsAI' ? 'grid grid-cols-2 max-w-6xl mx-auto' : 'flex justify-center gap-6 md:gap-16'}`}>
                     <div className={`flex items-center justify-center ${project.title === 'RecommendationsAI' ? 'gap-4 md:gap-6' : 'gap-2'}`}>
                       <div className="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-blue-600 dark:text-blue-400">
@@ -986,7 +988,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                       const isUser = step.actor === 'user';
                       return (
                         <div key={index} className={`relative flex items-center w-full justify-between group ${isUser ? 'flex-row' : 'flex-row-reverse'}`}>
-                          
+
                           <div className="absolute left-1/2 -translate-x-1/2 z-10">
                             <div className={`w-7 h-7 md:w-12 md:h-12 flex items-center justify-center rounded-lg md:rounded-2xl bg-white dark:bg-gray-900 border-2 md:border-3 shadow-xl transition-all duration-700 transform md:group-hover:scale-110
                               ${isUser ? 'border-blue-500 text-blue-600 shadow-blue-500/20' : 'border-emerald-500 text-emerald-500 shadow-emerald-500/20'}`}>
@@ -996,8 +998,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
 
                           <div className={`w-[46%] md:w-[42%] transition-all duration-700 transform md:group-hover:-translate-y-1`}>
                             <div className={`p-2.5 sm:p-5 md:p-8 rounded-2xl md:rounded-[2.5rem] border shadow-2xl transition-all duration-500 relative overflow-hidden
-                              ${isUser 
-                                ? 'bg-white dark:bg-gray-800 border-blue-100 dark:border-blue-900/30 text-right' 
+                              ${isUser
+                                ? 'bg-white dark:bg-gray-800 border-blue-100 dark:border-blue-900/30 text-right'
                                 : 'bg-white dark:bg-gray-800 border-emerald-100 dark:border-emerald-900/30 text-left'}`}
                             >
                               <div className={`flex items-center gap-1.5 md:gap-4 mb-1.5 md:mb-3 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
@@ -1077,7 +1079,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
       </div>
 
       {isZoomed && (
-        <div 
+        <div
           ref={zoomContentRef}
           className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 transition-all duration-500 animate-fade-in-up"
           style={{ touchAction: 'none' }}
@@ -1097,7 +1099,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
           {totalSlides > 1 && (
             <>
               {activeSlide > 0 && (
-                <button 
+                <button
                   onClick={(e) => { e.stopPropagation(); prevSlide(); }}
                   className="absolute left-2 md:left-10 top-1/2 -translate-y-1/2 p-2 text-gray-400/80 md:hover:text-blue-400 active:scale-90 transition-all z-[210] drop-shadow-md flex items-center justify-center opacity-100"
                   aria-label={language === 'th' ? 'ก่อนหน้า' : 'Previous'}
@@ -1106,7 +1108,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                 </button>
               )}
               {activeSlide < totalSlides - 1 && (
-                <button 
+                <button
                   onClick={(e) => { e.stopPropagation(); nextSlide(); }}
                   className="absolute right-2 md:right-10 top-1/2 -translate-y-1/2 p-2 text-gray-400/80 md:hover:text-blue-400 active:scale-90 transition-all z-[210] drop-shadow-md flex items-center justify-center opacity-100"
                   aria-label={language === 'th' ? 'ถัดไป' : 'Next'}
