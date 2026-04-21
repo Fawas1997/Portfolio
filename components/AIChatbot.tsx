@@ -393,7 +393,7 @@ const AIChatbot: React.FC = () => {
                 <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-amber-400 rounded-full border-2 border-gray-950 shadow-lg shadow-amber-400/50" />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-gray-900 dark:text-white font-bold text-sm leading-tight">WasBot</h3>
+                <h3 className="text-gray-900 dark:text-white font-bold text-sm leading-tight">WasBot-AI</h3>
                 <p className="text-amber-500 dark:text-amber-400 text-[10px] font-semibold flex items-center gap-1">
                   <span className="w-1.5 h-1.5 bg-amber-500 dark:bg-amber-400 rounded-full inline-block animate-pulse" />
                   {isThai ? 'กำลังปรับปรุง' : 'Under maintenance'}
