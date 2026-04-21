@@ -259,6 +259,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
 
   const onTouchMove = (e: React.TouchEvent) => {
     if (isZoomed && e.targetTouches.length === 2 && initialPinchDistance) {
+      e.preventDefault();
       const currentDistance = Math.hypot(
         e.targetTouches[0].clientX - e.targetTouches[1].clientX,
         e.targetTouches[0].clientY - e.targetTouches[1].clientY
@@ -1099,7 +1100,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
 
       {isZoomed && (
         <div 
-          className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 transition-all duration-500 animate-fade-in-up touch-pan-y"
+          className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 transition-all duration-500 animate-fade-in-up"
+          style={{ touchAction: 'none' }}
           onClick={() => setIsZoomed(false)}
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}

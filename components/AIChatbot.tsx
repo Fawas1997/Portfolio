@@ -357,11 +357,11 @@ const AIChatbot: React.FC = () => {
             exit={{ opacity: 0, scale: 0.8, y: scrolledPastHero ? 30 : -30, x: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 28 }}
             style={{ transformOrigin: scrolledPastHero ? 'bottom right' : 'top right' }}
-            className={`fixed z-[70] w-[390px] max-w-[calc(100vw-2rem)] h-[570px] max-h-[calc(100vh-220px)] flex flex-col rounded-3xl overflow-hidden shadow-2xl md:bottom-44 md:right-32 ${scrolledPastHero ? 'bottom-48 right-4' : 'top-[76px] right-4 md:top-auto md:bottom-44'}`}
+            className={`fixed z-[70] w-[320px] md:w-[390px] max-w-[calc(100vw-2rem)] h-[420px] md:h-[570px] max-h-[calc(100vh-180px)] flex flex-col rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl md:bottom-44 md:right-32 ${scrolledPastHero ? 'bottom-48 right-4' : 'top-[76px] right-4 md:top-auto md:bottom-44'}`}
           >
             {/* Glass background */}
             <div className="absolute inset-0 bg-white/95 dark:bg-gray-950/95 backdrop-blur-2xl" />
-            <div className="absolute inset-0 border border-gray-200 dark:border-white/10 rounded-3xl pointer-events-none" />
+            <div className="absolute inset-0 border border-gray-200 dark:border-white/10 rounded-2xl md:rounded-3xl pointer-events-none" />
 
             {/* Gradient decorations */}
             <div className="absolute top-0 left-0 w-48 h-48 bg-blue-400/10 dark:bg-blue-600/15 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl pointer-events-none" />
@@ -412,17 +412,17 @@ const AIChatbot: React.FC = () => {
             {/* ---- Maintenance Content ---- */}
             <div className="relative flex-1 flex flex-col items-center justify-center p-8 text-center">
               {/* Animated Robot with Gears */}
-              <div className="relative mb-8">
+              <div className="relative mb-5 md:mb-8">
                 {/* Gear behind robot */}
-                <svg className="absolute -top-4 -right-6 w-12 h-12 text-blue-500/20 animate-spin-slow" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="absolute -top-3 -right-4 md:-top-4 md:-right-6 w-9 h-9 md:w-12 md:h-12 text-blue-500/20 animate-spin-slow" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97s-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1s.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.08.73 1.69.98l.38 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.98l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64L19.43 12.97z" />
                 </svg>
-                <svg className="absolute -bottom-2 -left-4 w-8 h-8 text-indigo-500/20 animate-spin-slow-reverse" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="absolute -bottom-1 -left-3 md:-bottom-2 md:-left-4 w-6 h-6 md:w-8 md:h-8 text-indigo-500/20 animate-spin-slow-reverse" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97s-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1s.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.08.73 1.69.98l.38 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.98l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64L19.43 12.97z" />
                 </svg>
 
                 {/* Robot SVG */}
-                <svg className="w-24 h-24 animate-robot-think drop-shadow-[0_4px_30px_rgba(59,130,246,0.3)]" viewBox="0 0 48 52" fill="none">
+                <svg className="w-16 h-16 md:w-24 md:h-24 animate-robot-think drop-shadow-[0_4px_30px_rgba(59,130,246,0.3)]" viewBox="0 0 48 52" fill="none">
                   <line x1="24" y1="6" x2="24" y2="12" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" />
                   <circle cx="24" cy="5" r="3" fill="#2563eb" className="animate-pulse" />
                   <rect x="8" y="12" width="32" height="20" rx="7" fill="#1e3a8a" />
@@ -472,9 +472,9 @@ const AIChatbot: React.FC = () => {
               </p>
 
               {/* Tech stack badges */}
-              <div className="flex flex-wrap justify-center gap-2 mb-8">
+              <div className="flex flex-wrap justify-center gap-1.5 md:gap-2 w-full max-w-[280px]">
                 {['AI', 'RAG', 'Pinecone', 'Groq', 'Cohere'].map((tech) => (
-                  <span key={tech} className="text-[10px] font-bold bg-blue-100 dark:bg-blue-600/15 border border-blue-200 dark:border-blue-500/20 text-blue-600 dark:text-blue-300 px-2.5 py-1 rounded-full">
+                  <span key={tech} className="text-[9px] md:text-[10px] font-bold bg-blue-100 dark:bg-blue-600/15 border border-blue-200 dark:border-blue-500/20 text-blue-600 dark:text-blue-300 px-2 md:px-2.5 py-1 rounded-full whitespace-nowrap">
                     {tech}
                   </span>
                 ))}
