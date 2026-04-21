@@ -54,6 +54,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const tagsScrollRef = useRef<HTMLDivElement>(null);
+  const zoomContentRef = useRef<HTMLDivElement>(null);
   const isInteractingRef = useRef<boolean>(false);
   const lastManualScrollPos = useRef<number>(0);
   const scrollDirectionRef = useRef<'forward' | 'backward'>('forward');
@@ -101,6 +102,28 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
       setZoomScale(1);
     }
   }, [isZoomed]);
+
+  // Handle native touchmove to prevent default browser behavior
+  // Specifically for iOS Safari where React passive events can't prevent default
+  useEffect(() => {
+    const handleNativeTouchMove = (e: TouchEvent) => {
+      // If we are pinching (2 fingers) or already zoomed, prevent browser scrolling/zooming
+      if (e.touches.length === 2 || zoomScale > 1) {
+        e.preventDefault();
+      }
+    };
+
+    const zoomEl = zoomContentRef.current;
+    if (isZoomed && zoomEl) {
+      zoomEl.addEventListener('touchmove', handleNativeTouchMove, { passive: false });
+    }
+
+    return () => {
+      if (zoomEl) {
+        zoomEl.removeEventListener('touchmove', handleNativeTouchMove);
+      }
+    };
+  }, [isZoomed, zoomScale]);
 
   const nextSlide = () => {
     if (!project) return;
@@ -1100,6 +1123,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
 
       {isZoomed && (
         <div 
+          ref={zoomContentRef}
           className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 transition-all duration-500 animate-fade-in-up"
           style={{ touchAction: 'none' }}
           onClick={() => setIsZoomed(false)}
