@@ -8,6 +8,7 @@ import WorkExperience from './components/WorkExperience';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ScrollToTopButton from './components/ScrollToTopButton';
+import AIChatbot from './components/AIChatbot';
 
 const App: React.FC = () => {
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
@@ -16,7 +17,7 @@ const App: React.FC = () => {
     <div className="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 antialiased selection:bg-blue-500 selection:text-white transition-colors duration-500 ease-in-out overflow-hidden h-screen flex flex-col">
       <div className="relative flex flex-col h-full">
         <Header scrollContainerRef={scrollContainerRef} />
-        <div 
+        <div
           ref={scrollContainerRef}
           id="main-scroll-container"
           className="flex-1 overflow-y-auto overflow-x-hidden relative w-full"
@@ -32,6 +33,7 @@ const App: React.FC = () => {
           </main>
           <Footer />
           <ScrollToTopButton scrollContainerRef={scrollContainerRef} />
+          <AIChatbot />
         </div>
       </div>
     </div>

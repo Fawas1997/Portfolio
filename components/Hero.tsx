@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiGlobe, FiDatabase, FiCpu, FiLayout, FiBarChart2, FiMessageSquare, FiArrowRight, FiMapPin } from 'react-icons/fi';
+import { FiGlobe, FiDatabase, FiCpu, FiLayout, FiBarChart2, FiMessageSquare, FiArrowRight, FiMapPin, FiChevronRight } from 'react-icons/fi';
 import { Star } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useLanguage } from '../LanguageContext';
@@ -240,14 +240,13 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
                 onClick={() => scrollToSection('projects')}
                 className="group relative px-8 lg:px-14 py-3.5 lg:py-5 bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 text-white font-black rounded-xl lg:rounded-2xl transition-all duration-500 overflow-hidden"
               >
-                <span className="relative z-10 flex items-center justify-center gap-2 lg:gap-3 tracking-tighter text-base lg:text-xl">
+                <span className="relative z-10 flex items-center justify-center gap-3 lg:gap-4 tracking-tighter text-base lg:text-xl">
                   {t.myWork}
-                  <motion.span
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                  >
-                    <span className="text-lg lg:text-2xl"><FiArrowRight /></span>
-                  </motion.span>
+                  <span className="flex items-center -space-x-1.5 overflow-visible">
+                    <span className="animate-[slide_1.5s_infinite] opacity-30 inline-block w-5 h-5 lg:w-6 lg:h-6"><FiChevronRight size={language === 'th' ? 20 : 24} /></span>
+                    <span className="animate-[slide_1.5s_infinite_200ms] opacity-60 inline-block w-6 h-6 lg:w-8 lg:h-8"><FiChevronRight size={language === 'th' ? 24 : 32} /></span>
+                    <span className="animate-[slide_1.5s_infinite_400ms] inline-block w-7 h-7 lg:w-9 lg:h-9"><FiChevronRight size={language === 'th' ? 30 : 38} /></span>
+                  </span>
                 </span>
 
                 {/* Glassy Shine Effect */}
@@ -258,6 +257,14 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
 
                 {/* Hover Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                {/* Custom Animation Keyframes for Triple Chevron */}
+                <style dangerouslySetInnerHTML={{ __html: `
+                  @keyframes slide {
+                    0%, 100% { transform: translateX(0); opacity: 0.3; }
+                    50% { transform: translateX(5px); opacity: 1; }
+                  }
+                `}} />
               </motion.button>
             </motion.div>
           </motion.div>

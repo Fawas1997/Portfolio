@@ -7,14 +7,14 @@ import { translations } from '../translations';
 import {
   FiArrowRight, FiCpu, FiDatabase, FiGlobe, FiSmartphone, FiLayout, FiCopy,
   FiCheckCircle, FiZap, FiTarget, FiActivity, FiCompass, FiMap, FiPieChart,
-  FiImage, FiLayers, FiCamera, FiBell, FiTrendingUp, FiTool
+  FiImage, FiLayers, FiCamera, FiBell, FiTrendingUp, FiTool, FiExternalLink, FiEye, FiChevronRight
 } from 'react-icons/fi';
 import {
   SiHtml5, SiCss3, SiJavascript, SiTailwindcss, SiOpenai,
   SiNgrok, SiPython, SiTableau, SiFlask, SiVercel, SiAwslambda,
   SiPandas, SiReact, SiVite, SiGoogleforms, SiTypescript
 } from 'react-icons/si';
-import { FaLine, FaFileExcel, FaTelegramPlane } from 'react-icons/fa';
+import { FaLine, FaFileExcel, FaTelegramPlane, FaGithub } from 'react-icons/fa';
 
 // Define the type for a single project
 export interface Project {
@@ -294,7 +294,7 @@ const Reveal: React.FC<{
   };
 
 const ProjectCard: React.FC<{ project: Project; onCardClick: (project: Project) => void }> = ({ project, onCardClick }) => {
-  const { title, description, highlights, imageUrl, slides } = project;
+  const { title, description, highlights, imageUrl, slides, githubUrl } = project;
   const { language } = useLanguage();
   const t = translations[language].projects;
 
@@ -432,6 +432,51 @@ const ProjectCard: React.FC<{ project: Project; onCardClick: (project: Project) 
 
               {/* เครื่องมือที่ใช้ (Icons) - เฉพาะ Mobile ถูกนำออกตามคำขอ */}
             </div>
+          </div>
+
+          {/* ---- Action Buttons ---- */}
+          <div className="flex items-center justify-center gap-3 sm:gap-10 mt-6 pt-5 border-t border-gray-100 dark:border-gray-700/50">
+            {/* View Project Button */}
+            <button
+              onClick={(e) => { e.stopPropagation(); onCardClick(project); }}
+              className="group/btn relative flex items-center justify-center gap-2.5 px-5 sm:px-6 py-3 bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 hover:from-blue-600 hover:via-blue-500 hover:to-blue-400 text-white text-[12px] sm:text-sm font-bold rounded-2xl shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5 active:scale-[0.97] overflow-hidden whitespace-nowrap"
+            >
+              <span className="relative z-10 flex items-center gap-2 sm:gap-2.5">
+                {/* Triple Chevron Sliding Animation */}
+                <span className="flex items-center -space-x-1.5 overflow-visible">
+                  <span className="animate-[slide_1.5s_infinite] opacity-30 inline-block w-3.5 h-3.5"><FiChevronRight size={14} /></span>
+                  <span className="animate-[slide_1.5s_infinite_200ms] opacity-60 inline-block w-4 h-4"><FiChevronRight size={16} /></span>
+                  <span className="animate-[slide_1.5s_infinite_400ms] inline-block w-5 h-5"><FiChevronRight size={20} /></span>
+                </span>
+                <span>{language === 'th' ? 'ดูโปรเจกต์' : 'View Project'}</span>
+                <span className="opacity-0 -ml-2 group-hover/btn:opacity-100 group-hover/btn:ml-0 transition-all duration-300"><FiArrowRight size={14} /></span>
+              </span>
+              {/* Glassy Shine Effect */}
+              <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/25 to-transparent -skew-x-12 -translate-x-full group-hover/btn:translate-x-[200%] transition-transform duration-700 ease-in-out"></div>
+
+              {/* Custom Animation Keyframes for Triple Chevron */}
+              <style dangerouslySetInnerHTML={{ __html: `
+                @keyframes slide {
+                  0%, 100% { transform: translateX(0); opacity: 0.3; }
+                  50% { transform: translateX(3px); opacity: 1; }
+                }
+              `}} />
+            </button>
+
+            {/* Source Code Button - only show if githubUrl exists */}
+            {githubUrl && githubUrl !== '' && githubUrl !== '#' && (
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="group/code relative flex items-center justify-center gap-2.5 px-4 sm:px-5 py-3 bg-gray-100 dark:bg-gray-700/60 hover:bg-gray-200 dark:hover:bg-gray-600/80 text-gray-700 dark:text-gray-200 text-[12px] sm:text-sm font-bold rounded-2xl border border-gray-200 dark:border-gray-600/50 hover:border-gray-300 dark:hover:border-gray-500/60 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5 active:scale-[0.97] whitespace-nowrap overflow-hidden"
+              >
+                <span className="group-hover/code:rotate-[360deg] transition-transform duration-500"><FaGithub size={17} /></span>
+                <span>{language === 'th' ? 'ซอร์สโค้ด' : 'Source Code'}</span>
+                <span className="opacity-50 group-hover/code:opacity-100 transition-opacity duration-200"><FiExternalLink size={13} /></span>
+              </a>
+            )}
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { translations } from '../translations';
-import { FiX, FiGithub, FiExternalLink, FiTarget, FiUserCheck, FiTool, FiChevronLeft, FiChevronRight, FiMapPin, FiActivity, FiUser, FiCpu, FiCheckCircle, FiTrendingUp, FiAlertTriangle, FiZap, FiMaximize2, FiMinimize2, FiLayers, FiBriefcase, FiDatabase, FiBarChart2, FiFilter, FiPieChart, FiArrowRight, FiStar, FiFileText, FiImage, FiArchive, FiInfo, FiSettings, FiPackage, FiCloudLightning, FiClock, FiCamera, FiSend, FiBell } from 'react-icons/fi';
+import { FiX, FiGithub, FiExternalLink, FiTarget, FiUserCheck, FiTool, FiChevronLeft, FiChevronRight, FiMapPin, FiActivity, FiUser, FiCpu, FiCheckCircle, FiTrendingUp, FiAlertTriangle, FiZap, FiMaximize2, FiMinimize2, FiLayers, FiBriefcase, FiDatabase, FiBarChart2, FiFilter, FiPieChart, FiArrowRight, FiStar, FiFileText, FiImage, FiArchive, FiInfo, FiSettings, FiPackage, FiCloudLightning, FiClock, FiCamera, FiSend, FiBell, FiMove } from 'react-icons/fi';
 import { 
   SiHtml5, SiCss3, SiJavascript, SiTailwindcss, SiOpenai, 
   SiNgrok, SiPython, SiTableau, SiFlask, SiVercel, SiAwslambda,
@@ -41,12 +41,16 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const { language } = useLanguage();
   const t = translations[language].projects;
-  const [showArrows, setShowArrows] = useState(true);
-  const [showPageNumber, setShowPageNumber] = useState(true);
   const [isZoomed, setIsZoomed] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [uiTrigger, setUiTrigger] = useState(0);
+  const [showExpandTip, setShowExpandTip] = useState(true);
+  const [showControls, setShowControls] = useState(true);
+  const [zoomScale, setZoomScale] = useState(1);
+  const [initialPinchDistance, setInitialPinchDistance] = useState<number | null>(null);
+  const [showZoomHint, setShowZoomHint] = useState(false);
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const tagsScrollRef = useRef<HTMLDivElement>(null);
@@ -56,22 +60,47 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
 
   const minSwipeDistance = 50;
 
+  const isFirstLoadRef = useRef(true);
+
   useEffect(() => {
     if (project) {
       setActiveSlide(0);
+      isFirstLoadRef.current = true;
+      setShowExpandTip(true);
+      const timer = setTimeout(() => {
+        setShowExpandTip(false);
+      }, 5000);
+      return () => clearTimeout(timer);
     }
   }, [project?.title]);
 
   useEffect(() => {
     if (!project) return;
-    setShowArrows(true);
-    setShowPageNumber(true);
+    
+    setShowControls(true);
+    
+    // 5s for the very first load of a project modal, 3s for subsequent slide changes
+    const duration = isFirstLoadRef.current ? 5000 : 3000;
+    
     const timer = setTimeout(() => {
-      setShowArrows(false);
-      setShowPageNumber(false);
-    }, 2000);
+      setShowControls(false);
+      isFirstLoadRef.current = false;
+    }, duration);
+    
     return () => clearTimeout(timer);
-  }, [project?.title, activeSlide, isZoomed, uiTrigger]);
+  }, [project?.title, activeSlide, uiTrigger]);
+
+  useEffect(() => {
+    if (isZoomed) {
+      setShowZoomHint(true);
+      const timer = setTimeout(() => {
+        setShowZoomHint(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    } else {
+      setZoomScale(1);
+    }
+  }, [isZoomed]);
 
   const nextSlide = () => {
     if (!project) return;
@@ -216,26 +245,44 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   const totalSlides = project.slides.length;
 
   const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    if (isZoomed && e.targetTouches.length === 2) {
+      const distance = Math.hypot(
+        e.targetTouches[0].clientX - e.targetTouches[1].clientX,
+        e.targetTouches[0].clientY - e.targetTouches[1].clientY
+      );
+      setInitialPinchDistance(distance);
+    } else if (e.targetTouches.length === 1) {
+      setTouchEnd(null);
+      setTouchStart(e.targetTouches[0].clientX);
+    }
   };
 
   const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    if (isZoomed && e.targetTouches.length === 2 && initialPinchDistance) {
+      const currentDistance = Math.hypot(
+        e.targetTouches[0].clientX - e.targetTouches[1].clientX,
+        e.targetTouches[0].clientY - e.targetTouches[1].clientY
+      );
+      const scaleFactor = currentDistance / initialPinchDistance;
+      setZoomScale(prevScale => {
+        const newScale = prevScale * scaleFactor;
+        return Math.min(Math.max(newScale, 1), 5);
+      });
+      setInitialPinchDistance(currentDistance);
+    } else if (e.targetTouches.length === 1) {
+      setTouchEnd(e.targetTouches[0].clientX);
+    }
   };
 
   const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-    
-    if (isLeftSwipe) {
-      nextSlide();
-    } else if (isRightSwipe) {
-      prevSlide();
+    setInitialPinchDistance(null);
+    if (touchStart && touchEnd && zoomScale <= 1.1) {
+      const distance = touchStart - touchEnd;
+      const isLeftSwipe = distance > minSwipeDistance;
+      const isRightSwipe = distance < -minSwipeDistance;
+      if (isLeftSwipe) nextSlide();
+      if (isRightSwipe) prevSlide();
     }
-    
     setTouchStart(null);
     setTouchEnd(null);
   };
@@ -346,12 +393,13 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
             />
           </div>
 
+          {/* ---- Navigation Arrows ---- */}
           {totalSlides > 1 && (
             <>
               {activeSlide > 0 && (
                 <button 
                   onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-                  className={`absolute left-2 md:left-6 top-1/2 -translate-y-1/2 p-2 text-gray-400 dark:text-gray-500 md:hover:text-blue-600 dark:md:hover:text-blue-400 active:scale-90 transition-all z-20 drop-shadow-md flex items-center justify-center ${showArrows ? 'opacity-100' : 'opacity-0'} md:opacity-0 md:group-hover:opacity-100`}
+                  className={`absolute left-2 md:left-6 top-1/2 -translate-y-1/2 p-2 text-gray-400/80 dark:text-gray-500/80 md:hover:text-blue-600 dark:md:hover:text-blue-400 active:scale-90 transition-all duration-500 z-20 drop-shadow-md flex items-center justify-center ${showControls ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 md:opacity-100 md:translate-x-0'}`}
                   aria-label="ก่อนหน้า"
                 >
                   <FiChevronLeft size={36} />
@@ -360,7 +408,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
               {activeSlide < totalSlides - 1 && (
                 <button 
                   onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-                  className={`absolute right-2 md:right-6 top-1/2 -translate-y-1/2 p-2 text-gray-400 dark:text-gray-500 md:hover:text-blue-600 dark:md:hover:text-blue-400 active:scale-90 transition-all z-20 drop-shadow-md flex items-center justify-center ${showArrows ? 'opacity-100' : 'opacity-0'} md:opacity-0 md:group-hover:opacity-100`}
+                  className={`absolute right-2 md:right-6 top-1/2 -translate-y-1/2 p-2 text-gray-400/80 dark:text-gray-500/80 md:hover:text-blue-600 dark:md:hover:text-blue-400 active:scale-90 transition-all duration-500 z-20 drop-shadow-md flex items-center justify-center ${showControls ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 md:opacity-100 md:translate-x-0'}`}
                   aria-label="ถัดไป"
                 >
                   <FiChevronRight size={36} />
@@ -369,23 +417,47 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
             </>
           )}
 
-          <button
-            onClick={(e) => { e.stopPropagation(); setIsZoomed(true); }}
-            className={`absolute bottom-14 right-3 md:bottom-12 md:right-12 w-10 h-10 md:w-14 md:h-14 flex items-center justify-center bg-transparent text-gray-400 dark:text-gray-500 border-2 border-gray-300 dark:border-gray-600 rounded-full transition-all duration-300 z-30 active:scale-90 ${showArrows ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} md:opacity-0 md:group-hover:opacity-100 md:group-hover:translate-y-0 md:hover:border-blue-600 md:hover:text-blue-600`}
-            aria-label="ขยายเต็มจอ"
-          >
-            <div className="flex items-center justify-center">
-              <div className="md:hidden">
-                <FiMaximize2 size={20} />
+          {/* ---- Expand/Fullscreen Button & Tip ---- */}
+          <div className="absolute bottom-14 right-3 md:bottom-12 md:right-12 z-30 flex flex-col items-end gap-3 pointer-events-none">
+            {showExpandTip && (
+              <div className="animate-bounce-subtle bg-blue-600/90 dark:bg-blue-500/90 backdrop-blur-md text-white py-2 px-4 rounded-xl shadow-xl border border-white/20 text-[10px] md:text-sm font-black whitespace-nowrap relative">
+                <div className="flex items-center gap-2">
+                  <span className="p-1 bg-white/20 rounded-lg animate-pulse"><FiMaximize2 size={12} /></span>
+                  <span>{language === 'th' ? 'กดที่นี่เพื่อขยายภาพใหญ่ขึ้น' : 'Click to enlarge image'}</span>
+                </div>
+                {/* Tooltip Arrow */}
+                <div className="absolute -bottom-2 right-4 w-4 h-4 bg-blue-600/90 dark:bg-blue-500/90 rotate-45 border-r border-b border-white/20"></div>
               </div>
-              <div className="hidden md:block">
-                <FiMaximize2 size={24} />
+            )}
+            
+            <button
+              onClick={(e) => { e.stopPropagation(); setIsZoomed(true); }}
+              className={`pointer-events-auto w-10 h-10 md:w-14 md:h-14 flex items-center justify-center bg-white/20 dark:bg-black/20 backdrop-blur-md text-gray-400 dark:text-gray-500 border-2 border-gray-300 dark:border-gray-600 rounded-full transition-all duration-500 active:scale-90 md:hover:border-blue-600 md:hover:text-blue-600 md:hover:bg-white dark:md:hover:bg-gray-800 shadow-lg ${showControls ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 md:opacity-100 md:translate-y-0'}`}
+              aria-label="ขยายเต็มจอ"
+            >
+              <div className="flex items-center justify-center">
+                <div className="md:hidden">
+                  <FiMaximize2 size={20} />
+                </div>
+                <div className="hidden md:block">
+                  <FiMaximize2 size={24} />
+                </div>
               </div>
-            </div>
-          </button>
+            </button>
+          </div>
 
-          <div className={`absolute bottom-5 md:bottom-10 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-black/60 text-white rounded-full text-[10px] md:text-sm font-black backdrop-blur-md border border-white/10 transition-all duration-500 z-10 
-            ${showPageNumber ? 'opacity-80 translate-y-0' : 'opacity-0 translate-y-2'} md:opacity-0 md:group-hover:opacity-100 md:group-hover:translate-y-0`}>
+          <style dangerouslySetInnerHTML={{ __html: `
+            @keyframes bounce-subtle {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-5px); }
+            }
+            .animate-bounce-subtle {
+              animation: bounce-subtle 2s infinite ease-in-out;
+            }
+          `}} />
+
+          {/* ---- Page Indicator ---- */}
+          <div className={`absolute bottom-5 md:bottom-10 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-black/60 text-white rounded-full text-[10px] md:text-sm font-black backdrop-blur-md border border-white/10 transition-all duration-500 z-10 ${showControls ? 'opacity-80 translate-y-0' : 'opacity-0 translate-y-2 md:opacity-80 md:translate-y-0'}`}>
             {activeSlide + 1} / {totalSlides}
           </div>
         </div>
@@ -1046,7 +1118,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
               {activeSlide > 0 && (
                 <button 
                   onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-                  className={`absolute left-2 md:left-10 top-1/2 -translate-y-1/2 p-2 text-gray-400 md:hover:text-blue-400 active:scale-90 transition-all z-[210] drop-shadow-md flex items-center justify-center ${showArrows ? 'opacity-100' : 'opacity-0'} md:opacity-100`}
+                  className="absolute left-2 md:left-10 top-1/2 -translate-y-1/2 p-2 text-gray-400/80 md:hover:text-blue-400 active:scale-90 transition-all z-[210] drop-shadow-md flex items-center justify-center opacity-100"
                   aria-label={language === 'th' ? 'ก่อนหน้า' : 'Previous'}
                 >
                   <FiChevronLeft size={48} />
@@ -1055,7 +1127,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
               {activeSlide < totalSlides - 1 && (
                 <button 
                   onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-                  className={`absolute right-2 md:right-10 top-1/2 -translate-y-1/2 p-2 text-gray-400 md:hover:text-blue-400 active:scale-90 transition-all z-[210] drop-shadow-md flex items-center justify-center ${showArrows ? 'opacity-100' : 'opacity-0'} md:opacity-100`}
+                  className="absolute right-2 md:right-10 top-1/2 -translate-y-1/2 p-2 text-gray-400/80 md:hover:text-blue-400 active:scale-90 transition-all z-[210] drop-shadow-md flex items-center justify-center opacity-100"
                   aria-label={language === 'th' ? 'ถัดไป' : 'Next'}
                 >
                   <FiChevronRight size={48} />
@@ -1064,15 +1136,60 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
             </>
           )}
 
+          {/* Pinch Zoom Hint for Mobile */}
+          {showZoomHint && window.innerWidth < 768 && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[220]">
+              <div className="bg-black/70 backdrop-blur-xl rounded-[2rem] p-6 text-white text-center animate-fade-in border border-white/20 shadow-2xl transform scale-90">
+                <div className="relative w-20 h-20 mx-auto mb-4">
+                  {/* Finger 1 */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-finger-move-1 opacity-0">
+                    <div className="w-8 h-8 bg-blue-500/40 rounded-full border-2 border-blue-400 flex items-center justify-center">
+                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                    </div>
+                  </div>
+                  {/* Finger 2 */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-finger-move-2 opacity-0">
+                    <div className="w-8 h-8 bg-blue-500/40 rounded-full border-2 border-blue-400 flex items-center justify-center">
+                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                    </div>
+                  </div>
+                  {/* Icon in center */}
+                  <div className="absolute inset-0 flex items-center justify-center text-blue-400 opacity-20">
+                    <FiMove size={40} />
+                  </div>
+                </div>
+                <p className="font-bold text-sm tracking-wide opacity-90">{language === 'th' ? 'จีบนิ้วเพื่อซูมภาพ' : 'Pinch to zoom'}</p>
+              </div>
+            </div>
+          )}
+
           <img
             key={`zoomed-${activeSlide}`}
             src={project.slides[activeSlide] || project.imageUrl}
             alt="Zoomed project view"
-            className="max-w-full max-h-[90vh] object-contain select-none drop-shadow-2xl animate-fade-in-up cursor-pointer"
+            className="max-w-full max-h-[90vh] object-contain select-none drop-shadow-2xl animate-fade-in-up cursor-pointer transition-transform duration-200"
+            style={{ transform: `scale(${zoomScale})` }}
             draggable="false"
           />
 
-          <div className={`absolute bottom-10 left-1/2 -translate-x-1/2 px-6 py-2 bg-white/10 text-white rounded-full text-lg font-black backdrop-blur-md border border-white/20 transition-all duration-500 z-[210] ${showPageNumber ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} md:opacity-100 md:translate-y-0`}>
+          <style dangerouslySetInnerHTML={{ __html: `
+            @keyframes finger-move-1 {
+              0% { transform: translate(-5px, 5px) scale(0.8); opacity: 0; }
+              20% { transform: translate(-5px, 5px) scale(1); opacity: 1; }
+              80% { transform: translate(-25px, 25px) scale(1); opacity: 1; }
+              100% { transform: translate(-25px, 25px) scale(0.8); opacity: 0; }
+            }
+            @keyframes finger-move-2 {
+              0% { transform: translate(5px, -5px) scale(0.8); opacity: 0; }
+              20% { transform: translate(5px, -5px) scale(1); opacity: 1; }
+              80% { transform: translate(25px, -25px) scale(1); opacity: 1; }
+              100% { transform: translate(25px, -25px) scale(0.8); opacity: 0; }
+            }
+            .animate-finger-move-1 { animation: finger-move-1 2.5s infinite ease-out; }
+            .animate-finger-move-2 { animation: finger-move-2 2.5s infinite ease-out; }
+          `}} />
+
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 px-6 py-2 bg-white/10 text-white rounded-full text-lg font-black backdrop-blur-md border border-white/20 transition-all duration-500 z-[210] opacity-100 translate-y-0">
             {activeSlide + 1} / {totalSlides}
           </div>
         </div>
