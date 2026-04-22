@@ -8,37 +8,76 @@
   --animate-shimmer: shimmer 2.5s infinite linear;
   --animate-float: float 3s ease-in-out infinite;
   --animate-sparkle-pop: sparkle-pop 2s infinite ease-in-out;
+  --animate-marquee: marquee 15s linear infinite;
 
   --keyframes-spin-clockwise: spin-clockwise;
   --keyframes-shimmer: shimmer;
   --keyframes-float: float;
   --keyframes-sparkle-pop: sparkle-pop;
+  --keyframes-marquee: marquee;
 
   --background-image-conic-gradient: conic-gradient(from 180deg at 50% 50%, #2563eb 0deg, rgba(59, 130, 246, 0.8) 60deg, rgba(96, 165, 250, 0.5) 120deg, transparent 180deg, transparent 360deg);
 }
 
 @keyframes spin-clockwise {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(-360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes sparkle-pop {
-  0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
-  50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+
+  0%,
+  100% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
 }
 
 /* ====== Base Styles ====== */
-html, body {
+html,
+body {
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -47,7 +86,22 @@ html, body {
   position: relative;
 }
 
-html, body, div, section, nav, header:not(.fixed), footer, button, span, p, h1, h2, h3, h4, h5, h6 {
+html,
+body,
+div,
+section,
+nav,
+header:not(.fixed),
+footer,
+button,
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, opacity 0.5s ease;
 }
 
@@ -65,18 +119,22 @@ body {
   width: 12px;
   height: 5px;
 }
+
 ::-webkit-scrollbar-track {
   background: #ffffff;
 }
+
 .dark ::-webkit-scrollbar-track {
   background: #111827;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #3b82f6;
   border-radius: 10px;
   border: 3px solid transparent;
   background-clip: content-box;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #2563eb;
   border: 3px solid transparent;
@@ -90,6 +148,7 @@ body {
   background-size: 10px;
   background-repeat: no-repeat;
 }
+
 .dark ::-webkit-scrollbar-button:single-button {
   background-color: #111827;
 }
@@ -126,30 +185,40 @@ body {
   height: 5px;
   width: 5px;
 }
+
 .scrollbar-thin::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .scrollbar-thin::-webkit-scrollbar-thumb {
   background: #3b82f6;
   border: 1px solid transparent;
   border-radius: 10px;
   background-clip: content-box;
 }
+
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: #2563eb;
 }
+
 .dark .scrollbar-thin::-webkit-scrollbar-thumb {
   background: #3b82f6;
   border: 1px solid transparent;
 }
+
 .dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: #2563eb;
 }
 
 /* ====== Logo Animations ====== */
 @keyframes typewriter {
-  from { width: 0; }
-  to { width: 100%; }
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
 }
 
 .animate-typewriter {
@@ -168,6 +237,7 @@ body {
     opacity: 0;
     transform: translateY(20px) scale(0.9);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -185,13 +255,17 @@ body {
 
 /* ====== Button Glow Animation ====== */
 @keyframes pulse-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
   }
+
   50% {
     box-shadow: 0 0 0 12px rgba(59, 130, 246, 0);
   }
 }
+
 .animate-pulse-glow {
   animation: pulse-glow 2.5s infinite cubic-bezier(0.66, 0, 0, 1);
 }
@@ -202,11 +276,13 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 .animate-fade-in-up {
   opacity: 0;
   animation: fade-in-up 0.6s ease-out forwards;
@@ -214,12 +290,10 @@ body {
 
 /* ====== Shimmer Effect for Gold Badge ====== */
 .bg-shimmer-gold {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 215, 0, 0) 0%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 215, 0, 0) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(255, 215, 0, 0) 0%,
+      rgba(255, 255, 255, 0.8) 50%,
+      rgba(255, 215, 0, 0) 100%);
   background-size: 200% 100%;
 }
 
@@ -227,6 +301,7 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -234,7 +309,10 @@ body {
 
 /* ====== Smooth theme transition for mobile ====== */
 @media (max-width: 768px) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, opacity 0.5s ease !important;
   }
 }
@@ -243,30 +321,37 @@ body {
 .scrollbar-blue::-webkit-scrollbar {
   height: 6px;
 }
+
 .scrollbar-blue::-webkit-scrollbar-track {
   background: rgba(59, 130, 246, 0.05);
   border-radius: 10px;
 }
+
 .dark .scrollbar-blue::-webkit-scrollbar-track {
   background: #111827;
 }
+
 .scrollbar-blue::-webkit-scrollbar-thumb {
   background: #3b82f6;
   border: 1px solid transparent;
   border-radius: 10px;
   background-clip: content-box;
 }
+
 .scrollbar-blue::-webkit-scrollbar-thumb:hover {
   background: #2563eb;
 }
 
 /* ====== Hide all scrollbars when menu is open ====== */
-.menu-open, .menu-open body, .menu-open #main-scroll-container {
+.menu-open,
+.menu-open body,
+.menu-open #main-scroll-container {
   overflow: hidden !important;
   height: 100vh !important;
   touch-action: none;
   overscroll-behavior: none;
 }
+
 .menu-open ::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;
