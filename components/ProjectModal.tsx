@@ -1124,7 +1124,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[220]">
               <div className="bg-black/80 backdrop-blur-xl rounded-2xl p-4 text-white text-center animate-fade-in border border-white/20 shadow-2xl mx-8 max-w-[240px]">
                 <div className="flex justify-center mb-2 text-blue-400">
-                  <FiMonitor size={28} className="drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+                  <span className="drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+                    <FiMonitor size={28} />
+                  </span>
                 </div>
                 <p className="font-black text-sm tracking-wide mb-0.5 text-blue-50">
                   {language === 'th' ? 'แนะนำเปิดใน PC / NB' : 'Best viewed on PC / Laptop'}

@@ -64,7 +64,7 @@ const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({ scrollContainerRe
       onClick={scrollToTop}
       className={`fixed right-6 md:right-8 z-[60] p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 ${
         isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
-      } ${isAtBottom ? 'bottom-[120px] md:bottom-14' : 'bottom-8 md:bottom-14'}`}
+      } ${isAtBottom ? 'bottom-40 md:bottom-14' : 'bottom-8 md:bottom-14'}`}
       aria-label="เลื่อนขึ้นบนสุด"
     >
       <FiArrowUp size={24} />

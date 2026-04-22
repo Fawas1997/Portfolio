@@ -243,7 +243,7 @@ const AIChatbot: React.FC = () => {
       {/* ======== Floating Button ======== */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed z-[70] group transition-all duration-500 ease-in-out md:bottom-24 md:right-32 ${scrolledPastHero ? (isAtBottom ? 'bottom-[216px] right-6' : 'bottom-32 right-6') : 'top-[108px] right-6 md:top-auto md:right-32'}`}
+        className={`fixed z-[70] group transition-all duration-500 ease-in-out md:bottom-24 md:right-32 ${scrolledPastHero ? (isAtBottom ? 'bottom-64 right-6' : 'bottom-32 right-6') : 'top-[108px] right-6 md:top-auto md:right-32'}`}
         whileHover={{ scale: 1.15, y: -4 }}
         whileTap={{ scale: 0.88 }}
         aria-label="Open AI Chatbot"
