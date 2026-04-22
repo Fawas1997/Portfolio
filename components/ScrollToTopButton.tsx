@@ -7,22 +7,28 @@ interface ScrollToTopButtonProps {
 
 const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({ scrollContainerRef }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isAtBottom, setIsAtBottom] = useState(false);
 
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
-    const toggleVisibility = () => {
+    const handleScroll = () => {
       if (container.scrollTop > 300) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
+      
+      const scrollHeight = container.scrollHeight;
+      const scrollTop = container.scrollTop;
+      const clientHeight = container.clientHeight;
+      setIsAtBottom(scrollHeight - scrollTop - clientHeight <= 20);
     };
 
-    container.addEventListener('scroll', toggleVisibility);
+    container.addEventListener('scroll', handleScroll, { passive: true });
 
-    return () => container.removeEventListener('scroll', toggleVisibility);
+    return () => container.removeEventListener('scroll', handleScroll);
   }, [scrollContainerRef]);
 
   const scrollToTop = () => {
@@ -56,9 +62,9 @@ const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({ scrollContainerRe
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-8 md:bottom-14 right-6 md:right-8 z-[60] p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 ${
+      className={`fixed right-6 md:right-8 z-[60] p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 ${
         isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
-      }`}
+      } ${isAtBottom ? 'bottom-[120px] md:bottom-14' : 'bottom-8 md:bottom-14'}`}
       aria-label="เลื่อนขึ้นบนสุด"
     >
       <FiArrowUp size={24} />
