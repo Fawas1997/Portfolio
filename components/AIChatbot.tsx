@@ -243,7 +243,7 @@ const AIChatbot: React.FC = () => {
       {/* ======== Floating Button ======== */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed z-[70] group transition-all duration-500 ease-in-out md:bottom-24 md:right-32 ${scrolledPastHero ? (isAtBottom ? 'bottom-64 right-6' : 'bottom-32 right-6') : 'top-[108px] right-6 md:top-auto md:right-32'}`}
+        className={`fixed z-[70] group transition-all duration-500 ease-in-out md:bottom-24 md:right-32 ${scrolledPastHero ? (isAtBottom ? 'bottom-64 right-6' : 'bottom-32 right-6') : 'top-[108px] right-6 md:top-auto md:right-32'} ${isOpen ? 'opacity-0 scale-50 pointer-events-none' : 'opacity-100 scale-100'}`}
         whileHover={{ scale: 1.15, y: -4 }}
         whileTap={{ scale: 0.88 }}
         aria-label="Open AI Chatbot"
@@ -362,7 +362,7 @@ const AIChatbot: React.FC = () => {
             exit={{ opacity: 0, scale: 0.8, y: scrolledPastHero ? 30 : -30, x: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 28 }}
             style={{ transformOrigin: scrolledPastHero ? 'bottom right' : 'top right' }}
-            className={`fixed z-[70] w-[320px] md:w-[390px] max-w-[calc(100vw-2rem)] h-[420px] md:h-[570px] max-h-[calc(100vh-180px)] flex flex-col rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl md:bottom-44 md:right-32 ${scrolledPastHero ? 'bottom-48 right-4' : 'top-[76px] right-4 md:top-auto md:bottom-44'}`}
+            className={`fixed z-[70] w-[320px] md:w-[390px] max-w-[calc(100vw-2rem)] h-[420px] md:h-[570px] max-h-[calc(100vh-180px)] flex flex-col rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl md:bottom-44 md:right-32 ${scrolledPastHero ? (isAtBottom ? 'bottom-80 right-4' : 'bottom-48 right-4') : 'top-40 right-4 md:top-auto md:bottom-44'}`}
           >
             {/* Glass background */}
             <div className="absolute inset-0 bg-white/95 dark:bg-gray-950/95 backdrop-blur-2xl" />
@@ -406,9 +406,9 @@ const AIChatbot: React.FC = () => {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-8 h-8 rounded-xl bg-gray-100 dark:bg-white/5 hover:bg-red-100 dark:hover:bg-red-500/20 flex items-center justify-center transition-colors group"
+                className="w-8 h-8 rounded-xl bg-red-50 dark:bg-red-500/10 hover:bg-red-100 dark:hover:bg-red-500/20 flex items-center justify-center transition-colors group"
               >
-                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-red-500 dark:group-hover:text-red-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                <svg className="w-4 h-4 text-red-500 dark:text-red-400 group-hover:text-red-600 dark:group-hover:text-red-300 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
