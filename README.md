@@ -1,117 +1,117 @@
 # 🚀 Portfolio — Fawas Thongkham
 
-เว็บไซต์พอร์ตโฟลิโอส่วนตัว สร้างด้วย React + TypeScript + Tailwind CSS รวบรวมผลงาน ประสบการณ์ และทักษะทั้งหมดไว้ในที่เดียว
+Personal portfolio website built with React + TypeScript + Tailwind CSS to showcase all my projects, experiences, and skills in one place.
 
-## ✨ ฟีเจอร์หลัก
+## ✨ Key Features
 
-- 🌗 **Dark / Light Mode** — สลับธีมได้ พร้อมตั้งค่าอัตโนมัติตามเวลา (กลางวัน/กลางคืน)
-- 🌐 **รองรับ 2 ภาษา** — ไทย / อังกฤษ สลับได้ทันที
-- 📱 **Responsive** — รองรับทุกขนาดหน้าจอ ทั้งมือถือ แท็บเล็ต และเดสก์ท็อป
-- 🎞️ **Slide Gallery** — กดดูรายละเอียดโปรเจกต์แต่ละตัว พร้อมรูปสไลด์และ Workflow
-- ⚡ **Smooth Scroll** — แอนิเมชันเลื่อนหน้าลื่นไหล ไม่กระตุก
-- 📄 **ดาวน์โหลด Resume** — กดดาวน์โหลด Resume ได้โดยตรง
-- 🛡️ **Security Headers** — ระบบความปลอดภัยป้องกันการโจมตีระดับเซิร์ฟเวอร์
+- 🌗 **Dark / Light Mode** — Toggle themes manually or set automatically based on time (Day/Night).
+- 🌐 **Bilingual Support** — Instantly switch between Thai and English.
+- 📱 **Responsive Design** — Fully optimized for mobile, tablet, and desktop screens.
+- 🎞️ **Slide Gallery** — View detailed project information complete with slides and workflows.
+- ⚡ **Smooth Scroll** — Fluid and seamless page scrolling animations.
+- 📄 **Resume Download** — Direct download link for my Resume.
+- 🛡️ **Security Headers** — Server-level security measures to prevent attacks.
 
 ## 🛡️ Security Headers (Vercel)
 
-เพื่อความปลอดภัยสูงสุด เว็บไซต์นี้ได้มีการตั้งค่า Security Headers ผ่านไฟล์ `vercel.json` ดังนี้:
+For maximum security, this website implements Security Headers via the `vercel.json` file:
 
-- **X-Frame-Options (DENY)**: ป้องกันการโจมตีประเภท Clickjacking (การหลอกคลิก)
-- **X-Content-Type-Options (nosniff)**: ป้องกันการปลอมแปลงชนิดไฟล์ (MIME Sniffing)
-- **Referrer-Policy**: ควบคุมความเป็นส่วนตัวในการส่งข้อมูลแหล่งที่มาของทราฟฟิก
-- **Permissions-Policy**: ป้องกันการแอบเข้าถึงอุปกรณ์ (กล้อง/ไมค์/GPS) โดยไม่ได้รับอนุญาตจากระบบ
-- **Strict-Transport-Security (HSTS)**: บังคับใช้งานผ่าน HTTPS ที่ปลอดภัยเท่านั้น
+- **X-Frame-Options (DENY)**: Prevents Clickjacking attacks.
+- **X-Content-Type-Options (nosniff)**: Prevents MIME Sniffing.
+- **Referrer-Policy**: Controls privacy regarding traffic source information.
+- **Permissions-Policy**: Prevents unauthorized access to device hardware (Camera/Mic/GPS).
+- **Strict-Transport-Security (HSTS)**: Enforces strict secure connections via HTTPS.
 
 ## 🔍 Search Engine Optimization (SEO)
 
-เว็บไซต์นี้ได้รับการปรับแต่งด้าน SEO เพื่อให้ง่ายต่อการค้นหาและเข้าถึง:
+This website is SEO-optimized to improve visibility and accessibility:
 
-- **Meta Tags**: กำหนด Title, Description และ Keywords ที่เหมาะสมเพื่อผลการค้นหาที่ดีขึ้น
-- **Open Graph (OG)**: รองรับการแสดงตัวอย่าง (Preview) เมื่อแชร์ลิ้งก์ลงใน LINE, Facebook หรือ Social Media อื่น ๆ พร้อมรูปภาพและคำอธิบายที่ชัดเจน
-- **Semantic HTML**: ใช้แท็ก HTML5 (h1-h6, section, main) อย่างถูกต้องตามลำดับชั้นข้อมูลเพื่อช่วยให้ Search Engine วิเคราะห์เนื้อหาได้ง่าย
-- **Performance Optimized**: ใช้รูปภาพไฟล์ `.webp` และเทคนิคการโหลดที่มีประสิทธิภาพเพื่อให้เว็บไซต์แสดงผลได้รวดเร็ว (Lighthouse Best Practices)
+- **Meta Tags**: Properly configured Title, Description, and Keywords for better search results.
+- **Open Graph (OG)**: Supports rich previews when sharing links on LINE, Facebook, or other Social Media platforms (includes clear images and descriptions).
+- **Semantic HTML**: Correct use of HTML5 tags (h1-h6, section, main) to help Search Engines easily parse the content structure.
+- **Performance Optimized**: Uses `.webp` images and efficient loading techniques for fast rendering (Lighthouse Best Practices).
 
-## 🛠️ เทคโนโลยีที่ใช้
+## 🛠️ Tech Stack
 
-| เทคโนโลยี | รายละเอียด |
+| Technology | Description |
 |-----------|-----------|
 | **React 19** | UI Framework |
 | **TypeScript** | Type Safety |
 | **Tailwind CSS 4** | Styling |
 | **Vite 6** | Build Tool & Dev Server |
-| **Motion (Framer Motion)** | แอนิเมชัน |
-| **React Icons** | ไอคอนต่าง ๆ |
-| **Lucide React** | ไอคอนเพิ่มเติม |
-| **Lottie** | แอนิเมชัน Lottie |
+| **Motion (Framer Motion)** | Animations |
+| **React Icons** | Icon library |
+| **Lucide React** | Additional icons |
+| **Lottie** | Lottie animations |
 
-## 📁 โครงสร้างโปรเจกต์
+## 📁 Project Structure
 
-```
+```text
 Portfolio/
-├── components/           # คอมโพเนนต์ทั้งหมด
-│   ├── Header.tsx        # เมนูด้านบน + สลับธีม/ภาษา
-│   ├── Hero.tsx          # หน้าแรก แนะนำตัว
-│   ├── About.tsx         # เกี่ยวกับตัวเอง + ทักษะ
-│   ├── Projects.tsx      # ผลงานโปรเจกต์ทั้งหมด
-│   ├── ProjectModal.tsx  # Modal แสดงรายละเอียดโปรเจกต์
-│   ├── Experience.tsx    # ประสบการณ์ด้านเทคนิค
-│   ├── WorkExperience.tsx # ประสบการณ์ฝึกงาน
-│   ├── Contact.tsx       # ข้อมูลติดต่อ
-│   ├── Footer.tsx        # ส่วนท้ายเว็บ
-│   └── ScrollToTopButton.tsx # ปุ่มเลื่อนกลับด้านบน
+├── components/           # All UI Components
+│   ├── Header.tsx        # Top navigation + Theme/Language toggle
+│   ├── Hero.tsx          # Landing section & introduction
+│   ├── About.tsx         # About me + Skills
+│   ├── Projects.tsx      # Project showcase
+│   ├── ProjectModal.tsx  # Modal for project details
+│   ├── Experience.tsx    # Technical experience
+│   ├── WorkExperience.tsx # Internship experience
+│   ├── Contact.tsx       # Contact information
+│   ├── Footer.tsx        # Website footer
+│   └── ScrollToTopButton.tsx # Scroll to top utility
 ├── public/
-│   ├── logoicon/         # ไอคอนโลโก้ต่าง ๆ
-│   ├── logoprofile/      # รูปโปรไฟล์ + Resume PDF
-│   └── project-slides/   # รูปสไลด์โปรเจกต์ทั้งหมด
-├── App.tsx               # คอมโพเนนต์หลัก
+│   ├── logoicon/         # Logo icons
+│   ├── logoprofile/      # Profile picture + PDF Resume
+│   └── project-slides/   # Project presentation slides
+├── App.tsx               # Main component
 ├── index.tsx             # Entry Point
-├── index.css             # Global Styles + Tailwind
-├── translations.ts       # ข้อความภาษาไทย/อังกฤษ
-├── LanguageContext.tsx   # Context สำหรับสลับภาษา
-├── vite.config.ts        # ตั้งค่า Vite
-├── vercel.json           # ตั้งค่า Vercel Deploy
+├── index.css             # Global Styles + Tailwind directives
+├── translations.ts       # Thai/English dictionary
+├── LanguageContext.tsx   # Context for language switching
+├── vite.config.ts        # Vite configuration
+├── vercel.json           # Vercel deployment configuration
 └── package.json
 ```
 
-## 📂 ผลงานที่แสดงในเว็บ
+## 📂 Featured Projects
 
-| โปรเจกต์ | คำอธิบาย |
+| Project | Description |
 |---------|----------|
-| **RecommendationsAI** | เว็บ AI แนะนำร้านอาหาร/ท่องเที่ยวจากรีวิว Google Maps ด้วย OpenAI |
-| **Social Listening Dashboard** | แดชบอร์ดวิเคราะห์กระแสแบรนด์บนโซเชียลด้วย Zocial Eye + Tableau |
-| **Bot Creates File Banner** | Chatbot สร้างเอกสารไฟล์ขอ LINE Beacon Banner อัตโนมัติ |
-| **GeoCheck** | ระบบเช็คอินพนักงานภาคสนามด้วย GPS + รูปถ่าย + Telegram |
+| **RecommendationsAI** | AI-powered restaurant/travel recommendation web app using Google Maps reviews and OpenAI. |
+| **Social Listening Dashboard** | Social media brand trend analysis dashboard built with Zocial Eye + Tableau. |
+| **Bot Creates File Banner** | Chatbot that automatically generates LINE Beacon Banner request documents. |
+| **GeoCheck** | Field employee check-in system using GPS + Photos + Telegram integration. |
 
-## 🚀 วิธีรันในเครื่อง
+## 🚀 Local Development
 
-**ต้องติดตั้ง:** [Node.js](https://nodejs.org/) (v18 ขึ้นไป)
+**Prerequisites:** [Node.js](https://nodejs.org/) (v18 or higher)
 
 ```bash
-# 1. ติดตั้ง dependencies
+# 1. Install dependencies
 npm install
 
-# 2. รันเว็บ
+# 2. Start development server
 npm run dev
 ```
 
-เว็บจะเปิดที่ `http://localhost:3000`
+The website will be available at `http://localhost:3000`
 
-## 📦 วิธี Build
+## 📦 Build
 
 ```bash
 npm run build
 ```
 
-ไฟล์ที่ build จะอยู่ในโฟลเดอร์ `dist/`
+The compiled files will be located in the `dist/` folder.
 
-## 🌐 Deploy ขึ้น Vercel
+## 🌐 Deploying to Vercel
 
-1. Push โค้ดขึ้น GitHub
-2. ไปที่ [vercel.com](https://vercel.com) → **Import Project** → เลือก repo
-3. Vercel จะตรวจจับ Vite อัตโนมัติ
-4. กด **Deploy** ✅
+1. Push code to GitHub.
+2. Go to [vercel.com](https://vercel.com) → **Import Project** → select your repository.
+3. Vercel will automatically detect Vite.
+4. Click **Deploy** ✅
 
-## 📬 ติดต่อ
+## 📬 Contact
 
 - 📧 Email: fawas1997s@gmail.com
 - 📱 Line: fa.shanks
@@ -119,4 +119,4 @@ npm run build
 
 ---
 
-สร้างด้วย ❤ โดย **Fawas Thongkham**
+Built with ❤ by **Fawas Thongkham**
