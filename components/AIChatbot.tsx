@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../LanguageContext';
+import Robot3D from './Robot3D';
 
 // ==================== Types ====================
 interface Message {
@@ -243,7 +244,7 @@ const AIChatbot: React.FC = () => {
       {/* ======== Floating Button ======== */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed z-[70] group transition-all duration-500 ease-in-out md:bottom-24 md:right-32 ${scrolledPastHero ? (isAtBottom ? 'bottom-64 right-6' : 'bottom-32 right-6') : 'top-[108px] right-6 md:top-auto md:right-32'} ${isOpen ? 'opacity-0 scale-50 pointer-events-none' : 'opacity-100 scale-100'}`}
+        className={`global-floating-btn fixed z-[70] group transition-all duration-500 ease-in-out md:bottom-24 md:right-32 ${scrolledPastHero ? (isAtBottom ? 'bottom-64 right-3' : 'bottom-32 right-3') : 'top-[108px] right-3 md:top-auto md:right-32'} ${isOpen ? 'opacity-0 scale-50 pointer-events-none' : 'opacity-100 scale-100'}`}
         whileHover={{ scale: 1.15, y: -4 }}
         whileTap={{ scale: 0.88 }}
         aria-label="Open AI Chatbot"
@@ -271,57 +272,10 @@ const AIChatbot: React.FC = () => {
               transition={{ duration: 0.25, ease: 'backOut' }}
               className="relative"
             >
-              {/* Thinking robot - standalone SVG */}
-              <div className="animate-robot-float w-11 h-11 md:w-14 md:h-14 flex items-center justify-center">
-                <svg className="w-11 h-11 md:w-14 md:h-14 animate-robot-think drop-shadow-[0_4px_20px_rgba(37,99,235,0.5)]" viewBox="0 0 48 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  {/* Antenna */}
-                  <line x1="24" y1="6" x2="24" y2="12" stroke="#60a5fa" strokeWidth="2.5" strokeLinecap="round" />
-                  <circle cx="24" cy="5" r="3" fill="#3b82f6" className="animate-pulse" />
-                  <circle cx="24" cy="5" r="5" fill="#3b82f6" opacity="0.25" className="animate-ping" />
-
-                  {/* Head */}
-                  <rect x="8" y="12" width="32" height="20" rx="7" fill="#2563eb" />
-                  <rect x="9.5" y="13.5" width="29" height="17" rx="5.5" fill="#3b82f6" />
-                  {/* Head shine */}
-                  <rect x="12" y="14" width="20" height="4" rx="2" fill="#93c5fd" opacity="0.4" />
-
-                  {/* Eyes - left */}
-                  <ellipse cx="17" cy="22" rx="4.5" ry="4" fill="#1e3a8a" />
-                  <ellipse cx="17" cy="22" rx="3.2" ry="2.8" fill="#93c5fd" />
-                  <circle cx="18" cy="21" r="1.2" fill="white" />
-                  {/* Eyes - right */}
-                  <ellipse cx="31" cy="22" rx="4.5" ry="4" fill="#1e3a8a" />
-                  <ellipse cx="31" cy="22" rx="3.2" ry="2.8" fill="#93c5fd" />
-                  <circle cx="32" cy="21" r="1.2" fill="white" />
-
-                  {/* Smile */}
-                  <path d="M18 28 Q24 33 30 28" stroke="#93c5fd" strokeWidth="2" strokeLinecap="round" fill="none" />
-
-                  {/* Body */}
-                  <rect x="14" y="34" width="20" height="12" rx="5" fill="#2563eb" />
-                  <rect x="15.5" y="35.5" width="17" height="9" rx="3.5" fill="#3b82f6" />
-                  {/* Chest lights */}
-                  <circle cx="20" cy="40" r="2" fill="#93c5fd" className="animate-pulse" />
-                  <circle cx="24" cy="40" r="2" fill="#60a5fa" />
-                  <circle cx="28" cy="40" r="2" fill="#93c5fd" className="animate-pulse" />
-
-                  {/* Left arm */}
-                  <rect x="4" y="35" width="8" height="10" rx="4" fill="#2563eb" />
-                  <rect x="5" y="36" width="6" height="8" rx="3" fill="#3b82f6" />
-                  {/* Right arm */}
-                  <rect x="36" y="35" width="8" height="10" rx="4" fill="#2563eb" />
-                  <rect x="37" y="36" width="6" height="8" rx="3" fill="#3b82f6" />
-                </svg>
+              {/* Premium 3D Robot Icon with 3D Thinking Dots */}
+              <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center">
+                <Robot3D />
               </div>
-
-              {/* Thinking dots bubble - below robot */}
-              {!isOpen && (
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-white dark:bg-gray-800 rounded-full px-2.5 py-1 shadow-lg border border-blue-300 dark:border-blue-600 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-blue-700 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                </div>
-              )}
             </motion.div>
           )}
         </AnimatePresence>
@@ -374,28 +328,11 @@ const AIChatbot: React.FC = () => {
 
             {/* ---- Maintenance Header ---- */}
             <div className="relative flex items-center gap-3 px-5 py-4 border-b border-gray-200 dark:border-white/10 bg-gradient-to-r from-blue-100/80 via-blue-50/60 to-white/40 dark:from-blue-700/30 dark:via-blue-600/20 dark:to-blue-500/10 flex-shrink-0">
-              <div className="relative">
-                <div className="w-11 h-11 rounded-full bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/30">
-                  <svg width="24" height="24" viewBox="0 0 40 40" fill="none">
-                    <line x1="20" y1="4" x2="20" y2="9" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                    <circle cx="20" cy="3" r="2" fill="#93c5fd" />
-                    <rect x="8" y="9" width="24" height="16" rx="5" fill="white" opacity="0.95" />
-                    <ellipse cx="15" cy="16" rx="4" ry="3.5" fill="#1d4ed8" opacity="0.9" />
-                    <ellipse cx="25" cy="16" rx="4" ry="3.5" fill="#1d4ed8" opacity="0.9" />
-                    <ellipse cx="15" cy="16" rx="2.5" ry="2.2" fill="#93c5fd" />
-                    <ellipse cx="25" cy="16" rx="2.5" ry="2.2" fill="#93c5fd" />
-                    <circle cx="15" cy="16" r="1" fill="white" />
-                    <circle cx="25" cy="16" r="1" fill="white" />
-                    <path d="M14 21.5 Q20 25 26 21.5" stroke="#3b82f6" strokeWidth="1.8" strokeLinecap="round" fill="none" />
-                    <rect x="11" y="26" width="18" height="10" rx="4" fill="white" opacity="0.85" />
-                    <circle cx="16" cy="31" r="1.8" fill="#60a5fa" />
-                    <circle cx="20" cy="31" r="1.8" fill="#93c5fd" />
-                    <circle cx="24" cy="31" r="1.8" fill="#60a5fa" />
-                    <rect x="4" y="27" width="6" height="8" rx="3" fill="white" opacity="0.8" />
-                    <rect x="30" y="27" width="6" height="8" rx="3" fill="white" opacity="0.8" />
-                  </svg>
+              <div className="relative flex-shrink-0">
+                <div className="w-12 h-12 flex items-center justify-center">
+                  <Robot3D isAvatar={true} />
                 </div>
-                <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-amber-400 rounded-full border-2 border-gray-950 shadow-lg shadow-amber-400/50" />
+                <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-amber-400 rounded-full border-2 border-white dark:border-gray-900 shadow-lg shadow-amber-400/50 z-10" />
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="text-gray-900 dark:text-white font-bold text-sm leading-tight">WasBot-AI</h3>
@@ -426,32 +363,10 @@ const AIChatbot: React.FC = () => {
                   <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97s-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1s.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.08.73 1.69.98l.38 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.98l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64L19.43 12.97z" />
                 </svg>
 
-                {/* Robot SVG */}
-                <svg className="w-16 h-16 md:w-24 md:h-24 animate-robot-think drop-shadow-[0_4px_30px_rgba(59,130,246,0.3)]" viewBox="0 0 48 52" fill="none">
-                  <line x1="24" y1="6" x2="24" y2="12" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" />
-                  <circle cx="24" cy="5" r="3" fill="#2563eb" className="animate-pulse" />
-                  <rect x="8" y="12" width="32" height="20" rx="7" fill="#1e3a8a" />
-                  <rect x="9.5" y="13.5" width="29" height="17" rx="5.5" fill="#1d4ed8" />
-                  <rect x="12" y="14" width="20" height="4" rx="2" fill="#3b82f6" opacity="0.35" />
-                  {/* Eyes - looking up thinking */}
-                  <ellipse cx="17" cy="21" rx="4.5" ry="4" fill="#0f172a" />
-                  <ellipse cx="17" cy="20" rx="3.2" ry="2.8" fill="#60a5fa" />
-                  <circle cx="17" cy="19" r="1.2" fill="white" />
-                  <ellipse cx="31" cy="21" rx="4.5" ry="4" fill="#0f172a" />
-                  <ellipse cx="31" cy="20" rx="3.2" ry="2.8" fill="#60a5fa" />
-                  <circle cx="31" cy="19" r="1.2" fill="white" />
-                  {/* Thinking mouth - straight line */}
-                  <line x1="19" y1="28" x2="29" y2="28" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" />
-                  <rect x="14" y="34" width="20" height="12" rx="5" fill="#1e3a8a" />
-                  <rect x="15.5" y="35.5" width="17" height="9" rx="3.5" fill="#1d4ed8" />
-                  <circle cx="20" cy="40" r="2" fill="#60a5fa" className="animate-pulse" />
-                  <circle cx="24" cy="40" r="2" fill="#3b82f6" />
-                  <circle cx="28" cy="40" r="2" fill="#60a5fa" className="animate-pulse" />
-                  <rect x="4" y="35" width="8" height="10" rx="4" fill="#1e3a8a" />
-                  <rect x="5" y="36" width="6" height="8" rx="3" fill="#1d4ed8" />
-                  <rect x="36" y="35" width="8" height="10" rx="4" fill="#1e3a8a" />
-                  <rect x="37" y="36" width="6" height="8" rx="3" fill="#1d4ed8" />
-                </svg>
+                {/* Robot 3D */}
+                <div className="w-28 h-28 md:w-36 md:h-36 flex items-center justify-center relative z-10">
+                  <Robot3D showDots={false} />
+                </div>
               </div>
 
               {/* Wrench + Sparkle icons */}

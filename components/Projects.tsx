@@ -365,7 +365,7 @@ const ProjectCard: React.FC<{ project: Project; onCardClick: (project: Project) 
   return (
     <Reveal initialY={30} duration={0.6}>
       <div
-        className="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-sm dark:shadow-lg border border-gray-100 dark:border-gray-700/60 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/15 group cursor-pointer"
+        className="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden border-2 border-gray-200 border-b-gray-300 dark:border-gray-700 dark:border-b-gray-900 shadow-[0_8px_0_#d1d5db,0_15px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_0_#000000,0_15px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_0_#2563eb,0_20px_25px_rgba(37,99,235,0.15)] dark:hover:shadow-[0_8px_0_#1d4ed8,0_20px_25px_rgba(37,99,235,0.15)] hover:border-blue-400 hover:border-b-blue-600 dark:hover:border-blue-500 dark:hover:border-b-blue-800 transition-all duration-300 transform hover:-translate-y-2 group cursor-pointer h-full flex flex-col"
         onClick={() => onCardClick(project)}
         role="button"
         tabIndex={0}
@@ -395,15 +395,18 @@ const ProjectCard: React.FC<{ project: Project; onCardClick: (project: Project) 
           />
 
           {/* Overlay on Hover */}
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-center p-6">
-            <span className="text-white text-xs md:text-sm font-black bg-blue-600 px-6 py-2.5 rounded-full shadow-2xl transform translate-y-8 group-hover:translate-y-0 transition-all duration-500 flex items-center gap-2">
-              {t.viewDetails} <span className="animate-pulse"><FiArrowRight /></span>
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-center p-6 pointer-events-none">
+            <span className="relative overflow-hidden text-white text-xs md:text-sm font-black bg-gradient-to-b from-blue-500 to-blue-700 px-6 py-2.5 rounded-full shadow-[0_4px_0_#1e3a8a,0_10px_20px_rgba(0,0,0,0.5)] transform translate-y-8 group-hover:translate-y-0 transition-all duration-500 flex items-center gap-2 border border-blue-400/50">
+              <div className="absolute inset-0 rounded-full border-t border-l border-white/30 border-b-black/30 border-r-black/30 pointer-events-none"></div>
+              <span className="relative z-10 flex items-center gap-2 drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">
+                {t.viewDetails} <span className="animate-pulse"><FiArrowRight /></span>
+              </span>
             </span>
           </div>
         </div>
 
         {/* Content Container */}
-        <div className="p-6 md:p-8">
+        <div className="p-6 md:p-8 flex-1 flex flex-col">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-xl md:text-2xl font-black text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors flex items-center gap-2">
               {title}
@@ -435,13 +438,13 @@ const ProjectCard: React.FC<{ project: Project; onCardClick: (project: Project) 
           </div>
 
           {/* ---- Action Buttons ---- */}
-          <div className="flex items-center justify-center gap-3 sm:gap-10 mt-6 pt-5 border-t border-gray-100 dark:border-gray-700/50">
+          <div className="flex items-center justify-center gap-3 sm:gap-10 mt-auto pt-5 border-t border-gray-100 dark:border-gray-700/50">
             {/* View Project Button */}
             <button
               onClick={(e) => { e.stopPropagation(); onCardClick(project); }}
-              className="group/btn relative flex items-center justify-center gap-2.5 px-5 sm:px-6 py-3 bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 hover:from-blue-600 hover:via-blue-500 hover:to-blue-400 text-white text-[12px] sm:text-sm font-bold rounded-2xl shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5 active:scale-[0.97] overflow-hidden whitespace-nowrap"
+              className="group/btn relative flex items-center justify-center gap-2.5 px-5 sm:px-6 py-3 bg-gradient-to-b from-blue-500 to-blue-700 text-white text-[12px] sm:text-sm font-black rounded-xl shadow-[0_4px_0_#1e3a8a] hover:shadow-[0_6px_0_#1e3a8a] active:shadow-[0_0px_0_#1e3a8a] transition-all duration-200 transform hover:-translate-y-1 active:translate-y-1 overflow-hidden whitespace-nowrap"
             >
-              <span className="relative z-10 flex items-center gap-2 sm:gap-2.5">
+              <span className="relative z-10 flex items-center gap-2 sm:gap-2.5 drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">
                 {/* Triple Chevron Sliding Animation */}
                 <span className="flex items-center -space-x-1.5 overflow-visible">
                   <span className="animate-[slide_1.5s_infinite] opacity-30 inline-block w-3.5 h-3.5"><FiChevronRight size={14} /></span>
@@ -451,8 +454,6 @@ const ProjectCard: React.FC<{ project: Project; onCardClick: (project: Project) 
                 <span>{language === 'th' ? 'ดูโปรเจกต์' : 'View Project'}</span>
                 <span className="opacity-0 -ml-2 group-hover/btn:opacity-100 group-hover/btn:ml-0 transition-all duration-300"><FiArrowRight size={14} /></span>
               </span>
-              {/* Glassy Shine Effect */}
-              <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/25 to-transparent -skew-x-12 -translate-x-full group-hover/btn:translate-x-[200%] transition-transform duration-700 ease-in-out"></div>
 
               {/* Custom Animation Keyframes for Triple Chevron */}
               <style dangerouslySetInnerHTML={{ __html: `
@@ -470,11 +471,13 @@ const ProjectCard: React.FC<{ project: Project; onCardClick: (project: Project) 
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="group/code relative flex items-center justify-center gap-2.5 px-4 sm:px-5 py-3 bg-gray-100 dark:bg-gray-700/60 hover:bg-gray-200 dark:hover:bg-gray-600/80 text-gray-700 dark:text-gray-200 text-[12px] sm:text-sm font-bold rounded-2xl border border-gray-200 dark:border-gray-600/50 hover:border-gray-300 dark:hover:border-gray-500/60 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5 active:scale-[0.97] whitespace-nowrap overflow-hidden"
+                className="group/code relative flex items-center justify-center gap-2.5 px-4 sm:px-5 py-3 bg-gradient-to-b from-gray-100 to-gray-300 dark:from-gray-700 dark:to-gray-900 text-gray-800 dark:text-white text-[12px] sm:text-sm font-black rounded-xl shadow-[0_4px_0_#9ca3af] dark:shadow-[0_4px_0_#1f2937] hover:shadow-[0_6px_0_#9ca3af] dark:hover:shadow-[0_6px_0_#1f2937] active:shadow-[0_0px_0_transparent] transition-all duration-200 transform hover:-translate-y-1 active:translate-y-1 overflow-hidden whitespace-nowrap"
               >
-                <span className="group-hover/code:rotate-[360deg] transition-transform duration-500"><FaGithub size={17} /></span>
-                <span>{language === 'th' ? 'ซอร์สโค้ด' : 'Source Code'}</span>
-                <span className="opacity-50 group-hover/code:opacity-100 transition-opacity duration-200"><FiExternalLink size={13} /></span>
+                <span className="relative z-10 flex items-center gap-2.5 drop-shadow-sm dark:drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">
+                  <span className="group-hover/code:rotate-[360deg] transition-transform duration-500"><FaGithub size={17} /></span>
+                  <span>{language === 'th' ? 'ซอร์สโค้ด' : 'Source Code'}</span>
+                  <span className="opacity-50 group-hover/code:opacity-100 transition-opacity duration-200"><FiExternalLink size={13} /></span>
+                </span>
               </a>
             )}
           </div>

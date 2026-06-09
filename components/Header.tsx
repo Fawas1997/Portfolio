@@ -4,6 +4,7 @@ import { FiSun, FiMoon, FiDownload } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../LanguageContext';
 import { translations } from '../translations';
+import { ThemeToggle } from './ThemeToggle';
 
 interface HeaderProps {
   scrollContainerRef: React.RefObject<HTMLDivElement | null>;
@@ -81,10 +82,27 @@ const Header: React.FC<HeaderProps> = ({ scrollContainerRef }) => {
 
       // Handle active section detection
       let currentSectionId = 'hero';
-      for (const id of sectionIds) {
-        const section = document.getElementById(id);
-        if (section && currentScrollTop >= section.offsetTop - 100) {
-          currentSectionId = id;
+      
+      // If at the very top, always force 'hero'
+      if (currentScrollTop < 150) {
+        currentSectionId = 'hero';
+      } else {
+        for (const id of sectionIds) {
+          const section = document.getElementById(id);
+          if (section) {
+            // Calculate true absolute offsetTop relative to the scroll container
+            let offsetTop = 0;
+            let el: HTMLElement | null = section;
+            while (el && el !== container && el !== document.documentElement) {
+              offsetTop += el.offsetTop;
+              el = el.offsetParent as HTMLElement;
+            }
+            
+            // If we have scrolled past this section (with a 200px offset for early activation)
+            if (currentScrollTop >= offsetTop - 200) {
+              currentSectionId = id;
+            }
+          }
         }
       }
 
@@ -159,7 +177,20 @@ const Header: React.FC<HeaderProps> = ({ scrollContainerRef }) => {
     activeSectionRef.current = id;
 
     const element = id === 'hero' ? null : document.getElementById(id);
-    const targetPosition = id === 'hero' ? 0 : (element ? element.offsetTop : 0);
+    
+    let targetPosition = 0;
+    if (element && id !== 'hero') {
+      let offsetTop = 0;
+      let el: HTMLElement | null = element;
+      while (el && el !== container && el !== document.documentElement) {
+        offsetTop += el.offsetTop;
+        el = el.offsetParent as HTMLElement;
+      }
+      // Experience needs a small offset to perfectly match the 'About Me' visual gap
+      const headerOffset = id === 'experience' ? (isMobile ? 30 : 40) : 0;
+      targetPosition = Math.max(0, offsetTop - headerOffset);
+    }
+    
     const startPosition = container.scrollTop;
     const distance = targetPosition - startPosition;
 
@@ -243,18 +274,14 @@ const Header: React.FC<HeaderProps> = ({ scrollContainerRef }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 download
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 text-white text-sm font-semibold rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 ml-4"
+                className="group flex items-center gap-2 px-6 py-2.5 bg-gradient-to-b from-blue-500 to-blue-700 text-white text-sm font-bold rounded-full shadow-[0_4px_0_#1e3a8a] hover:shadow-[0_6px_0_#1e3a8a] active:shadow-[0_1px_0_#1e3a8a] hover:-translate-y-0.5 active:translate-y-1 transition-all duration-200 ml-4"
               >
-                <FiDownload size={16} />
-                Resume
+                <span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)] flex items-center gap-2">
+                  <FiDownload size={16} />
+                  Resume
+                </span>
               </a>
-              <button
-                onClick={toggleTheme}
-                className="flex items-center justify-center w-11 h-11 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 ml-4 border border-transparent hover:border-gray-200 dark:hover:border-gray-700 text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? <FiSun size={22} /> : <FiMoon size={22} />}
-              </button>
+              <ThemeToggle theme={theme} toggleTheme={toggleTheme} className="ml-4" />
               <button
                 onClick={toggleLang}
                 className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 ml-4 border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
@@ -338,19 +365,16 @@ const Header: React.FC<HeaderProps> = ({ scrollContainerRef }) => {
                     transition={{ delay: 0.4 }}
                     className="flex items-center justify-center gap-8 mt-8 mb-8 w-full"
                   >
-                    <button
-                      onClick={() => {
-                        toggleTheme();
-                        setTimeout(() => setIsOpen(false), 100);
-                      }}
-                      className="flex flex-col items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-blue-500 transition-colors duration-300"
-                      aria-label="Toggle theme"
-                    >
-                      <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700">
-                        {theme === 'dark' ? <FiSun size={24} /> : <FiMoon size={24} />}
-                      </div>
-                      <span className="text-xs font-bold uppercase tracking-wider">{theme === 'dark' ? 'Light' : 'Dark'}</span>
-                    </button>
+                    <div className="flex flex-col items-center gap-3">
+                      <ThemeToggle 
+                        theme={theme} 
+                        toggleTheme={() => {
+                          toggleTheme();
+                          setTimeout(() => setIsOpen(false), 100);
+                        }} 
+                      />
+                      <span className="text-xs font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 drop-shadow-sm">{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+                    </div>
 
                     <button
                       onClick={() => {
@@ -384,10 +408,12 @@ const Header: React.FC<HeaderProps> = ({ scrollContainerRef }) => {
                       rel="noopener noreferrer"
                       download
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center justify-center gap-3 px-12 py-4 bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 text-white font-bold rounded-full shadow-xl shadow-blue-500/30 active:scale-95 transition-all duration-300"
+                      className="group flex items-center justify-center gap-3 px-12 py-4 bg-gradient-to-b from-blue-500 to-blue-700 text-white font-bold rounded-full shadow-[0_6px_0_#1e3a8a] hover:shadow-[0_8px_0_#1e3a8a] active:shadow-[0_2px_0_#1e3a8a] hover:-translate-y-0.5 active:translate-y-1 transition-all duration-200"
                     >
-                      <FiDownload size={20} />
-                      Resume
+                      <span className="drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] flex items-center gap-2">
+                        <FiDownload size={20} />
+                        Resume
+                      </span>
                     </a>
                   </motion.div>
                 </nav>

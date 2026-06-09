@@ -95,8 +95,8 @@ const ContactItem: React.FC<{
           className="flex flex-col items-center"
         >
           {/* Click Hint Tooltip - Shows for 3s on scroll in mobile, hover on desktop */}
-          <div className={`absolute top-full left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[10px] font-black px-4 py-2 rounded-full transition-all duration-300 whitespace-nowrap shadow-xl z-20 shadow-blue-500/40 md:opacity-0 md:group-hover:opacity-100 md:group-hover:pointer-events-auto md:translate-y-1 md:group-hover:translate-y-4 md:animate-none ${showTooltip ? 'opacity-100 translate-y-3 animate-pulse pointer-events-auto' : 'opacity-0 translate-y-1 pointer-events-none'}`}>
-            {t.clickToOpen} <ExternalLink size={10} className="inline ml-1" />
+          <div className={`absolute top-full left-1/2 -translate-x-1/2 bg-gradient-to-b from-blue-500 to-blue-700 text-white text-[10px] font-black px-4 py-2 rounded-full transition-all duration-300 whitespace-nowrap z-20 shadow-[0_4px_0_#1e3a8a] md:opacity-0 md:group-hover:opacity-100 md:group-hover:pointer-events-auto md:translate-y-1 md:group-hover:translate-y-4 md:animate-none ${showTooltip ? 'opacity-100 translate-y-3 animate-pulse pointer-events-auto' : 'opacity-0 translate-y-1 pointer-events-none'}`}>
+            <span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)] flex items-center gap-1">{t.clickToOpen} <ExternalLink size={10} /></span>
           </div>
 
           {/* Organic Animated Icon Container */}
@@ -265,20 +265,14 @@ const Contact: React.FC = () => {
             href="https://mail.google.com/mail/?view=cm&fs=1&to=fawas1997s@gmail.com" 
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.05, y: -5 }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative inline-flex items-center justify-center gap-3 px-12 py-5 bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 text-white font-black rounded-2xl transition-all duration-500 overflow-hidden shadow-xl shadow-blue-500/20"
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98, y: 4 }}
+            className="group relative inline-flex items-center justify-center gap-3 px-12 py-5 bg-gradient-to-b from-blue-500 to-blue-700 text-white font-black rounded-2xl transition-all duration-200 overflow-hidden shadow-[0_6px_0_#1e3a8a] hover:shadow-[0_8px_0_#1e3a8a] active:shadow-[0_2px_0_#1e3a8a]"
           >
-            <span className="relative z-10 flex items-center gap-2">
+            <span className="relative z-10 flex items-center gap-2 drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">
               <FaEnvelope size={20} />
               {t.sendEmail}
             </span>
-            
-            {/* Glassy Shine Effect */}
-            <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out"></div>
-            
-            {/* Hover Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </motion.a>
         </div>
       </div>

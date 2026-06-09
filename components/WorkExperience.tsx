@@ -75,7 +75,7 @@ const WorkExperience: React.FC = () => {
           </div>
         </Reveal>
 
-        <div className="relative space-y-12 before:absolute before:inset-0 before:ml-8 md:before:mx-auto before:-translate-x-px md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-blue-600 md:before:from-transparent before:via-blue-400/50 md:before:via-gray-200 md:dark:before:via-gray-700 before:to-transparent">
+        <div className="relative space-y-12 before:absolute before:inset-0 before:ml-8 md:before:mx-auto before:-translate-x-px md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-blue-500 before:to-transparent">
           {t.data.map((work, index) => (
             <div key={index} className={`relative flex items-start md:items-center justify-between md:justify-normal md:odd:flex-row-reverse group ${
               index === 0 ? 'md:translate-x-8' : 
@@ -86,7 +86,7 @@ const WorkExperience: React.FC = () => {
               <Reveal 
                 initialY={0} 
                 initialX={0}
-                className="flex items-center justify-center w-16 h-16 md:w-24 md:h-24 rounded-full border-4 border-white dark:border-gray-900 bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-2xl shadow-blue-500/20 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-all duration-500"
+                className="flex items-center justify-center w-16 h-16 md:w-24 md:h-24 rounded-full bg-blue-600 text-white border-[3px] border-blue-400 border-b-blue-700 dark:border-blue-500 dark:border-b-blue-900 shadow-[0_6px_0_#1e3a8a] dark:shadow-[0_6px_0_#0f172a] shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-all duration-300 hover:bg-blue-500 hover:border-blue-300 hover:border-b-blue-600 hover:shadow-[0_8px_0_#1d4ed8] dark:hover:shadow-[0_8px_0_#1e3a8a] hover:-translate-y-1 active:shadow-[0_0px_0_transparent] active:translate-y-1"
               >
                 <span className="relative z-10 text-[10px] md:text-xs font-black tracking-tighter text-center px-1 leading-tight">
                   {work.period.includes(' - ') ? (
@@ -106,7 +106,7 @@ const WorkExperience: React.FC = () => {
                 initialX={index % 2 === 0 ? -50 : 50}
                 initialY={0}
                 delay={index * 0.1}
-                className="flex-1 md:flex-none md:w-[calc(50%-4rem)] ml-2 md:ml-0 p-6 md:p-8 bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-3xl border border-gray-100 dark:border-gray-700/50 shadow-sm hover:shadow-xl hover:border-blue-500/30 transition-all duration-500 md:group-even:mr-12 md:group-odd:ml-12"
+                className="flex-1 md:flex-none md:w-[calc(50%-4rem)] ml-2 md:ml-0 p-6 md:p-8 bg-white dark:bg-gray-800/90 rounded-3xl overflow-hidden border-2 border-gray-200 border-b-gray-300 dark:border-gray-700 dark:border-b-gray-900 shadow-[0_8px_0_#d1d5db,0_15px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_0_#000000,0_15px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_0_#2563eb,0_20px_25px_rgba(37,99,235,0.15)] dark:hover:shadow-[0_8px_0_#1d4ed8,0_20px_25px_rgba(37,99,235,0.15)] hover:border-blue-400 hover:border-b-blue-600 dark:hover:border-blue-500 dark:hover:border-b-blue-800 transition-all duration-300 transform hover:-translate-y-2 group md:group-even:mr-12 md:group-odd:ml-12"
               >
                 <div className="flex flex-col gap-5">
                   <div className="flex flex-col gap-1">
@@ -131,7 +131,7 @@ const WorkExperience: React.FC = () => {
                           key={i} 
                           src={logo} 
                           alt="logo" 
-                          className={`${isEmquartier ? 'w-24 h-12 md:w-32 md:h-16 rounded-xl object-contain' : 'w-12 h-12 md:w-16 md:h-16 rounded-full object-cover'} border-2 border-white dark:border-gray-700 shadow-sm hover:scale-110 transition-transform duration-300`}
+                          className={`${isEmquartier ? 'w-24 h-12 md:w-32 md:h-16 rounded-xl object-contain bg-white dark:bg-gray-800' : 'w-12 h-12 md:w-16 md:h-16 rounded-full object-cover bg-white dark:bg-gray-800'} border-2 border-gray-200 border-b-gray-300 dark:border-gray-700 dark:border-b-gray-800 shadow-[0_4px_0_#d1d5db] dark:shadow-[0_4px_0_#1f2937] hover:border-gray-300 hover:border-b-gray-400 dark:hover:border-gray-600 dark:hover:border-b-gray-700 hover:shadow-[0_6px_0_#9ca3af] dark:hover:shadow-[0_6px_0_#111827] hover:-translate-y-1 active:shadow-[0_0px_0_transparent] active:translate-y-1 transition-all duration-300`}
                           referrerPolicy="no-referrer"
                         />
                       );

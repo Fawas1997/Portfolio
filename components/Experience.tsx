@@ -74,7 +74,7 @@ const Reveal: React.FC<{
 
 const TechItem: React.FC<{ tech: string }> = ({ tech }) => {
   const iconSize = 20;
-  const commonClasses = "flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-700/50 border border-transparent hover:border-blue-400 dark:hover:border-blue-500 rounded-full transition-all duration-300 ease-in-out cursor-default whitespace-nowrap shrink-0";
+  const commonClasses = "flex items-center justify-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-50 dark:bg-gray-700/60 rounded-full border-2 border-gray-100 border-b-gray-200 dark:border-gray-600 dark:border-b-gray-800 shadow-[0_4px_0_#d1d5db] dark:shadow-[0_4px_0_#000000] hover:shadow-[0_4px_0_#2563eb] dark:hover:shadow-[0_4px_0_#1d4ed8] hover:border-blue-400 hover:border-b-blue-600 dark:hover:border-blue-500 dark:hover:border-b-blue-800 transition-all duration-300 transform hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0px_0_transparent] cursor-default hover:bg-white dark:hover:bg-gray-700 group/skill whitespace-nowrap shrink-0";
 
   const iconMap: { [key: string]: React.ReactElement } = {
     'python': <span className="text-[#3776AB]"><SiPython size={iconSize} /></span>,
@@ -108,13 +108,13 @@ const TechItem: React.FC<{ tech: string }> = ({ tech }) => {
     return (
       <div className={commonClasses}>
         {icon}
-        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{tech}</span>
+        <span className="text-[13px] sm:text-sm font-semibold text-gray-700 dark:text-gray-300">{tech}</span>
       </div>
     );
   }
 
   return (
-    <span className="px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-200 text-sm font-medium rounded-full whitespace-nowrap shrink-0">
+    <span className="flex items-center justify-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-50 dark:bg-gray-700/60 text-[13px] sm:text-sm font-semibold text-gray-700 dark:text-gray-300 rounded-full border-2 border-gray-100 border-b-gray-200 dark:border-gray-600 dark:border-b-gray-800 shadow-[0_4px_0_#d1d5db] dark:shadow-[0_4px_0_#000000] hover:shadow-[0_4px_0_#2563eb] dark:hover:shadow-[0_4px_0_#1d4ed8] hover:border-blue-400 hover:border-b-blue-600 dark:hover:border-blue-500 dark:hover:border-b-blue-800 transition-all duration-300 transform hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0px_0_transparent] cursor-default hover:bg-white dark:hover:bg-gray-700 whitespace-nowrap shrink-0">
       {tech}
     </span>
   );
@@ -133,7 +133,7 @@ const Experience: React.FC = () => {
       </Reveal>
      
       <div className="relative -mx-3 sm:mx-0">
-        <div className="absolute left-4 sm:left-6 top-4 sm:top-6 w-0.5 h-[calc(100%-32px)] sm:h-[calc(100%-48px)] -translate-x-1/2 bg-gradient-to-b from-blue-600 via-blue-400/50 to-transparent"></div>
+        <div className="absolute left-4 sm:left-6 top-4 sm:top-6 w-0.5 h-[calc(100%-32px)] sm:h-[calc(100%-48px)] -translate-x-1/2 bg-gradient-to-b from-transparent via-blue-500 to-transparent"></div>
 
         <div className="space-y-12">
           {t.data.map((exp, index) => {
@@ -141,7 +141,7 @@ const Experience: React.FC = () => {
            
             return (
               <div key={index} className="relative pl-8 sm:pl-16">
-                <div className="absolute left-0 top-0 flex h-8 w-8 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.4)] z-10 border-4 border-transparent transition-all duration-300 hover:scale-110">
+                <div className="absolute left-0 top-0 flex h-8 w-8 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-blue-600 text-white border-2 border-blue-400 border-b-blue-700 dark:border-blue-500 dark:border-b-blue-900 shadow-[0_4px_0_#1e3a8a] dark:shadow-[0_4px_0_#0f172a] z-10 transition-all duration-300 hover:bg-blue-500 hover:border-blue-300 hover:border-b-blue-600 hover:shadow-[0_6px_0_#1d4ed8] dark:hover:shadow-[0_6px_0_#1e3a8a] hover:-translate-y-1 active:shadow-[0_0px_0_transparent] active:translate-y-1">
                   {experienceIcons[index]}
                 </div>
 
@@ -150,12 +150,12 @@ const Experience: React.FC = () => {
                   delay={index * 0.1}
                   duration={0.6}
                 >
-                  <div className="bg-white dark:bg-gray-800 px-2 py-4 sm:p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-lg hover:border-blue-400 dark:hover:border-blue-500 transition-all duration-500 ease-in-out transform hover:-translate-y-1">
+                  <div className="bg-white dark:bg-gray-800/90 px-2 py-4 sm:p-6 rounded-3xl overflow-hidden border-2 border-gray-200 border-b-gray-300 dark:border-gray-700 dark:border-b-gray-900 shadow-[0_8px_0_#d1d5db,0_15px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_0_#000000,0_15px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_0_#2563eb,0_20px_25px_rgba(37,99,235,0.15)] dark:hover:shadow-[0_8px_0_#1d4ed8,0_20px_25px_rgba(37,99,235,0.15)] hover:border-blue-400 hover:border-b-blue-600 dark:hover:border-blue-500 dark:hover:border-b-blue-800 transition-all duration-300 transform hover:-translate-y-2 group ease-in-out">
                     <div className="flex flex-col items-center sm:flex-row sm:justify-between sm:items-center gap-x-4 gap-y-2 mb-4">
                       <h3 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white text-center sm:text-left">{exp.role}</h3>
                      
                       <div className="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-4 flex-shrink sm:flex-shrink-0">
-                        <img src={experienceLogos[index]} alt={`${exp.company} logo`} className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover shadow-md border-2 border-gray-100 dark:border-gray-700" />
+                        <img src={experienceLogos[index]} alt={`${exp.company} logo`} className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover bg-white dark:bg-gray-800 border-2 border-gray-200 border-b-gray-300 dark:border-gray-700 dark:border-b-gray-800 shadow-[0_4px_0_#d1d5db] dark:shadow-[0_4px_0_#1f2937] hover:border-gray-300 hover:border-b-gray-400 dark:hover:border-gray-600 dark:hover:border-b-gray-700 hover:shadow-[0_6px_0_#9ca3af] dark:hover:shadow-[0_6px_0_#111827] hover:-translate-y-1 active:shadow-[0_0px_0_transparent] active:translate-y-1 transition-all duration-300" />
                         <div className="text-center sm:text-left">
                           <p className="text-base sm:text-xl font-semibold text-gray-800 dark:text-white">{exp.company}</p>
                           <p className="text-xs sm:text-base font-medium text-gray-500 dark:text-gray-400">

@@ -30,7 +30,7 @@ const iconSize = 20;
 const skillCategories: SkillCategory[] = [
   {
     title: 'Programming Languages (Vibe Coding)',
-    categoryIcon: <span className="text-blue-500"><FiCode /></span>,
+    categoryIcon: <FiCode />,
     skills: [
       { name: 'HTML', icon: <span className="text-orange-600"><SiHtml5 size={iconSize} /></span> },
       { name: 'CSS', icon: <span className="text-blue-500"><SiCss3 size={iconSize} /></span> },
@@ -40,7 +40,7 @@ const skillCategories: SkillCategory[] = [
   },
   {
     title: 'Frameworks & Libraries (Vibe Coding)',
-    categoryIcon: <span className="text-blue-500"><FiLayers /></span>,
+    categoryIcon: <FiLayers />,
     skills: [
       { name: 'Vue 3', icon: <img src="/logoicon/vue 3.webp" alt="Vue 3" className="w-5 h-5 object-contain" /> },
       { name: 'Tailwind CSS', icon: <span className="text-cyan-400"><SiTailwindcss size={iconSize} /></span> },
@@ -51,7 +51,7 @@ const skillCategories: SkillCategory[] = [
   },
   {
     title: 'Tools & AI',
-    categoryIcon: <span className="text-blue-500"><FiCpu /></span>,
+    categoryIcon: <FiCpu />,
     skills: [
       { name: 'VS CODE', icon: <img src="/logoicon/VisuaStudioCode.webp" alt="VS CODE" className="w-5 h-5 object-contain" /> },
       { name: 'Zocial Eye', icon: <img src="/logoicon/Zocial Eye.webp" alt="Zocial" className="w-5 h-5 object-contain" /> },
@@ -72,7 +72,7 @@ const skillCategories: SkillCategory[] = [
   },
   {
     title: 'Data Analysis',
-    categoryIcon: <span className="text-blue-500"><FiBarChart2 /></span>,
+    categoryIcon: <FiBarChart2 />,
     skills: [
       { name: 'Tableau', icon: <span className="text-[#E97627]"><SiTableau size={iconSize} /></span> },
       { name: 'Excel', icon: <span className="text-[#217346]"><FaFileExcel size={iconSize} /></span> },
@@ -216,7 +216,7 @@ const About: React.FC = () => {
 
              {/* Education Card */}
              <Reveal initialX={0} initialY={30} delay={0.2}>
-               <div className="mt-16 lg:mt-10 bg-gray-50 dark:bg-gray-800/40 rounded-3xl p-6 md:p-8 border border-gray-200/60 dark:border-gray-700/50 shadow-sm relative overflow-hidden group hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-500 transform hover:-translate-y-1">
+               <div className="mt-16 lg:mt-10 bg-gray-50 dark:bg-gray-800/90 rounded-3xl p-6 md:p-8 border-2 border-gray-200 border-b-gray-300 dark:border-gray-700 dark:border-b-gray-900 shadow-[0_8px_0_#d1d5db,0_15px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_0_#000000,0_15px_20px_rgba(0,0,0,0.2)] relative overflow-hidden group hover:border-blue-400 hover:border-b-blue-600 dark:hover:border-blue-500 dark:hover:border-b-blue-800 hover:shadow-[0_8px_0_#2563eb,0_20px_25px_rgba(37,99,235,0.15)] dark:hover:shadow-[0_8px_0_#1d4ed8,0_20px_25px_rgba(37,99,235,0.15)] transition-all duration-300 transform hover:-translate-y-2 cursor-default">
                   <div className="flex flex-col sm:flex-row gap-8 items-center sm:items-start relative z-10">
                      {/* University Logo - Reduced size as requested */}
                      <div className="shrink-0 group-hover:scale-110 transition-transform duration-500 flex items-center justify-center">
@@ -271,12 +271,10 @@ const About: React.FC = () => {
                     duration={0.6}
                     className="w-full h-full"
                   >
-                    <div className="bg-white dark:bg-gray-800/60 rounded-3xl overflow-hidden shadow-sm hover:shadow-lg border border-gray-100 dark:border-gray-700/50 hover:border-blue-500 dark:hover:border-blue-500 p-6 md:p-8 transition-all duration-500 transform hover:-translate-y-1 group h-full">
-                      <div className="flex flex-col items-center lg:flex-row lg:items-center gap-4 mb-8">
-                        <div className="p-3 bg-blue-50 dark:bg-blue-900/30 rounded-full transition-all duration-300 group-hover:bg-blue-600 group-hover:text-white">
-                          <span className="group-hover:text-white transition-colors">
-                            {React.cloneElement(category.categoryIcon as React.ReactElement<any>, { size: 22 })}
-                          </span>
+                    <div className="bg-white dark:bg-gray-800/90 rounded-3xl overflow-hidden p-6 md:p-8 border-2 border-gray-200 border-b-gray-300 dark:border-gray-700 dark:border-b-gray-900 shadow-[0_8px_0_#d1d5db,0_15px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_0_#000000,0_15px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_0_#2563eb,0_20px_25px_rgba(37,99,235,0.15)] dark:hover:shadow-[0_8px_0_#1d4ed8,0_20px_25px_rgba(37,99,235,0.15)] hover:border-blue-400 hover:border-b-blue-600 dark:hover:border-blue-500 dark:hover:border-b-blue-800 transition-all duration-300 transform hover:-translate-y-2 group h-full cursor-default relative">
+                      <div className="flex flex-col items-center lg:flex-row lg:items-center gap-4 mb-8 relative z-10">
+                        <div className="p-3 text-blue-500 bg-blue-50 dark:bg-blue-900/40 rounded-full border-2 border-blue-100 border-b-blue-200 dark:border-blue-800 dark:border-b-blue-900 shadow-[0_4px_0_#bfdbfe] dark:shadow-[0_4px_0_#0f172a] transition-all duration-300 group-hover:bg-blue-600 group-hover:border-blue-500 group-hover:border-b-blue-700 group-hover:shadow-[0_6px_0_#1d4ed8] dark:group-hover:shadow-[0_6px_0_#1e3a8a] group-hover:text-white group-hover:-translate-y-1.5">
+                          {React.cloneElement(category.categoryIcon as React.ReactElement<any>, { size: 24 })}
                         </div>
                         <h3 className="text-xl font-bold text-gray-900 dark:text-white text-center lg:text-left">
                            {category.title}
@@ -291,7 +289,7 @@ const About: React.FC = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: false, margin: "-50px" }}
                             transition={{ duration: 0.5, delay: skillIdx * 0.05 }}
-                            className="flex items-center justify-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-50 dark:bg-gray-700/40 border border-transparent hover:border-blue-400 dark:hover:border-blue-500 rounded-full transition-all duration-300 ease-in-out cursor-default hover:bg-white dark:hover:bg-gray-700 group/skill whitespace-nowrap w-full lg:w-auto"
+                            className="flex items-center justify-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-50 dark:bg-gray-700/60 rounded-full border-2 border-gray-100 border-b-gray-200 dark:border-gray-600 dark:border-b-gray-800 shadow-[0_4px_0_#d1d5db] dark:shadow-[0_4px_0_#000000] hover:shadow-[0_4px_0_#2563eb] dark:hover:shadow-[0_4px_0_#1d4ed8] hover:border-blue-400 hover:border-b-blue-600 dark:hover:border-blue-500 dark:hover:border-b-blue-800 transition-all duration-300 transform hover:-translate-y-1 cursor-default hover:bg-white dark:hover:bg-gray-700 group/skill whitespace-nowrap w-full lg:w-auto"
                           >
                             <div className="flex items-center justify-center shrink-0">
                               {skill.icon}

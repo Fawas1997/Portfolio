@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { motion } from 'motion/react';
 import { useLanguage } from '../LanguageContext';
 import { translations } from '../translations';
 import { FiX, FiGithub, FiExternalLink, FiTarget, FiUserCheck, FiTool, FiChevronLeft, FiChevronRight, FiMapPin, FiActivity, FiUser, FiCpu, FiCheckCircle, FiTrendingUp, FiAlertTriangle, FiZap, FiMaximize2, FiMinimize2, FiLayers, FiBriefcase, FiDatabase, FiBarChart2, FiFilter, FiPieChart, FiArrowRight, FiStar, FiFileText, FiImage, FiArchive, FiInfo, FiSettings, FiPackage, FiCloudLightning, FiClock, FiCamera, FiSend, FiBell, FiMove, FiMonitor } from 'react-icons/fi';
@@ -7,9 +8,10 @@ import {
   SiNgrok, SiPython, SiTableau, SiFlask, SiVercel, SiAwslambda,
   SiPandas, SiReact, SiVite, SiGoogleforms, SiTypescript
 } from 'react-icons/si';
-import { FaLine, FaFileExcel, FaRobot, FaFileArchive, FaTelegramPlane } from 'react-icons/fa';
+import { FaLine, FaFileExcel, FaRobot, FaFileArchive, FaTelegramPlane, FaGithub } from 'react-icons/fa';
 import { GiRabbit } from 'react-icons/gi';
 import { Project } from './Projects';
+import CustomScrollbar from './CustomScrollbar';
 
 // Safelist for Tailwind v4 dynamic classes
 const SAFELIST = `
@@ -48,7 +50,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   const [showExpandTip, setShowExpandTip] = useState(true);
   const [showControls, setShowControls] = useState(true);
   const [showMobileHint, setShowMobileHint] = useState(false);
+  const [closeHoverKey, setCloseHoverKey] = useState(0);
 
+  const modalScrollRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const tagsScrollRef = useRef<HTMLDivElement>(null);
@@ -119,6 +123,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
 
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
+      document.body.classList.add('project-modal-open');
 
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
@@ -141,6 +146,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
       return () => {
         document.body.style.overflow = originalOverflow;
         document.documentElement.style.overflow = originalHtmlOverflow;
+        document.body.classList.remove('project-modal-open');
         window.removeEventListener('keydown', handleKeyDown);
       };
     }
@@ -331,26 +337,52 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   );
 
   return (
-    <div
-      className="fixed inset-0 z-[100] bg-white dark:bg-gray-950 overflow-y-auto overflow-x-hidden scroll-smooth transition-all duration-300"
-      aria-labelledby="modal-title"
-      role="dialog"
-      aria-modal="true"
-    >
-      <div className="sticky top-0 z-[120] bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
+    <>
+      <div
+        ref={modalScrollRef}
+        className="fixed inset-0 z-[100] bg-white dark:bg-gray-950 overflow-y-auto overflow-x-hidden scroll-smooth transition-all duration-300"
+        aria-labelledby="modal-title"
+        role="dialog"
+        aria-modal="true"
+      >
+        <div className="sticky top-0 z-[120] bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <h2 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white truncate max-w-[180px] md:max-w-md">
             {project.title}
           </h2>
         </div>
         <div className="flex items-center gap-2">
-          <button
+          <motion.button
             onClick={onClose}
-            className="text-gray-500 md:hover:text-red-500 active:text-red-600 transition-colors p-2 rounded-full md:hover:bg-red-50 dark:md:hover:bg-red-900/20 flex items-center justify-center"
+            onMouseEnter={() => setCloseHoverKey(prev => prev + 1)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="group relative flex items-center justify-center p-2 outline-none text-blue-600 dark:text-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition-all duration-300"
             aria-label="ปิด"
           >
-            <FiX size={24} />
-          </button>
+            <motion.svg 
+              key={closeHoverKey}
+              className="w-8 h-8 md:w-10 md:h-10" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2.5" 
+              strokeLinecap="round" 
+            >
+              <motion.line 
+                x1="18" y1="6" x2="6" y2="18" 
+                initial={{ pathLength: 0, opacity: 0 }} 
+                animate={{ pathLength: 1, opacity: 1 }} 
+                transition={{ duration: 0.4, ease: "easeOut" }} 
+              />
+              <motion.line 
+                x1="6" y1="6" x2="18" y2="18" 
+                initial={{ pathLength: 0, opacity: 0 }} 
+                animate={{ pathLength: 1, opacity: 1 }} 
+                transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }} 
+              />
+            </motion.svg>
+          </motion.button>
         </div>
       </div>
 
@@ -507,9 +539,17 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
               <div className="mb-8 md:mb-12 space-y-6 md:space-y-8 flex flex-col items-center">
                 <div className="flex flex-wrap gap-3 md:gap-4 justify-center w-full">
                   {project.githubUrl && (
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex-none flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-4 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl md:rounded-2xl md:hover:bg-gray-200 dark:md:hover:bg-gray-700 transition-all font-bold transform hover:-translate-y-1 active:scale-95 text-sm md:text-2xl">
-                      <span className="md:w-6 md:h-6"><FiGithub size={18} /></span>
-                      <span>{t.sourceCode}</span>
+                    <a 
+                      href={project.githubUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="group/code relative flex items-center justify-center gap-2.5 px-6 md:px-8 py-3 md:py-4 bg-gradient-to-b from-gray-100 to-gray-300 dark:from-gray-700 dark:to-gray-900 text-gray-800 dark:text-white text-sm md:text-xl font-black rounded-xl md:rounded-2xl shadow-[0_4px_0_#9ca3af] dark:shadow-[0_4px_0_#1f2937] hover:shadow-[0_6px_0_#9ca3af] dark:hover:shadow-[0_6px_0_#1f2937] active:shadow-[0_0px_0_transparent] transition-all duration-200 transform hover:-translate-y-1 active:translate-y-1 overflow-hidden whitespace-nowrap"
+                    >
+                      <span className="relative z-10 flex items-center gap-2.5 md:gap-3 drop-shadow-sm dark:drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">
+                        <span className="group-hover/code:rotate-[360deg] transition-transform duration-500"><FaGithub className="w-5 h-5 md:w-6 md:h-6" /></span>
+                        <span>{t.sourceCode}</span>
+                        <span className="opacity-50 group-hover/code:opacity-100 transition-opacity duration-200"><FiExternalLink className="w-4 h-4 md:w-5 md:h-5" /></span>
+                      </span>
                     </a>
                   )}
                 </div>
@@ -551,8 +591,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                           <span
                             key={tag}
                             tabIndex={0}
-                            className={`flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 md:hover:border-blue-400 active:border-blue-500 focus:border-blue-500 active:ring-2 active:ring-blue-500/20 rounded-full shadow-sm transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 whitespace-nowrap shrink-0 outline-none
-                            px-2 py-1.5 md:px-4 md:py-3`}
+                            className="flex items-center justify-center gap-2 px-4 py-2 md:px-6 md:py-3 bg-gray-50 dark:bg-gray-700/60 rounded-full border-2 border-gray-100 border-b-gray-200 dark:border-gray-600 dark:border-b-gray-800 shadow-[0_4px_0_#d1d5db] dark:shadow-[0_4px_0_#000000] hover:shadow-[0_4px_0_#2563eb] dark:hover:shadow-[0_4px_0_#1d4ed8] hover:border-blue-400 hover:border-b-blue-600 dark:hover:border-blue-500 dark:hover:border-b-blue-800 transition-all duration-300 transform hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0px_0_transparent] cursor-default hover:bg-white dark:hover:bg-gray-700 group/skill whitespace-nowrap shrink-0 outline-none"
                           >
                             {renderTagIcon(tag)}
                             <span className={`font-bold text-gray-700 dark:text-gray-200 text-[10px] sm:text-xs md:text-xl`}>{tag}</span>
@@ -1151,7 +1190,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
           </div>
         </div>
       )}
-    </div>
+      </div>
+      <CustomScrollbar scrollContainerRef={modalScrollRef} className="top-[65px] md:top-[81px] modal-custom-scrollbar" />
+    </>
   );
 };
 

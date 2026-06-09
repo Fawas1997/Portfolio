@@ -1,9 +1,58 @@
 import React from 'react';
 import { FiGlobe, FiDatabase, FiCpu, FiLayout, FiBarChart2, FiMessageSquare, FiArrowRight, FiMapPin, FiChevronRight } from 'react-icons/fi';
-import { Star } from 'lucide-react';
-import { motion } from 'motion/react';
+import { FaLaptopCode, FaChartSimple, FaRobot, FaChartLine, FaCommentDots, FaLocationDot } from 'react-icons/fa6';
+import {
+  SiPython, SiPandas, SiTableau, SiHtml5, SiCss3,
+  SiJavascript, SiTailwindcss, SiOpenai, SiVercel,
+  SiFlask, SiAwslambda, SiNgrok
+} from 'react-icons/si';
+import { FaLine, FaFileExcel, FaTelegramPlane, FaChartBar } from 'react-icons/fa';
+
+import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../LanguageContext';
 import { translations } from '../translations';
+
+const iconGroups = [
+  // Group 1: Frontend & UI
+  [
+    { name: 'HTML', icon: <span className="text-orange-600"><SiHtml5 size={18} /></span> },
+    { name: 'CSS', icon: <span className="text-blue-500"><SiCss3 size={18} /></span> },
+    { name: 'JavaScript', icon: <span className="text-yellow-400 bg-black rounded"><SiJavascript size={18} /></span> },
+    { name: 'Vue 3', icon: <img src="/logoicon/vue 3.webp" alt="Vue 3" className="w-5 h-5 object-contain" /> },
+    { name: 'Tailwind CSS', icon: <span className="text-cyan-400"><SiTailwindcss size={18} /></span> },
+    { name: 'SweetAlert 2', icon: <img src="/logoicon/SweetAlert 2.webp" alt="SweetAlert2" className="w-5 h-5 object-contain" /> },
+  ],
+  // Group 2: Backend & Data
+  [
+    { name: 'Python', icon: <span className="text-[#3776AB]"><SiPython size={18} /></span> },
+    { name: 'Flask', icon: <span className="text-black dark:text-white"><SiFlask size={18} /></span> },
+    { name: 'Pandas', icon: <span className="text-[#150458] dark:text-white"><SiPandas size={18} /></span> },
+    { name: 'Tableau', icon: <span className="text-[#E97627]"><SiTableau size={18} /></span> },
+    { name: 'Excel', icon: <span className="text-[#217346]"><FaFileExcel size={18} /></span> },
+    { name: 'Power BI', icon: <span className="text-[#F2C811]"><FaChartBar size={18} /></span> },
+  ],
+  // Group 3: AI & Cloud
+  [
+    { name: 'OpenAI', icon: <span className="text-teal-500"><SiOpenai size={18} /></span> },
+    { name: 'Groq API', icon: <img src="/logoicon/Groq.webp" alt="Groq" className="w-5 h-5 object-contain" /> },
+    { name: 'Lovable AI', icon: <img src="/logoicon/Lovable AI.webp" alt="Lovable AI" className="w-5 h-5 object-contain" /> },
+    { name: 'Antigravity', icon: <img src="/logoicon/antigravity.webp" alt="Antigravity" className="w-5 h-5 object-contain" /> },
+    { name: 'AWS Lambda', icon: <span className="text-orange-500"><SiAwslambda size={18} /></span> },
+    { name: 'Vercel', icon: <span className="text-black dark:text-white"><SiVercel size={18} /></span> },
+    { name: 'Colab', icon: <img src="/logoicon/Colab.webp" alt="Colab" className="w-5 h-5 object-contain" /> },
+  ],
+  // Group 4: Tools & Integrations
+  [
+    { name: 'VS CODE', icon: <img src="/logoicon/VisuaStudioCode.webp" alt="VS Code" className="w-5 h-5 object-contain" /> },
+    { name: 'Zocial Eye', icon: <img src="/logoicon/Zocial Eye.webp" alt="Zocial Eye" className="w-5 h-5 object-contain" /> },
+    { name: 'LineOA', icon: <span className="text-green-500"><FaLine size={18} /></span> },
+    { name: 'Bot Telegram', icon: <span className="text-[#26A5E4]"><FaTelegramPlane size={18} /></span> },
+    { name: 'Ngrok', icon: <span className="text-blue-600"><SiNgrok size={18} /></span> },
+    { name: 'App Script', icon: <img src="/logoicon/App Script.webp" alt="App Script" className="w-5 h-5 object-contain" /> },
+    { name: 'Postman', icon: <img src="/logoicon/postman.webp" alt="Postman" className="w-5 h-5 object-contain" /> },
+    { name: 'Bot Line', icon: <span className="text-green-500"><FaLine size={18} /></span> },
+  ]
+];
 
 interface HeroProps {
   scrollContainerRef: React.RefObject<HTMLDivElement | null>;
@@ -12,12 +61,31 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
   const { language } = useLanguage();
   const t = translations[language].hero;
+  const [activeGroupIndex, setActiveGroupIndex] = React.useState(0);
+
+  // Automatically cycle through icon groups every 3.5 seconds
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveGroupIndex((prev) => (prev + 1) % iconGroups.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, []);
 
   const scrollToSection = (id: string) => {
     const container = scrollContainerRef.current;
     const element = id === 'hero' ? null : document.getElementById(id);
     if (container) {
-      const targetPosition = id === 'hero' ? 0 : (element ? element.offsetTop : 0);
+      let targetPosition = 0;
+      if (element && id !== 'hero') {
+        let offsetTop = 0;
+        let el: HTMLElement | null = element;
+        while (el && el !== container && el !== document.documentElement) {
+          offsetTop += el.offsetTop;
+          el = el.offsetParent as HTMLElement;
+        }
+        targetPosition = offsetTop;
+      }
+      
       const startPosition = container.scrollTop;
       const distance = targetPosition - startPosition;
 
@@ -72,9 +140,29 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
     }
   };
 
+  const projectTags = [
+    { name: "AI Recommendations Web", icon: <FaLaptopCode /> },
+    { name: "Social Listening Dashboard", icon: <FaChartLine /> },
+    { name: "Chatbot create file banner", icon: <FaCommentDots /> },
+    { name: "Geo Check in", icon: <FaLocationDot /> }
+  ];
+
   return (
     <section id="hero" className="relative min-h-[85vh] lg:min-h-screen flex items-center bg-white dark:bg-gray-900 overflow-hidden transition-colors duration-500 py-4 lg:py-0 pt-[110px] md:pt-[81px]">
-      <div className="container mx-auto px-6 md:px-12">
+
+      {/* Premium Decorative Background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Soft gradient orb — top left */}
+        <div className="hidden dark:block absolute -top-[20%] -left-[15%] w-[60%] h-[60%] rounded-full dark:bg-blue-800/15 blur-[100px]"></div>
+        {/* Soft gradient orb — bottom right */}
+        <div className="hidden dark:block absolute -bottom-[25%] -right-[10%] w-[50%] h-[50%] rounded-full dark:bg-blue-700/10 blur-[120px]"></div>
+        {/* Accent orb — center */}
+        <div className="hidden dark:block absolute top-[40%] left-[50%] -translate-x-1/2 w-[40%] h-[40%] rounded-full dark:bg-blue-900/10 blur-[80px]"></div>
+        {/* Subtle dot pattern */}
+        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle, #3b82f6 1px, transparent 1px)', backgroundSize: '28px 28px' }}></div>
+      </div>
+
+      <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-20">
 
           {/* Left Content */}
@@ -119,29 +207,29 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
                 <div className="flex flex-wrap justify-center gap-2">
                   <motion.div
                     variants={itemVariants}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    className="flex items-center gap-1.5 px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-black rounded-xl border border-blue-100 dark:border-blue-800/50 shadow-sm cursor-default"
+                    whileHover={{ y: -2 }}
+                    className="flex items-center gap-1.5 px-3 py-1 bg-gradient-to-b from-blue-500 to-blue-700 text-white font-black rounded-full shadow-[0_3px_0_#1e3a8a] hover:shadow-[0_5px_0_#1e3a8a] transition-all duration-200 cursor-default"
                   >
-                    <span className="text-blue-500"><FiLayout size={14} /></span>
-                    <span className="text-[10px] md:text-base uppercase tracking-tight">{language === 'th' ? 'Web' : 'Web'}</span>
+                    <span className="text-white drop-shadow-[0_2px_0_rgba(0,0,0,0.4)]"><FaLaptopCode size={14} /></span>
+                    <span className="text-[10px] md:text-base uppercase tracking-tight drop-shadow-[0_2px_0_rgba(0,0,0,0.4)]">{language === 'th' ? 'Web' : 'Web'}</span>
                   </motion.div>
 
                   <motion.div
                     variants={itemVariants}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    className="flex items-center gap-1.5 px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-black rounded-xl border border-blue-100 dark:border-blue-800/50 shadow-sm cursor-default"
+                    whileHover={{ y: -2 }}
+                    className="flex items-center gap-1.5 px-3 py-1 bg-gradient-to-b from-blue-500 to-blue-700 text-white font-black rounded-full shadow-[0_3px_0_#1e3a8a] hover:shadow-[0_5px_0_#1e3a8a] transition-all duration-200 cursor-default"
                   >
-                    <span className="text-blue-500"><FiBarChart2 size={14} /></span>
-                    <span className="text-[10px] md:text-base uppercase tracking-tight">{language === 'th' ? 'Data' : 'Data'}</span>
+                    <span className="text-white drop-shadow-[0_2px_0_rgba(0,0,0,0.4)]"><FaChartSimple size={14} /></span>
+                    <span className="text-[10px] md:text-base uppercase tracking-tight drop-shadow-[0_2px_0_rgba(0,0,0,0.4)]">{language === 'th' ? 'Data' : 'Data'}</span>
                   </motion.div>
 
                   <motion.div
                     variants={itemVariants}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    className="flex items-center gap-1.5 px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-black rounded-xl border border-blue-100 dark:border-blue-800/50 shadow-sm cursor-default"
+                    whileHover={{ y: -2 }}
+                    className="flex items-center gap-1.5 px-3 py-1 bg-gradient-to-b from-blue-500 to-blue-700 text-white font-black rounded-full shadow-[0_3px_0_#1e3a8a] hover:shadow-[0_5px_0_#1e3a8a] transition-all duration-200 cursor-default"
                   >
-                    <span className="text-blue-500"><FiCpu size={14} /></span>
-                    <span className="text-[10px] md:text-base uppercase tracking-tight">{language === 'th' ? 'AI' : 'AI'}</span>
+                    <span className="text-white drop-shadow-[0_2px_0_rgba(0,0,0,0.4)]"><FaRobot size={14} /></span>
+                    <span className="text-[10px] md:text-base uppercase tracking-tight drop-shadow-[0_2px_0_rgba(0,0,0,0.4)]">{language === 'th' ? 'AI' : 'AI'}</span>
                   </motion.div>
                 </div>
               </motion.div>
@@ -176,19 +264,16 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
               >
                 {[...Array(2)].map((_, i) => (
                   <div key={i} className="flex gap-4 pr-4">
-                    {[
-                      { name: "AI Recommendations Web", icon: <FiLayout /> },
-                      { name: "Social Listening Dashboard", icon: <FiBarChart2 /> },
-                      { name: "Chatbot create file banner", icon: <FiMessageSquare /> },
-                      { name: "Geo Check in", icon: <FiMapPin /> }
-                    ].map((tag, idx) => (
+                    {projectTags.map((tag, idx) => (
                       <motion.div
                         key={`${tag.name}-${i}-${idx}`}
                         whileHover={{ scale: 1.05, y: -5 }}
                         whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-xl text-xs md:text-sm font-bold border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow whitespace-nowrap cursor-default tracking-tight"
+                        className="flex items-center gap-2.5 px-4 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-xl text-xs md:text-sm font-bold border-2 border-gray-100 border-b-gray-200 dark:border-gray-700 dark:border-b-gray-900 shadow-[0_4px_0_#d1d5db] dark:shadow-[0_4px_0_#000000] hover:shadow-[0_6px_0_#d1d5db] dark:hover:shadow-[0_6px_0_#000000] transition-all whitespace-nowrap cursor-default tracking-tight"
                       >
-                        <span className="text-blue-500">{tag.icon}</span>
+                        <div className="flex items-center justify-center w-7 h-7 bg-blue-50 dark:bg-white/10 rounded-full shadow-[0_2px_4px_rgba(0,0,0,0.08),inset_0_1px_0_#ffffff] dark:shadow-[inset_0_1px_2px_rgba(255,255,255,0.3)] border border-blue-200 dark:border-white/10 flex-shrink-0">
+                          <span className="text-sm text-blue-600 dark:text-blue-400 drop-shadow-[0_1px_0_#1e3a8a] dark:drop-shadow-[0_1px_0_#000000]">{tag.icon}</span>
+                        </div>
                         {tag.name}
                       </motion.div>
                     ))}
@@ -214,17 +299,14 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
               >
                 {[...Array(2)].map((_, i) => (
                   <div key={i} className="flex gap-4 pr-4">
-                    {[
-                      { name: "AI Recommendations Web", icon: <FiLayout /> },
-                      { name: "Social Listening Dashboard", icon: <FiBarChart2 /> },
-                      { name: "Chatbot create file banner", icon: <FiMessageSquare /> },
-                      { name: "Geo Check in", icon: <FiMapPin /> }
-                    ].map((tag, idx) => (
+                    {projectTags.map((tag, idx) => (
                       <div
                         key={`${tag.name}-${i}-${idx}`}
-                        className="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-2xl text-xs font-bold shadow-[0_4px_12px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_12px_rgba(0,0,0,0.2)] whitespace-nowrap tracking-tight"
+                        className="flex items-center gap-2.5 px-5 py-2.5 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-2xl text-xs font-bold border-2 border-gray-100 border-b-gray-200 dark:border-gray-700 dark:border-b-gray-900 shadow-[0_4px_0_#d1d5db] dark:shadow-[0_4px_0_#000000] whitespace-nowrap tracking-tight"
                       >
-                        <span className="text-blue-500">{tag.icon}</span>
+                        <div className="flex items-center justify-center w-7 h-7 bg-blue-50 dark:bg-white/10 rounded-full shadow-[0_2px_4px_rgba(0,0,0,0.08),inset_0_1px_0_#ffffff] dark:shadow-[inset_0_1px_2px_rgba(255,255,255,0.3)] border border-blue-200 dark:border-white/10 flex-shrink-0">
+                          <span className="text-sm text-blue-600 dark:text-blue-400 drop-shadow-[0_1px_0_#1e3a8a] dark:drop-shadow-[0_1px_0_#000000]">{tag.icon}</span>
+                        </div>
                         {tag.name}
                       </div>
                     ))}
@@ -235,28 +317,19 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
 
             <motion.div variants={itemVariants} className="pt-2 lg:pt-4">
               <motion.button
-                whileHover={{ scale: 1.05, y: -5 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98, y: 4 }}
                 onClick={() => scrollToSection('projects')}
-                className="group relative px-8 lg:px-14 py-3.5 lg:py-5 bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 text-white font-black rounded-xl lg:rounded-2xl transition-all duration-500 overflow-hidden"
+                className="group relative px-8 lg:px-14 py-3.5 lg:py-5 bg-gradient-to-b from-blue-500 to-blue-700 text-white font-black rounded-full transition-all duration-200 overflow-hidden shadow-[0_6px_0_#1e3a8a] hover:shadow-[0_8px_0_#1e3a8a] active:shadow-[0_2px_0_#1e3a8a]"
               >
-                <span className="relative z-10 flex items-center justify-center gap-3 lg:gap-4 tracking-tighter text-base lg:text-xl">
+                <span className="relative z-10 flex items-center justify-center gap-3 lg:gap-4 tracking-tighter text-base lg:text-xl drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">
                   {t.myWork}
-                  <span className="flex items-center -space-x-1.5 overflow-visible">
-                    <span className="animate-[slide_1.5s_infinite] opacity-30 inline-block w-5 h-5 lg:w-6 lg:h-6"><FiChevronRight size={language === 'th' ? 20 : 24} /></span>
-                    <span className="animate-[slide_1.5s_infinite_200ms] opacity-60 inline-block w-6 h-6 lg:w-8 lg:h-8"><FiChevronRight size={language === 'th' ? 24 : 32} /></span>
-                    <span className="animate-[slide_1.5s_infinite_400ms] inline-block w-7 h-7 lg:w-9 lg:h-9"><FiChevronRight size={language === 'th' ? 30 : 38} /></span>
+                  <span className="flex items-center -space-x-1.5 overflow-visible drop-shadow-[0_3px_0_#1e3a8a]">
+                    <span className="animate-[slide_1.5s_infinite] opacity-40 inline-block w-5 h-5 lg:w-6 lg:h-6"><FiChevronRight size={language === 'th' ? 20 : 24} /></span>
+                    <span className="animate-[slide_1.5s_infinite_200ms] opacity-70 inline-block w-6 h-6 lg:w-8 lg:h-8"><FiChevronRight size={language === 'th' ? 24 : 32} /></span>
+                    <span className="animate-[slide_1.5s_infinite_400ms] inline-block w-7 h-7 lg:w-9 lg:h-9 text-white"><FiChevronRight size={language === 'th' ? 30 : 38} /></span>
                   </span>
                 </span>
-
-                {/* Glassy Shine Effect */}
-                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out"></div>
-
-                {/* Subtle Inner Border */}
-                <div className="absolute inset-0 rounded-xl lg:rounded-2xl border border-white/20 group-hover:border-white/40 transition-colors duration-500"></div>
-
-                {/* Hover Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                 {/* Custom Animation Keyframes for Triple Chevron */}
                 <style dangerouslySetInnerHTML={{ __html: `
@@ -274,84 +347,114 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
             initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 1, delay: 0.5, type: "spring" }}
-            className="flex-1 w-full flex justify-center lg:justify-end order-1 lg:order-2 lg:pr-16"
+            className="flex-1 w-full flex justify-center lg:justify-end order-1 lg:order-2 lg:pr-12 xl:pr-20"
           >
             <div className="relative w-full max-w-[140px] sm:max-w-[200px] md:max-w-[450px] lg:max-w-[550px]">
-              {/* Animated Sparkles (Stars) Outside the Frame */}
-              <div className="absolute inset-0 pointer-events-none z-0">
-                {[
-                  // Top edge
-                  { top: '-12%', left: '10%', delay: 0, size: 22, className: "" },
-                  { top: '-10%', left: '30%', delay: 0.5, size: 16, className: "hidden lg:block" },
-                  { top: '-15%', left: '50%', delay: 1, size: 24, className: "" },
-                  { top: '-10%', left: '70%', delay: 1.5, size: 18, className: "hidden lg:block" },
-                  { top: '-12%', left: '90%', delay: 2, size: 20, className: "" },
-                  // Right edge - More stars and slightly inward to avoid clipping
-                  { top: '5%', right: '-8%', delay: 0.2, size: 24, className: "" },
-                  { top: '15%', right: '-2%', delay: 0.6, size: 18, className: "hidden lg:block" },
-                  { top: '25%', right: '-10%', delay: 1.0, size: 22, className: "" },
-                  { top: '35%', right: '-4%', delay: 1.4, size: 26, className: "hidden lg:block" },
-                  { top: '45%', right: '-12%', delay: 0.4, size: 20, className: "" },
-                  { top: '55%', right: '-6%', delay: 0.9, size: 18, className: "hidden lg:block" },
-                  { top: '65%', right: '-10%', delay: 1.3, size: 22, className: "" },
-                  { top: '75%', right: '-4%', delay: 1.7, size: 16, className: "hidden lg:block" },
-                  { top: '85%', right: '-12%', delay: 2.1, size: 20, className: "" },
-                  { top: '95%', right: '-6%', delay: 2.5, size: 24, className: "hidden lg:block" },
-                  // Bottom edge
-                  { bottom: '-12%', left: '10%', delay: 0.4, size: 20, className: "" },
-                  { bottom: '-10%', left: '30%', delay: 0.9, size: 24, className: "hidden lg:block" },
-                  { bottom: '-15%', left: '50%', delay: 1.4, size: 16, className: "" },
-                  { bottom: '-10%', left: '70%', delay: 1.9, size: 22, className: "hidden lg:block" },
-                  { bottom: '-12%', left: '90%', delay: 2.4, size: 18, className: "" },
-                  // Left edge
-                  { top: '10%', left: '-12%', delay: 0.6, size: 24, className: "" },
-                  { top: '30%', left: '-10%', delay: 1.1, size: 18, className: "hidden lg:block" },
-                  { top: '50%', left: '-15%', delay: 1.6, size: 22, className: "" },
-                  { top: '70%', left: '-10%', delay: 2.1, size: 16, className: "hidden lg:block" },
-                  { top: '90%', left: '-12%', delay: 2.6, size: 20, className: "" },
-                ].map((star, i) => (
-                  <motion.div
-                    key={i}
-                    className={`absolute text-blue-500 dark:text-blue-400 ${star.className}`}
-                    style={{
-                      top: star.top,
-                      left: star.left,
-                      right: star.right,
-                      bottom: star.bottom
-                    }}
-                    animate={{
-                      scale: [0, 1.2, 0],
-                      opacity: [0, 1, 0],
-                      rotate: [0, 90, 180],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      delay: star.delay,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    <Star size={star.size} className="fill-current scale-50 lg:scale-100" />
-                  </motion.div>
-                ))}
-              </div>
 
-              {/* Soft Gradient Border Wrapper */}
-              <div className="aspect-square relative p-[6px] lg:p-[12px] rounded-3xl lg:rounded-[3rem] bg-gradient-to-br from-blue-600 via-blue-400 to-blue-600 transition-transform duration-700 ease-out overflow-hidden z-10">
-                <div className="w-full h-full relative z-10 overflow-hidden rounded-2xl lg:rounded-[2.2rem] bg-white dark:bg-gray-900">
-                  <img
-                    src="/logoprofile/profile.webp"
-                    alt={t.name}
-                    className="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-1000"
-                    draggable="false"
-                  />
+              {/* Premium Orbital Portrait */}
+              <div className="aspect-square relative z-10">
+
+                {/* 3 Concentric Blue Rings */}
+                <div className="absolute inset-[0%] rounded-full border border-blue-500/40 dark:border-blue-400/40 pointer-events-none"></div>
+                <div className="absolute inset-[-6%] rounded-full border border-blue-500/30 dark:border-blue-400/30 pointer-events-none"></div>
+                <div className="absolute inset-[-12%] rounded-full border border-blue-500/20 dark:border-blue-400/20 pointer-events-none"></div>
+
+                {/* Single Outer Orbital Ring — with cycling skill groups */}
+                <div className="absolute inset-[-12%] rounded-full pointer-events-none z-0">
+                  {/* The static ring border is removed as requested */}
+
+                  {/* Render all 4 groups, but fade them in/out based on activeGroupIndex */}
+                  {iconGroups.map((group, groupIndex) => (
+                    <motion.div
+                      key={groupIndex}
+                      className="absolute inset-0"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ 
+                        opacity: activeGroupIndex === groupIndex ? 1 : 0,
+                        scale: activeGroupIndex === groupIndex ? 1 : 0.8,
+                      }}
+                      transition={{ duration: 1.2, ease: "easeInOut" }}
+                      style={{ pointerEvents: activeGroupIndex === groupIndex ? 'auto' : 'none' }}
+                    >
+                      <motion.div
+                        className="w-full h-full"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+                      >
+                        {group.map((item, i) => {
+                          const angle = i * (360 / group.length);
+                          const top = `${50 - 50 * Math.cos((angle * Math.PI) / 180)}%`;
+                          const left = `${50 + 50 * Math.sin((angle * Math.PI) / 180)}%`;
+                          
+                          return (
+                            <motion.div
+                              key={item.name}
+                              className="absolute -translate-x-1/2 -translate-y-1/2 group/icon pointer-events-auto"
+                              style={{ top, left }}
+                              animate={{ rotate: -360 }}
+                              transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+                            >
+                              <div className="relative w-5 h-5 sm:w-8 sm:h-8 lg:w-11 lg:h-11 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center shadow-[0_2px_0_rgba(0,0,0,0.08),0_4px_8px_rgba(0,0,0,0.1),0_8px_16px_rgba(0,0,0,0.06)] border-[1.5px] sm:border-[2px] border-blue-500 dark:border-blue-500 hover:scale-125 transition-transform duration-300 z-10 cursor-pointer [&_svg]:!w-3 [&_svg]:!h-3 sm:[&_svg]:!w-[18px] sm:[&_svg]:!h-[18px] [&_img]:!w-3 [&_img]:!h-3 sm:[&_img]:!w-5 sm:[&_img]:!h-5">
+                                {item.icon}
+                                {/* Tooltip on hover */}
+                                <div className="absolute -top-8 bg-gray-900/90 dark:bg-gray-100/90 text-white dark:text-gray-900 text-[10px] lg:text-xs font-bold px-2.5 py-1 rounded-lg opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg">
+                                  {item.name}
+                                </div>
+                              </div>
+                            </motion.div>
+                          );
+                        })}
+                      </motion.div>
+                    </motion.div>
+                  ))}
                 </div>
+
+                {/* Soft Ambient Backdrop */}
+                <div
+                  className="absolute inset-[-8%] rounded-full pointer-events-none opacity-60 dark:opacity-40 blur-2xl"
+                  style={{
+                    background: 'radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 65%)',
+                  }}
+                />
+
+                {/* Pop-out Portrait (Out of Bounds Effect) */}
+                <motion.div
+                  className="relative w-full h-full group z-10"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  {/* Gradient Circle Background */}
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-b from-blue-500 to-blue-700 z-0 shadow-inner"></div>
+
+                  {/* Bottom Half: Clipped to the circle */}
+                  <div className="absolute inset-0 rounded-full overflow-hidden z-10">
+                    <img
+                      src="/logoprofile/profilenew.webp"
+                      alt={t.name}
+                      className="absolute -bottom-2 md:-bottom-3 left-1/2 -translate-x-1/2 w-[115%] max-w-none h-auto object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+                      draggable="false"
+                    />
+                  </div>
+
+                  {/* Top Half: Unclipped so the head pops out */}
+                  <div className="absolute inset-0 z-20 pointer-events-none" style={{ clipPath: 'inset(-50% -20% 50% -20%)' }}>
+                    <img
+                      src="/logoprofile/profilenew.webp"
+                      alt={t.name}
+                      className="absolute -bottom-2 md:-bottom-3 left-1/2 -translate-x-1/2 w-[115%] max-w-none h-auto object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+                      draggable="false"
+                    />
+                  </div>
+                </motion.div>
+
+
               </div>
             </div>
           </motion.div>
 
         </div>
       </div>
+
     </section>
   );
 };
