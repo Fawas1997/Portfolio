@@ -39,7 +39,7 @@ const App: React.FC = () => {
         </div>
         <CustomScrollbar scrollContainerRef={scrollContainerRef} hideOnTop={true} />
       </div>
-      <AIChatbot />
+      {/* <AIChatbot /> */}
     </div>
   );
 };
