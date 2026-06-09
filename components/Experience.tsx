@@ -133,15 +133,15 @@ const Experience: React.FC = () => {
       </Reveal>
      
       <div className="relative -mx-3 sm:mx-0">
-        <div className="absolute left-4 sm:left-6 top-4 sm:top-6 w-0.5 h-[calc(100%-32px)] sm:h-[calc(100%-48px)] -translate-x-1/2 bg-gradient-to-b from-transparent via-blue-500 to-transparent"></div>
+        <div className="hidden sm:block absolute left-6 top-6 w-0.5 h-[calc(100%-48px)] -translate-x-1/2 bg-gradient-to-b from-transparent via-blue-500 to-transparent"></div>
 
-        <div className="space-y-12">
+        <div className="space-y-16 sm:space-y-12 px-4 sm:px-0">
           {t.data.map((exp, index) => {
             const [datePart, durationPart] = exp.period.split(' (');
            
             return (
-              <div key={index} className="relative pl-8 sm:pl-16">
-                <div className="absolute left-0 top-0 flex h-8 w-8 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-blue-600 text-white border-2 border-blue-400 border-b-blue-700 dark:border-blue-500 dark:border-b-blue-900 shadow-[0_4px_0_#1e3a8a] dark:shadow-[0_4px_0_#0f172a] z-10 transition-all duration-300 hover:bg-blue-500 hover:border-blue-300 hover:border-b-blue-600 hover:shadow-[0_6px_0_#1d4ed8] dark:hover:shadow-[0_6px_0_#1e3a8a] hover:-translate-y-1 active:shadow-[0_0px_0_transparent] active:translate-y-1">
+              <div key={index} className="relative sm:pl-16 flex flex-col sm:block items-center">
+                <div className="flex sm:absolute sm:left-0 sm:top-0 h-14 w-14 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-blue-600 text-white border-2 border-blue-400 border-b-blue-700 dark:border-blue-500 dark:border-b-blue-900 shadow-[0_4px_0_#1e3a8a] dark:shadow-[0_4px_0_#0f172a] z-20 transition-all duration-300 hover:bg-blue-500 hover:border-blue-300 hover:border-b-blue-600 hover:shadow-[0_6px_0_#1d4ed8] dark:hover:shadow-[0_6px_0_#1e3a8a] hover:-translate-y-1 active:shadow-[0_0px_0_transparent] active:translate-y-1 -mb-7 sm:mb-0">
                   {experienceIcons[index]}
                 </div>
 
@@ -149,8 +149,9 @@ const Experience: React.FC = () => {
                   initialX={-30} 
                   delay={index * 0.1}
                   duration={0.6}
+                  className="w-full relative z-10"
                 >
-                  <div className="bg-white dark:bg-gray-800/90 px-2 py-4 sm:p-6 rounded-3xl overflow-hidden border-2 border-gray-200 border-b-gray-300 dark:border-gray-700 dark:border-b-gray-900 shadow-[0_8px_0_#d1d5db,0_15px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_0_#000000,0_15px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_0_#2563eb,0_20px_25px_rgba(37,99,235,0.15)] dark:hover:shadow-[0_8px_0_#1d4ed8,0_20px_25px_rgba(37,99,235,0.15)] hover:border-blue-400 hover:border-b-blue-600 dark:hover:border-blue-500 dark:hover:border-b-blue-800 transition-all duration-300 transform hover:-translate-y-2 group ease-in-out">
+                  <div className="w-full bg-white dark:bg-gray-800/90 px-4 pt-10 pb-6 sm:px-6 sm:py-6 rounded-3xl overflow-hidden border-2 border-gray-200 border-b-gray-300 dark:border-gray-700 dark:border-b-gray-900 shadow-[0_8px_0_#d1d5db,0_15px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_0_#000000,0_15px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_0_#2563eb,0_20px_25px_rgba(37,99,235,0.15)] dark:hover:shadow-[0_8px_0_#1d4ed8,0_20px_25px_rgba(37,99,235,0.15)] hover:border-blue-400 hover:border-b-blue-600 dark:hover:border-blue-500 dark:hover:border-b-blue-800 transition-all duration-300 transform hover:-translate-y-2 group ease-in-out">
                     <div className="flex flex-col items-center sm:flex-row sm:justify-between sm:items-center gap-x-4 gap-y-2 mb-4">
                       <h3 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white text-center sm:text-left">{exp.role}</h3>
                      

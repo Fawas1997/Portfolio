@@ -75,9 +75,9 @@ const WorkExperience: React.FC = () => {
           </div>
         </Reveal>
 
-        <div className="relative space-y-12 before:absolute before:inset-0 before:ml-8 md:before:mx-auto before:-translate-x-px md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-blue-500 before:to-transparent">
+        <div className="relative space-y-16 md:space-y-12 md:before:absolute md:before:inset-0 md:before:mx-auto md:before:translate-x-0 md:before:h-full md:before:w-0.5 md:before:bg-gradient-to-b md:before:from-transparent md:before:via-blue-500 md:before:to-transparent px-4 md:px-0">
           {t.data.map((work, index) => (
-            <div key={index} className={`relative flex items-start md:items-center justify-between md:justify-normal md:odd:flex-row-reverse group ${
+            <div key={index} className={`relative flex flex-col md:flex-row items-center md:items-center justify-center md:justify-normal md:odd:flex-row-reverse group gap-0 ${
               index === 0 ? 'md:translate-x-8' : 
               index === 1 ? 'md:-translate-x-8' : 
               index === 2 ? 'md:translate-x-8' : ''
@@ -86,7 +86,7 @@ const WorkExperience: React.FC = () => {
               <Reveal 
                 initialY={0} 
                 initialX={0}
-                className="flex items-center justify-center w-16 h-16 md:w-24 md:h-24 rounded-full bg-blue-600 text-white border-[3px] border-blue-400 border-b-blue-700 dark:border-blue-500 dark:border-b-blue-900 shadow-[0_6px_0_#1e3a8a] dark:shadow-[0_6px_0_#0f172a] shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-all duration-300 hover:bg-blue-500 hover:border-blue-300 hover:border-b-blue-600 hover:shadow-[0_8px_0_#1d4ed8] dark:hover:shadow-[0_8px_0_#1e3a8a] hover:-translate-y-1 active:shadow-[0_0px_0_transparent] active:translate-y-1"
+                className="flex items-center justify-center w-14 h-14 md:w-24 md:h-24 rounded-full bg-blue-600 text-white border-[3px] border-blue-400 border-b-blue-700 dark:border-blue-500 dark:border-b-blue-900 shadow-[0_6px_0_#1e3a8a] dark:shadow-[0_6px_0_#0f172a] shrink-0 md:order-1 z-20 transition-all duration-300 hover:bg-blue-500 hover:border-blue-300 hover:border-b-blue-600 hover:shadow-[0_8px_0_#1d4ed8] dark:hover:shadow-[0_8px_0_#1e3a8a] hover:-translate-y-1 active:shadow-[0_0px_0_transparent] active:translate-y-1 -mb-7 md:mb-0 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2"
               >
                 <span className="relative z-10 text-[10px] md:text-xs font-black tracking-tighter text-center px-1 leading-tight">
                   {work.period.includes(' - ') ? (
@@ -106,14 +106,14 @@ const WorkExperience: React.FC = () => {
                 initialX={index % 2 === 0 ? -50 : 50}
                 initialY={0}
                 delay={index * 0.1}
-                className="flex-1 md:flex-none md:w-[calc(50%-4rem)] ml-2 md:ml-0 p-6 md:p-8 bg-white dark:bg-gray-800/90 rounded-3xl overflow-hidden border-2 border-gray-200 border-b-gray-300 dark:border-gray-700 dark:border-b-gray-900 shadow-[0_8px_0_#d1d5db,0_15px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_0_#000000,0_15px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_0_#2563eb,0_20px_25px_rgba(37,99,235,0.15)] dark:hover:shadow-[0_8px_0_#1d4ed8,0_20px_25px_rgba(37,99,235,0.15)] hover:border-blue-400 hover:border-b-blue-600 dark:hover:border-blue-500 dark:hover:border-b-blue-800 transition-all duration-300 transform hover:-translate-y-2 group md:group-even:mr-12 md:group-odd:ml-12"
+                className="w-full md:flex-none md:w-[calc(50%-4rem)] p-6 pt-10 md:p-8 bg-white dark:bg-gray-800/90 rounded-3xl overflow-hidden border-2 border-gray-200 border-b-gray-300 dark:border-gray-700 dark:border-b-gray-900 shadow-[0_8px_0_#d1d5db,0_15px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_0_#000000,0_15px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_8px_0_#2563eb,0_20px_25px_rgba(37,99,235,0.15)] dark:hover:shadow-[0_8px_0_#1d4ed8,0_20px_25px_rgba(37,99,235,0.15)] hover:border-blue-400 hover:border-b-blue-600 dark:hover:border-blue-500 dark:hover:border-b-blue-800 transition-all duration-300 transform hover:-translate-y-2 group md:group-even:mr-12 md:group-odd:ml-12 relative z-10"
               >
-                <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-5 text-center md:text-left">
                   <div className="flex flex-col gap-1">
                     <h3 className="text-lg md:text-xl lg:text-2xl font-black text-gray-900 dark:text-white leading-tight">
                       {work.role}
                     </h3>
-                    <ul className="mt-3 space-y-2">
+                    <ul className="mt-3 space-y-2 text-left">
                       {work.description.map((item, i) => (
                         <li key={i} className="flex items-start gap-2 text-sm md:text-base text-gray-600 dark:text-gray-400">
                           <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></span>
