@@ -227,7 +227,7 @@ const Contact: React.FC = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 transition-colors duration-500">
+    <section id="contact" className="py-24 transition-colors duration-500 bg-gradient-to-b from-blue-50/80 via-blue-100/50 to-blue-50/80 dark:from-blue-950/30 dark:via-blue-900/20 dark:to-blue-950/30">
       <div className="container mx-auto px-6 max-w-7xl">
         <Reveal initialY={30}>
           <div className="text-center mb-20">

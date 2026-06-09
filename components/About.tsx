@@ -160,9 +160,10 @@ const About: React.FC = () => {
   }, []);
 
   return (
-    <section id="about" className="pt-20 pb-24 lg:pt-32 lg:pb-32 relative overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-500">
-      <div className="container mx-auto px-6 relative z-10">
-        <Reveal>
+    <section id="about" className="relative overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-500">
+      <div className="pt-20 pb-16 lg:pt-32 lg:pb-24 bg-gradient-to-b from-blue-50/80 via-blue-100/50 to-blue-50/80 dark:from-blue-950/30 dark:via-blue-900/20 dark:to-blue-950/30">
+        <div className="container mx-auto px-6 relative z-10">
+          <Reveal>
           <div className="text-center mb-16 md:mb-20">
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4">{t.title}</h2>
             <div className="w-20 h-1 bg-blue-500 mx-auto rounded"></div>
@@ -170,7 +171,7 @@ const About: React.FC = () => {
         </Reveal>
 
         {/* Top Section: Profile & Bio */}
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-16 mb-20 md:mb-32">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-16 mb-8 md:mb-12">
           {/* Profile Picture */}
           <Reveal initialX={-50} initialY={0} className="w-full lg:w-1/3 flex flex-col items-center">
             <div className="relative w-full max-w-[220px] sm:max-w-[320px] aspect-square group mt-8 lg:mt-12">
@@ -252,9 +253,13 @@ const About: React.FC = () => {
              </Reveal>
           </div>
         </div>
+        </div>
+      </div>
 
-        {/* Skills Section */}
-        <Reveal initialY={50}>
+      <div className="pt-16 pb-24 lg:pt-24 lg:pb-32">
+        <div className="container mx-auto px-6 relative z-10">
+          {/* Skills Section */}
+          <Reveal initialY={50}>
            <div className="space-y-12">
               <div className="text-center">
                 <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white">{t.skillsTitle}</h2>
@@ -307,6 +312,7 @@ const About: React.FC = () => {
            </div>
         </Reveal>
 
+        </div>
       </div>
     </section>
   );
