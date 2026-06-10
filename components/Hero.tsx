@@ -324,7 +324,7 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
               >
                 <span className="relative z-10 flex items-center justify-center gap-3 lg:gap-4 tracking-tighter text-base lg:text-xl drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">
                   {t.myWork}
-                  <span className="flex items-center -space-x-1.5 overflow-visible drop-shadow-[0_3px_0_#1e3a8a]">
+                  <span className="flex items-center -space-x-1.5 overflow-visible drop-shadow-[0_3px_0_#1e3a8a] lg:translate-y-[3px]">
                     <span className="animate-[slide_1.5s_infinite] opacity-40 inline-block w-5 h-5 lg:w-6 lg:h-6"><FiChevronRight size={language === 'th' ? 20 : 24} /></span>
                     <span className="animate-[slide_1.5s_infinite_200ms] opacity-70 inline-block w-6 h-6 lg:w-8 lg:h-8"><FiChevronRight size={language === 'th' ? 24 : 32} /></span>
                     <span className="animate-[slide_1.5s_infinite_400ms] inline-block w-7 h-7 lg:w-9 lg:h-9 text-white"><FiChevronRight size={language === 'th' ? 30 : 38} /></span>

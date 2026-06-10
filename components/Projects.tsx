@@ -442,7 +442,7 @@ const ProjectCard: React.FC<{ project: Project; onCardClick: (project: Project) 
             {/* View Project Button */}
             <button
               onClick={(e) => { e.stopPropagation(); onCardClick(project); }}
-              className="group/btn relative flex items-center justify-center gap-2.5 px-5 sm:px-6 py-3 bg-gradient-to-b from-blue-500 to-blue-700 text-white text-[12px] sm:text-sm font-black rounded-xl shadow-[0_4px_0_#1e3a8a] hover:shadow-[0_6px_0_#1e3a8a] active:shadow-[0_0px_0_#1e3a8a] transition-all duration-200 transform hover:-translate-y-1 active:translate-y-1 overflow-hidden whitespace-nowrap"
+              className="group/btn relative flex items-center justify-center gap-2.5 px-5 sm:px-6 h-[44px] sm:h-[48px] bg-gradient-to-b from-blue-500 to-blue-700 text-white text-[12px] sm:text-sm font-black rounded-xl shadow-[0_4px_0_#1e3a8a] hover:shadow-[0_6px_0_#1e3a8a] active:shadow-[0_0px_0_#1e3a8a] transition-all duration-200 transform hover:-translate-y-1 active:translate-y-1 overflow-hidden whitespace-nowrap"
             >
               <span className="relative z-10 flex items-center gap-2 sm:gap-2.5 drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">
                 {/* Triple Chevron Sliding Animation */}
@@ -471,12 +471,12 @@ const ProjectCard: React.FC<{ project: Project; onCardClick: (project: Project) 
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="group/code relative flex items-center justify-center gap-2.5 px-4 sm:px-5 py-3 bg-gradient-to-b from-gray-100 to-gray-300 dark:from-gray-700 dark:to-gray-900 text-gray-800 dark:text-white text-[12px] sm:text-sm font-black rounded-xl shadow-[0_4px_0_#9ca3af] dark:shadow-[0_4px_0_#000000] hover:shadow-[0_6px_0_#9ca3af] dark:hover:shadow-[0_6px_0_#000000] active:shadow-[0_0px_0_transparent] transition-all duration-200 transform hover:-translate-y-1 active:translate-y-1 overflow-hidden whitespace-nowrap"
+                className="group/code relative flex items-center justify-center gap-2.5 px-5 sm:px-6 h-[44px] sm:h-[48px] bg-gradient-to-b from-gray-100 to-gray-300 dark:from-gray-700 dark:to-gray-900 text-gray-800 dark:text-white text-[12px] sm:text-sm font-black rounded-xl shadow-[0_4px_0_#9ca3af] dark:shadow-[0_4px_0_#000000] hover:shadow-[0_6px_0_#9ca3af] dark:hover:shadow-[0_6px_0_#000000] active:shadow-[0_0px_0_transparent] transition-all duration-200 transform hover:-translate-y-1 active:translate-y-1 overflow-hidden whitespace-nowrap"
               >
-                <span className="relative z-10 flex items-center gap-2.5 drop-shadow-sm dark:drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">
-                  <span className="group-hover/code:rotate-[360deg] transition-transform duration-500"><FaGithub size={17} /></span>
+                <span className="relative z-10 flex items-center gap-2 sm:gap-2.5 drop-shadow-sm dark:drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">
+                  <span className="group-hover/code:rotate-[360deg] transition-transform duration-500"><FaGithub size={19} /></span>
                   <span>{language === 'th' ? 'ซอร์สโค้ด' : 'Source Code'}</span>
-                  <span className="opacity-50 group-hover/code:opacity-100 transition-opacity duration-200"><FiExternalLink size={13} /></span>
+                  <span className="opacity-50 group-hover/code:opacity-100 transition-opacity duration-200"><FiExternalLink size={14} /></span>
                 </span>
               </a>
             )}
