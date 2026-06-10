@@ -543,7 +543,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                       href={project.githubUrl} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="group/code relative flex items-center justify-center gap-2.5 px-6 md:px-8 py-3 md:py-4 bg-gradient-to-b from-gray-100 to-gray-300 dark:from-gray-700 dark:to-gray-900 text-gray-800 dark:text-white text-sm md:text-xl font-black rounded-xl md:rounded-2xl shadow-[0_4px_0_#9ca3af] dark:shadow-[0_4px_0_#1f2937] hover:shadow-[0_6px_0_#9ca3af] dark:hover:shadow-[0_6px_0_#1f2937] active:shadow-[0_0px_0_transparent] transition-all duration-200 transform hover:-translate-y-1 active:translate-y-1 overflow-hidden whitespace-nowrap"
+                      className="group/code relative flex items-center justify-center gap-2.5 px-6 md:px-8 py-3 md:py-4 bg-gradient-to-b from-gray-100 to-gray-300 dark:from-gray-700 dark:to-gray-900 text-gray-800 dark:text-white text-sm md:text-xl font-black rounded-xl md:rounded-2xl shadow-[0_4px_0_#9ca3af] dark:shadow-[0_4px_0_#000000] hover:shadow-[0_6px_0_#9ca3af] dark:hover:shadow-[0_6px_0_#000000] active:shadow-[0_0px_0_transparent] transition-all duration-200 transform hover:-translate-y-1 active:translate-y-1 overflow-hidden whitespace-nowrap"
                     >
                       <span className="relative z-10 flex items-center gap-2.5 md:gap-3 drop-shadow-sm dark:drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">
                         <span className="group-hover/code:rotate-[360deg] transition-transform duration-500"><FaGithub className="w-5 h-5 md:w-6 md:h-6" /></span>
