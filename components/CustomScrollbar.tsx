@@ -113,15 +113,14 @@ const CustomScrollbar: React.FC<CustomScrollbarProps> = ({ scrollContainerRef, h
       onMouseLeave={() => setIsHovering(false)}
       style={{ opacity: isVisible ? 1 : 0, pointerEvents: isVisible ? 'auto' : 'none' }}
     >
-      {/* Invisible wider area for easier hovering and clicking */}
       <div 
         ref={trackRef}
-        className="absolute right-[2px] top-2 bottom-2 w-[10px] cursor-pointer"
+        className="absolute right-[1px] md:right-[2px] top-2 bottom-2 w-[10px] cursor-pointer"
         onClick={handleTrackClick}
       >
         {/* The visible thumb */}
         <div
-          className={`absolute right-0 w-2 rounded-full transition-colors duration-200 cursor-grab active:cursor-grabbing ${isHovering || isDragging ? 'bg-blue-500' : 'bg-blue-400/60 dark:bg-blue-500/60'}`}
+          className={`absolute right-0 w-1 md:w-1.5 rounded-full transition-colors duration-200 cursor-grab active:cursor-grabbing ${isHovering || isDragging ? 'bg-blue-500' : 'bg-blue-400/60 dark:bg-blue-500/60'}`}
           style={{ 
             height: `${thumbHeight}px`, 
             top: `${scrollProgress * (trackRef.current?.clientHeight ? trackRef.current.clientHeight - thumbHeight : 0)}px`

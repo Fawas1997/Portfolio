@@ -338,13 +338,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
 
   return (
     <>
-      <div
-        ref={modalScrollRef}
-        className="fixed inset-0 z-[100] bg-white dark:bg-gray-950 overflow-y-auto overflow-x-hidden scroll-smooth transition-all duration-300"
-        aria-labelledby="modal-title"
-        role="dialog"
-        aria-modal="true"
-      >
+      <div className="fixed inset-0 z-[100] flex flex-col h-[100dvh] overflow-hidden bg-white dark:bg-gray-950" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div
+          ref={modalScrollRef}
+          className="flex-1 overflow-y-auto overflow-x-hidden relative w-full scroll-smooth transition-all duration-300 no-scrollbar"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
         <div className="sticky top-0 z-[120] bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <h2 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white truncate max-w-[180px] md:max-w-md">
@@ -482,7 +481,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
           >
             <style dangerouslySetInnerHTML={{
               __html: `
-              .scrollbar-custom-blue::-webkit-scrollbar { height: 6px; }
+              .scrollbar-custom-blue::-webkit-scrollbar { height: 4px; }
+              @media (max-width: 768px) { .scrollbar-custom-blue::-webkit-scrollbar { height: 3px; } }
               .scrollbar-custom-blue::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
               .dark .scrollbar-custom-blue::-webkit-scrollbar-track { background: #111827; }
               .scrollbar-custom-blue::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
@@ -1190,6 +1190,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
           </div>
         </div>
       )}
+      </div>
       </div>
       <CustomScrollbar scrollContainerRef={modalScrollRef} className="top-[65px] md:top-[81px] modal-custom-scrollbar" />
     </>
