@@ -1,58 +1,12 @@
 import React from 'react';
-import { FiGlobe, FiDatabase, FiCpu, FiLayout, FiBarChart2, FiMessageSquare, FiArrowRight, FiMapPin, FiChevronRight } from 'react-icons/fi';
+import { FiChevronRight } from 'react-icons/fi';
 import { FaLaptopCode, FaChartSimple, FaRobot, FaChartLine, FaCommentDots, FaLocationDot } from 'react-icons/fa6';
-import {
-  SiPython, SiPandas, SiTableau, SiHtml5, SiCss3,
-  SiJavascript, SiTailwindcss, SiOpenai, SiVercel,
-  SiFlask, SiAwslambda, SiNgrok
-} from 'react-icons/si';
-import { FaLine, FaFileExcel, FaTelegramPlane, FaChartBar } from 'react-icons/fa';
 
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../LanguageContext';
 import { translations } from '../translations';
 
-const iconGroups = [
-  // Group 1: Frontend & UI
-  [
-    { name: 'HTML', icon: <span className="text-orange-600"><SiHtml5 size={18} /></span> },
-    { name: 'CSS', icon: <span className="text-blue-500"><SiCss3 size={18} /></span> },
-    { name: 'JavaScript', icon: <span className="text-yellow-400 bg-black rounded"><SiJavascript size={18} /></span> },
-    { name: 'Vue 3', icon: <img src="/logoicon/vue 3.webp" alt="Vue 3" className="w-5 h-5 object-contain" /> },
-    { name: 'Tailwind CSS', icon: <span className="text-cyan-400"><SiTailwindcss size={18} /></span> },
-    { name: 'SweetAlert 2', icon: <img src="/logoicon/SweetAlert 2.webp" alt="SweetAlert2" className="w-5 h-5 object-contain" /> },
-  ],
-  // Group 2: Backend & Data
-  [
-    { name: 'Python', icon: <span className="text-[#3776AB]"><SiPython size={18} /></span> },
-    { name: 'Flask', icon: <span className="text-black dark:text-white"><SiFlask size={18} /></span> },
-    { name: 'Pandas', icon: <span className="text-[#150458] dark:text-white"><SiPandas size={18} /></span> },
-    { name: 'Tableau', icon: <span className="text-[#E97627]"><SiTableau size={18} /></span> },
-    { name: 'Excel', icon: <span className="text-[#217346]"><FaFileExcel size={18} /></span> },
-    { name: 'Power BI', icon: <span className="text-[#F2C811]"><FaChartBar size={18} /></span> },
-  ],
-  // Group 3: AI & Cloud
-  [
-    { name: 'OpenAI', icon: <span className="text-teal-500"><SiOpenai size={18} /></span> },
-    { name: 'Groq API', icon: <img src="/logoicon/Groq.webp" alt="Groq" className="w-5 h-5 object-contain" /> },
-    { name: 'Lovable AI', icon: <img src="/logoicon/Lovable AI.webp" alt="Lovable AI" className="w-5 h-5 object-contain" /> },
-    { name: 'Antigravity', icon: <img src="/logoicon/antigravity.webp" alt="Antigravity" className="w-5 h-5 object-contain" /> },
-    { name: 'AWS Lambda', icon: <span className="text-orange-500"><SiAwslambda size={18} /></span> },
-    { name: 'Vercel', icon: <span className="text-black dark:text-white"><SiVercel size={18} /></span> },
-    { name: 'Colab', icon: <img src="/logoicon/Colab.webp" alt="Colab" className="w-5 h-5 object-contain" /> },
-  ],
-  // Group 4: Tools & Integrations
-  [
-    { name: 'VS CODE', icon: <img src="/logoicon/VisuaStudioCode.webp" alt="VS Code" className="w-5 h-5 object-contain" /> },
-    { name: 'Zocial Eye', icon: <img src="/logoicon/Zocial Eye.webp" alt="Zocial Eye" className="w-5 h-5 object-contain" /> },
-    { name: 'LineOA', icon: <span className="text-green-500"><FaLine size={18} /></span> },
-    { name: 'Bot Telegram', icon: <span className="text-[#26A5E4]"><FaTelegramPlane size={18} /></span> },
-    { name: 'Ngrok', icon: <span className="text-blue-600"><SiNgrok size={18} /></span> },
-    { name: 'App Script', icon: <img src="/logoicon/App Script.webp" alt="App Script" className="w-5 h-5 object-contain" /> },
-    { name: 'Postman', icon: <img src="/logoicon/postman.webp" alt="Postman" className="w-5 h-5 object-contain" /> },
-    { name: 'Bot Line', icon: <span className="text-green-500"><FaLine size={18} /></span> },
-  ]
-];
+
 
 interface HeroProps {
   scrollContainerRef: React.RefObject<HTMLDivElement | null>;
@@ -61,15 +15,7 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
   const { language } = useLanguage();
   const t = translations[language].hero;
-  const [activeGroupIndex, setActiveGroupIndex] = React.useState(0);
 
-  // Automatically cycle through icon groups every 3.5 seconds
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveGroupIndex((prev) => (prev + 1) % iconGroups.length);
-    }, 3500);
-    return () => clearInterval(interval);
-  }, []);
 
   const scrollToSection = (id: string) => {
     const container = scrollContainerRef.current;
@@ -347,67 +293,14 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
             initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 1, delay: 0.5, type: "spring" }}
-            className="flex-1 w-full flex justify-center lg:justify-end order-1 lg:order-2 lg:pr-12 xl:pr-20"
+            className="flex-1 w-full flex justify-center lg:justify-end order-1 lg:order-2 lg:translate-x-6 xl:translate-x-10"
           >
             <div className="relative w-full max-w-[140px] sm:max-w-[200px] md:max-w-[450px] lg:max-w-[550px]">
 
               {/* Premium Orbital Portrait */}
               <div className="aspect-square relative z-10">
 
-                {/* 3 Concentric Blue Rings */}
-                <div className="absolute inset-[0%] rounded-full border border-blue-500/40 dark:border-blue-400/40 pointer-events-none"></div>
-                <div className="absolute inset-[-6%] rounded-full border border-blue-500/30 dark:border-blue-400/30 pointer-events-none"></div>
-                <div className="absolute inset-[-12%] rounded-full border border-blue-500/20 dark:border-blue-400/20 pointer-events-none"></div>
 
-                {/* Single Outer Orbital Ring — with cycling skill groups */}
-                <div className="absolute inset-[-12%] rounded-full pointer-events-none z-0">
-                  {/* The static ring border is removed as requested */}
-
-                  {/* Render all 4 groups, but fade them in/out based on activeGroupIndex */}
-                  {iconGroups.map((group, groupIndex) => (
-                    <motion.div
-                      key={groupIndex}
-                      className="absolute inset-0"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ 
-                        opacity: activeGroupIndex === groupIndex ? 1 : 0,
-                        scale: activeGroupIndex === groupIndex ? 1 : 0.8,
-                      }}
-                      transition={{ duration: 1.2, ease: "easeInOut" }}
-                      style={{ pointerEvents: activeGroupIndex === groupIndex ? 'auto' : 'none' }}
-                    >
-                      <motion.div
-                        className="w-full h-full"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-                      >
-                        {group.map((item, i) => {
-                          const angle = i * (360 / group.length);
-                          const top = `${50 - 50 * Math.cos((angle * Math.PI) / 180)}%`;
-                          const left = `${50 + 50 * Math.sin((angle * Math.PI) / 180)}%`;
-                          
-                          return (
-                            <motion.div
-                              key={item.name}
-                              className="absolute -translate-x-1/2 -translate-y-1/2 group/icon pointer-events-auto"
-                              style={{ top, left }}
-                              animate={{ rotate: -360 }}
-                              transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-                            >
-                              <div className="relative w-5 h-5 sm:w-8 sm:h-8 lg:w-11 lg:h-11 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center shadow-[0_2px_0_rgba(0,0,0,0.08),0_4px_8px_rgba(0,0,0,0.1),0_8px_16px_rgba(0,0,0,0.06)] border-[1.5px] sm:border-[2px] border-blue-500 dark:border-blue-500 hover:scale-125 transition-transform duration-300 z-10 cursor-pointer [&_svg]:!w-3 [&_svg]:!h-3 sm:[&_svg]:!w-[18px] sm:[&_svg]:!h-[18px] [&_img]:!w-3 [&_img]:!h-3 sm:[&_img]:!w-5 sm:[&_img]:!h-5">
-                                {item.icon}
-                                {/* Tooltip on hover */}
-                                <div className="absolute -top-8 bg-gray-900/90 dark:bg-gray-100/90 text-white dark:text-gray-900 text-[10px] lg:text-xs font-bold px-2.5 py-1 rounded-lg opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg">
-                                  {item.name}
-                                </div>
-                              </div>
-                            </motion.div>
-                          );
-                        })}
-                      </motion.div>
-                    </motion.div>
-                  ))}
-                </div>
 
                 {/* Soft Ambient Backdrop */}
                 <div
