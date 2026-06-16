@@ -5,7 +5,6 @@ import { FaLaptopCode, FaChartSimple, FaRobot, FaChartLine, FaCommentDots, FaLoc
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../LanguageContext';
 import { translations } from '../translations';
-import Hero3DBackground from './Hero3DBackground';
 
 interface HeroProps {
   scrollContainerRef: React.RefObject<HTMLDivElement | null>;
@@ -78,7 +77,7 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 25,
         stiffness: 120
       }
@@ -298,11 +297,6 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
 
               {/* Premium Orbital Portrait */}
               <div className="aspect-square relative z-10">
-                
-                {/* Centered 3D Aura Globe */}
-                <div className="absolute inset-[-50%] z-[-1] pointer-events-none">
-                     <Hero3DBackground />
-                </div>
 
                 {/* Soft Ambient Backdrop */}
                 <div
