@@ -5,8 +5,7 @@ import { FaLaptopCode, FaChartSimple, FaRobot, FaChartLine, FaCommentDots, FaLoc
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../LanguageContext';
 import { translations } from '../translations';
-
-
+import Hero3DBackground from './Hero3DBackground';
 
 interface HeroProps {
   scrollContainerRef: React.RefObject<HTMLDivElement | null>;
@@ -95,19 +94,19 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
 
   return (
     <section id="hero" className="relative min-h-[85vh] lg:min-h-screen flex items-center bg-white dark:bg-gray-900 overflow-hidden transition-colors duration-500 py-4 lg:py-0 pt-[110px] md:pt-[81px]">
-
-      {/* Premium Decorative Background */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Soft gradient orb — top left */}
-        <div className="hidden dark:block absolute -top-[20%] -left-[15%] w-[60%] h-[60%] rounded-full dark:bg-blue-800/15 blur-[100px]"></div>
-        {/* Soft gradient orb — bottom right */}
-        <div className="hidden dark:block absolute -bottom-[25%] -right-[10%] w-[50%] h-[50%] rounded-full dark:bg-blue-700/10 blur-[120px]"></div>
-        {/* Accent orb — center */}
-        <div className="hidden dark:block absolute top-[40%] left-[50%] -translate-x-1/2 w-[40%] h-[40%] rounded-full dark:bg-blue-900/10 blur-[80px]"></div>
-        {/* Subtle dot pattern */}
-        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle, #3b82f6 1px, transparent 1px)', backgroundSize: '28px 28px' }}></div>
+      {/* Background Gradient Ambient Glow */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden bg-white dark:bg-gray-950">
+        {/* Ambient Gradient Mesh - Dark Mode */}
+        <div className="hidden dark:block absolute inset-0 opacity-40">
+          <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-600/20 blur-[120px]"></div>
+          <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-indigo-600/20 blur-[120px]"></div>
+          
+          {/* Fill Top Right and Bottom Right completely */}
+          <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-sky-500/15 blur-[120px]"></div>
+          <div className="absolute bottom-[-15%] right-[-15%] w-[60%] h-[60%] rounded-full bg-blue-600/15 blur-[120px]"></div>
+          <div className="absolute top-[40%] right-[10%] w-[40%] h-[40%] rounded-full bg-indigo-500/10 blur-[100px]"></div>
+        </div>
       </div>
-
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-20">
 
@@ -299,8 +298,11 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
 
               {/* Premium Orbital Portrait */}
               <div className="aspect-square relative z-10">
-
-
+                
+                {/* Centered 3D Aura Globe */}
+                <div className="absolute inset-[-50%] z-[-1] pointer-events-none">
+                     <Hero3DBackground />
+                </div>
 
                 {/* Soft Ambient Backdrop */}
                 <div

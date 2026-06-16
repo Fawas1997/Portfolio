@@ -84,6 +84,14 @@ body {
   margin: 0;
   padding: 0;
   position: relative;
+  --grid-color: rgba(100, 116, 139, 0.8);
+  --bg-fade: rgba(255, 255, 255, 1);
+}
+
+html.dark,
+html.dark body {
+  --grid-color: rgba(96, 165, 250, 0.6);
+  --bg-fade: rgba(17, 24, 39, 1);
 }
 
 html,
