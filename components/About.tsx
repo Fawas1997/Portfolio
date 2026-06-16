@@ -176,11 +176,14 @@ const About: React.FC = () => {
           <Reveal initialX={-50} initialY={0} className="w-full lg:w-1/3 flex flex-col items-center">
             <div className="relative w-full max-w-[220px] sm:max-w-[320px] aspect-square group mt-8 lg:mt-12">
                <div className="absolute inset-0 bg-blue-500/10 dark:bg-blue-400/5 rounded-[3rem] rounded-tr-[7rem] rounded-bl-[7rem] blur-2xl opacity-50"></div>
-               <div className="relative z-10 w-full h-full bg-white dark:bg-white rounded-[3rem] rounded-tr-[7rem] rounded-bl-[7rem] shadow-xl transition-all duration-700 hover:-translate-y-2 border border-gray-100 dark:border-gray-200 overflow-hidden">
+               <div className="relative z-10 w-full h-full bg-white dark:bg-white rounded-[3rem] rounded-tr-[7rem] rounded-bl-[7rem] shadow-xl transition-all duration-700 hover:-translate-y-2 border border-gray-100 dark:border-gray-200 overflow-hidden select-none"
+                    onContextMenu={(e) => e.preventDefault()}
+                    style={{ WebkitTouchCallout: 'none' }}>
                   <img
                      src="/logoprofile/profileutcc.webp"
                     alt={t.profileAlt}
-                     className="w-full h-full object-contain scale-95 transition-transform duration-[2s] ease-out group-hover:scale-105" 
+                     className="w-full h-full object-contain scale-95 transition-transform duration-[2s] ease-out group-hover:scale-105 pointer-events-none select-none" 
+                     draggable="false"
                   />
                </div>
             </div>

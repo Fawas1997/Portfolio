@@ -312,9 +312,11 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
 
                 {/* Pop-out Portrait (Out of Bounds Effect) */}
                 <motion.div
-                  className="relative w-full h-full group z-10"
+                  className="relative w-full h-full group z-10 select-none"
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  onContextMenu={(e) => e.preventDefault()}
+                  style={{ WebkitTouchCallout: 'none' }}
                 >
                   {/* Gradient Circle Background */}
                   <div className="absolute inset-0 rounded-full bg-gradient-to-b from-blue-500 to-blue-700 z-0 shadow-inner"></div>
@@ -324,7 +326,7 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
                     <img
                       src="/logoprofile/profilenew.webp"
                       alt={t.name}
-                      className="absolute -bottom-2 md:-bottom-3 left-1/2 -translate-x-1/2 w-[115%] max-w-none h-auto object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+                      className="absolute -bottom-2 md:-bottom-3 left-1/2 -translate-x-1/2 w-[115%] max-w-none h-auto object-contain transition-transform duration-500 group-hover:scale-[1.03] pointer-events-none select-none"
                       draggable="false"
                     />
                   </div>
@@ -334,7 +336,7 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
                     <img
                       src="/logoprofile/profilenew.webp"
                       alt={t.name}
-                      className="absolute -bottom-2 md:-bottom-3 left-1/2 -translate-x-1/2 w-[115%] max-w-none h-auto object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+                      className="absolute -bottom-2 md:-bottom-3 left-1/2 -translate-x-1/2 w-[115%] max-w-none h-auto object-contain transition-transform duration-500 group-hover:scale-[1.03] pointer-events-none select-none"
                       draggable="false"
                     />
                   </div>
