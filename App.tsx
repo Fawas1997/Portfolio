@@ -25,7 +25,7 @@ const App: React.FC = () => {
         >
           {/* Removed global gradient so Hero background stands on its own */}
           <Hero scrollContainerRef={scrollContainerRef} />
-          <div className="w-full relative z-10">
+          <div className="w-full bg-white dark:bg-gray-950 relative z-10">
             <About />
             <main className="container mx-auto px-6 md:px-12 pb-8 overflow-x-hidden w-full">
               <Projects />

@@ -93,9 +93,9 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
   ];
 
   return (
-    <section id="hero" className="relative min-h-[85vh] lg:min-h-screen flex items-center overflow-x-hidden overflow-y-visible transition-colors duration-500 py-4 lg:py-0 pt-[110px] md:pt-[81px]">
+    <section id="hero" className="relative min-h-[85vh] lg:min-h-screen flex items-center bg-white dark:bg-gray-950 transition-colors duration-500 py-4 lg:py-0 pt-[110px] md:pt-[81px]">
       {/* Background Gradient Ambient Glow */}
-      <div className="absolute inset-0 pointer-events-none overflow-x-hidden overflow-y-visible">
+      <div className="absolute inset-0 pointer-events-none bg-white dark:bg-gray-950">
         {/* Ambient Gradient Mesh - Dark Mode */}
         <div className="hidden dark:block absolute inset-0 opacity-40">
           <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-600/20 blur-[120px]"></div>
