@@ -160,8 +160,9 @@ const About: React.FC = () => {
   }, []);
 
   return (
-    <section id="about" className="relative overflow-hidden bg-white dark:bg-gray-950 transition-colors duration-500">
-      <div className="mt-12 pt-8 lg:mt-0 lg:pt-32 pb-16 lg:pb-24 bg-gradient-to-b from-blue-50/80 via-blue-100/50 to-blue-50/80 dark:from-blue-950/30 dark:via-blue-900/20 dark:to-blue-950/30">
+    <section id="about" className="relative overflow-hidden bg-transparent dark:bg-transparent transition-colors duration-500">
+      <div className="relative mt-12 pt-8 lg:mt-0 lg:pt-32 pb-16 lg:pb-24 bg-gradient-to-b from-blue-50/80 via-blue-100/50 to-blue-50/80 dark:from-blue-950/30 dark:via-blue-900/20 dark:to-blue-950/30">
+
         <div className="container mx-auto px-6 relative z-10">
           <Reveal>
           <div className="text-center mb-16 md:mb-20">
