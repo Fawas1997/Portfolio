@@ -300,7 +300,7 @@ const Hero: React.FC<HeroProps> = ({ scrollContainerRef }) => {
               <div className="aspect-square relative z-10">
                 
                 {/* Centered 3D Aura Globe */}
-                <div className="absolute inset-[-50%] lg:inset-[-30%] z-[-1] pointer-events-none">
+                <div className="absolute inset-[-50%] z-[-1] pointer-events-none">
                      <Hero3DBackground />
                 </div>
 

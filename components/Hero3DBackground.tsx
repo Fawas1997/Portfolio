@@ -69,7 +69,7 @@ export default function Hero3DBackground() {
       if (window.innerWidth < 768) {
         setGlobeScale(0.65);
       } else {
-        setGlobeScale(0.9);
+        setGlobeScale(0.7); // Reduced from 0.9 to make it fit nicely behind the profile
       }
     };
 
